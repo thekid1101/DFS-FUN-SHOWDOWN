@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Output files
+portfolio_*.csv
+results_*.json
+test_output.csv
+
+# Data files (projections contain proprietary data)
+NFL_*.csv
+Showdown sample.csv
+
+# OS
+.DS_Store
+Thumbs.db

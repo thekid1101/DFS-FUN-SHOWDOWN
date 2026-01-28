@@ -1,0 +1,22 @@
+{
+  "name": "DraftKings Showdown $5 (Sample)",
+  "entry_fee": 5.0,
+  "total_entries": 5150,
+  "your_entries": 150,
+  "payout_tiers": [
+    {"start_rank": 1, "end_rank": 1, "payout": 1000.0},
+    {"start_rank": 2, "end_rank": 2, "payout": 500.0},
+    {"start_rank": 3, "end_rank": 3, "payout": 300.0},
+    {"start_rank": 4, "end_rank": 5, "payout": 150.0},
+    {"start_rank": 6, "end_rank": 10, "payout": 75.0},
+    {"start_rank": 11, "end_rank": 20, "payout": 40.0},
+    {"start_rank": 21, "end_rank": 35, "payout": 25.0},
+    {"start_rank": 36, "end_rank": 60, "payout": 15.0},
+    {"start_rank": 61, "end_rank": 100, "payout": 12.0},
+    {"start_rank": 101, "end_rank": 175, "payout": 10.0},
+    {"start_rank": 176, "end_rank": 300, "payout": 8.0},
+    {"start_rank": 301, "end_rank": 500, "payout": 7.0},
+    {"start_rank": 501, "end_rank": 750, "payout": 6.50},
+    {"start_rank": 751, "end_rank": 1000, "payout": 6.00}
+  ]
+}
