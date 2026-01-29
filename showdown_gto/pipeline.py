@@ -5,7 +5,7 @@ Wires all modules together for end-to-end execution.
 """
 
 import numpy as np
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional, Literal
 import logging
 
 from .types import (
@@ -16,7 +16,7 @@ from .data.correlations import (
     CorrelationMatrix, ArchetypeCorrelationConfig,
     create_archetype_mapping_template, load_archetype_mapping
 )
-from .simulation.engine import simulate_outcomes
+from .simulation.engine import simulate_outcomes, CopulaType
 from .simulation.bounds import compute_guaranteed_score_bounds
 from .candidates.enumeration import enumerate_lineups, lineup_to_names
 from .field.generator import generate_field
@@ -26,7 +26,10 @@ from .ev.approx import (
     compute_lineup_probabilities,
     FieldMode
 )
-from .ev.portfolio import compute_true_portfolio_ev, compute_true_portfolio_ev_resampled
+from .ev.portfolio import (
+    compute_true_portfolio_ev, compute_true_portfolio_ev_resampled,
+    greedy_select_portfolio, greedy_select_portfolio_resampled
+)
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +47,12 @@ def run_portfolio_optimization(
     min_ev_threshold: float = 0.0,
     seed: Optional[int] = None,
     verbose: bool = True,
-    field_mode: FieldMode = "fixed"
+    field_mode: FieldMode = "fixed",
+    copula_type: CopulaType = "gaussian",
+    copula_df: int = 5,
+    selection_method: Literal["top_n", "greedy_marginal"] = "top_n",
+    shortlist_size: int = 500,
+    greedy_n_sims: Optional[int] = None
 ) -> Dict:
     """
     Full portfolio optimization pipeline.
@@ -113,7 +121,9 @@ def run_portfolio_optimization(
     outcomes = simulate_outcomes(
         data.flex_players, n_sims,
         correlation_matrix=corr_matrix,
-        seed=seed
+        seed=seed,
+        copula_type=copula_type,
+        copula_df=copula_df
     )
     logger.info(f"Outcomes shape: {outcomes.shape}")
 
@@ -184,19 +194,52 @@ def run_portfolio_optimization(
         )
         p_lineup = None  # Not needed for fixed mode
 
-    # === SELECT TOP N ===
-    logger.info(f"Selecting top {n_select} lineups...")
-    qualified = [
-        (i, approx_evs[i])
-        for i in range(len(candidates))
-        if approx_evs[i] >= min_ev_threshold
-    ]
-    qualified.sort(key=lambda x: -x[1])
-    selected_indices = [i for i, _ in qualified[:n_select]]
+    # === SELECT LINEUPS ===
+    if selection_method == "greedy_marginal":
+        # Greedy selection: pick lineup with highest marginal EV at each step
+        logger.info(f"Greedy marginal selection of {n_select} lineups...")
+
+        if shortlist_size < n_select:
+            shortlist_size = n_select
+            logger.warning(f"shortlist_size increased to {n_select} (must be >= n_select)")
+
+        if field_mode == "resample_per_sim":
+            selected_indices = greedy_select_portfolio_resampled(
+                candidate_arrays, approx_evs, p_lineup,
+                outcomes, contest, score_bounds,
+                field_size=field_size,
+                n_select=n_select,
+                shortlist_size=shortlist_size,
+                greedy_n_sims=greedy_n_sims,
+                seed=seed
+            )
+        else:
+            selected_indices = greedy_select_portfolio(
+                candidate_arrays, approx_evs,
+                field_arrays, field_counts,
+                outcomes, contest, score_bounds,
+                n_select=n_select,
+                shortlist_size=shortlist_size,
+                greedy_n_sims=greedy_n_sims,
+                seed=seed
+            )
+
+        # For compatibility with diagnostics below
+        qualified = [(i, approx_evs[i]) for i in range(len(candidates))]
+    else:
+        # Top-N selection: sort by approx EV and pick top N
+        logger.info(f"Selecting top {n_select} lineups by approx EV...")
+        qualified = [
+            (i, approx_evs[i])
+            for i in range(len(candidates))
+            if approx_evs[i] >= min_ev_threshold
+        ]
+        qualified.sort(key=lambda x: -x[1])
+        selected_indices = [i for i, _ in qualified[:n_select]]
 
     if len(selected_indices) < n_select:
         logger.warning(
-            f"Only {len(selected_indices)} lineups met threshold "
+            f"Only {len(selected_indices)} lineups selected "
             f"(requested {n_select})"
         )
 
@@ -251,6 +294,10 @@ def run_portfolio_optimization(
             'salary_cap': salary_cap,
             'teams': data.teams,
             'field_mode': field_mode,
+            'copula_type': copula_type,
+            'copula_df': copula_df if copula_type == 't' else None,
+            'selection_method': selection_method,
+            'shortlist_size': shortlist_size if selection_method == 'greedy_marginal' else None,
         }
     }
 
@@ -271,67 +318,3 @@ def _validate_contest_config(contest: ContestStructure, n_select: int):
         )
 
 
-def select_portfolio_greedy(
-    candidates: List[ShowdownLineup],
-    field_arrays: LineupArrays,
-    field_counts: np.ndarray,
-    outcomes: np.ndarray,
-    contest: ContestStructure,
-    score_bounds: Tuple[int, int],
-    n_select: int,
-    approx_evs: Optional[np.ndarray] = None
-) -> List[int]:
-    """
-    Greedy portfolio selection considering marginal EV.
-
-    More accurate than top-N by approx EV, but slower.
-    Useful for small portfolios where self-competition matters more.
-    """
-    from .ev.portfolio import compute_true_portfolio_ev
-
-    candidate_arrays = LineupArrays.from_lineups(candidates)
-
-    # Start with best approx EV lineup
-    if approx_evs is None:
-        approx_evs = compute_approx_lineup_evs(
-            candidate_arrays, field_arrays, field_counts,
-            outcomes, contest, score_bounds
-        )
-
-    selected_indices = [int(np.argmax(approx_evs))]
-
-    while len(selected_indices) < n_select:
-        best_idx = -1
-        best_marginal_ev = float('-inf')
-
-        # Get current selection
-        current_lineups = [candidates[i] for i in selected_indices]
-        current_arrays = LineupArrays.from_lineups(current_lineups)
-
-        # Evaluate each remaining candidate
-        remaining = [i for i in range(len(candidates)) if i not in selected_indices]
-
-        for idx in remaining:
-            # Compute EV with this candidate added
-            test_lineups = current_lineups + [candidates[idx]]
-            test_arrays = LineupArrays.from_lineups(test_lineups)
-
-            ev, _ = compute_true_portfolio_ev(
-                test_arrays, field_arrays, field_counts,
-                outcomes, contest, score_bounds
-            )
-
-            # Marginal EV
-            marginal = ev - (len(selected_indices) * contest.entry_fee) - contest.entry_fee
-
-            if marginal > best_marginal_ev:
-                best_marginal_ev = marginal
-                best_idx = idx
-
-        if best_idx >= 0:
-            selected_indices.append(best_idx)
-            logger.info(f"Added lineup {best_idx}, marginal EV: ${best_marginal_ev:.2f}")
-        else:
-            break
-
-    return selected_indices

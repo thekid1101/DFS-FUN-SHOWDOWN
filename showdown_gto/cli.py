@@ -79,6 +79,36 @@ from .data import load_projections
     default='fixed',
     help='Field mode: fixed (single field for all sims) or resample_per_sim (new field histogram each sim)'
 )
+@click.option(
+    '--copula-type',
+    type=click.Choice(['gaussian', 't']),
+    default='gaussian',
+    help='Copula type: gaussian (default) or t (Student-t for tail dependence)'
+)
+@click.option(
+    '--copula-df',
+    type=int,
+    default=5,
+    help='Degrees of freedom for t-copula (lower = heavier tails, default: 5)'
+)
+@click.option(
+    '--selection-method',
+    type=click.Choice(['top_n', 'greedy_marginal']),
+    default='top_n',
+    help='Selection method: top_n (fast, default) or greedy_marginal (self-competition aware)'
+)
+@click.option(
+    '--shortlist-size',
+    type=int,
+    default=500,
+    help='Number of top candidates to consider for greedy selection (default: 500)'
+)
+@click.option(
+    '--greedy-sims',
+    type=int,
+    default=None,
+    help='Max sims for greedy selection (default: min(n_sims, 10000))'
+)
 def main(
     csv_path,
     contest_file,
@@ -92,7 +122,12 @@ def main(
     verbose,
     entry_fee,
     field_size,
-    field_mode
+    field_mode,
+    copula_type,
+    copula_df,
+    selection_method,
+    shortlist_size,
+    greedy_sims
 ):
     """
     Run DFS Showdown GTO Portfolio Builder.
@@ -155,6 +190,8 @@ def main(
     click.echo(f"  Your entries: {n_select}")
     click.echo(f"  Simulations: {n_sims}")
     click.echo(f"  Field mode: {field_mode}")
+    click.echo(f"  Copula: {copula_type}" + (f" (df={copula_df})" if copula_type == 't' else ''))
+    click.echo(f"  Selection: {selection_method}" + (f" (shortlist={shortlist_size})" if selection_method == 'greedy_marginal' else ''))
 
     # Run optimization
     results = run_portfolio_optimization(
@@ -166,7 +203,12 @@ def main(
         archetype_map_path=archetype_map,
         seed=seed,
         verbose=verbose,
-        field_mode=field_mode
+        field_mode=field_mode,
+        copula_type=copula_type,
+        copula_df=copula_df,
+        selection_method=selection_method,
+        shortlist_size=shortlist_size,
+        greedy_n_sims=greedy_sims
     )
 
     if 'error' in results:

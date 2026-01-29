@@ -1,13 +1,14 @@
 """
 Monte Carlo simulation engine for player outcomes.
 
-Generates correlated player scores using Gaussian copula and percentile interpolation.
+Generates correlated player scores using copula models and percentile interpolation.
+Supports Gaussian copula (default) and Student-t copula for tail dependence.
 """
 
 import numpy as np
 from scipy import stats
 from scipy.interpolate import interp1d
-from typing import List, Optional, Callable
+from typing import List, Optional, Callable, Literal
 import logging
 
 from ..types import ShowdownPlayer, quantize_score
@@ -15,16 +16,21 @@ from ..types import ShowdownPlayer, quantize_score
 logger = logging.getLogger(__name__)
 
 
+CopulaType = Literal["gaussian", "t"]
+
+
 def simulate_outcomes(
     players: List[ShowdownPlayer],
     n_sims: int,
     correlation_matrix: Optional[np.ndarray] = None,
-    seed: Optional[int] = None
+    seed: Optional[int] = None,
+    copula_type: CopulaType = "gaussian",
+    copula_df: int = 5
 ) -> np.ndarray:
     """
     Generate correlated player outcome simulations.
 
-    Uses Gaussian copula to generate correlated uniform samples,
+    Uses a copula to generate correlated uniform samples,
     then transforms via inverse CDF built from player percentiles.
 
     Args:
@@ -32,6 +38,8 @@ def simulate_outcomes(
         n_sims: Number of simulations
         correlation_matrix: Optional NxN correlation matrix. If None, uses identity (independent).
         seed: Random seed for reproducibility
+        copula_type: "gaussian" (default) or "t" (Student-t for tail dependence)
+        copula_df: Degrees of freedom for t-copula (lower = heavier tails). Default 5.
 
     Returns:
         outcomes: [n_players, n_sims] int32 quantized scores (points × 10)
@@ -47,9 +55,10 @@ def simulate_outcomes(
     # Build inverse CDF for each player
     inverse_cdfs = [_build_inverse_cdf(player) for player in players]
 
-    # Generate correlated uniform samples via Gaussian copula
+    # Generate correlated uniform samples via copula
     uniform_samples = _generate_correlated_uniforms(
-        n_players, n_sims, correlation_matrix
+        n_players, n_sims, correlation_matrix,
+        copula_type=copula_type, copula_df=copula_df
     )
 
     # Transform to scores via inverse CDF
@@ -124,15 +133,19 @@ def _build_inverse_cdf(player: ShowdownPlayer) -> Callable[[np.ndarray], np.ndar
 def _generate_correlated_uniforms(
     n_players: int,
     n_sims: int,
-    correlation_matrix: Optional[np.ndarray] = None
+    correlation_matrix: Optional[np.ndarray] = None,
+    copula_type: CopulaType = "gaussian",
+    copula_df: int = 5
 ) -> np.ndarray:
     """
-    Generate correlated uniform samples using Gaussian copula.
+    Generate correlated uniform samples using the specified copula.
 
     Args:
         n_players: Number of players
         n_sims: Number of simulations
         correlation_matrix: NxN correlation matrix (defaults to identity)
+        copula_type: "gaussian" or "t"
+        copula_df: Degrees of freedom for t-copula
 
     Returns:
         [n_players, n_sims] uniform samples in (0, 1)
@@ -144,7 +157,19 @@ def _generate_correlated_uniforms(
     # Ensure correlation matrix is valid
     corr = _ensure_valid_correlation_matrix(correlation_matrix)
 
-    # Generate multivariate normal samples
+    if copula_type == "t":
+        return _generate_correlated_uniforms_t(n_players, n_sims, corr, copula_df)
+
+    # Gaussian copula (default)
+    return _generate_correlated_uniforms_gaussian(n_players, n_sims, corr)
+
+
+def _generate_correlated_uniforms_gaussian(
+    n_players: int,
+    n_sims: int,
+    corr: np.ndarray
+) -> np.ndarray:
+    """Generate correlated uniforms using Gaussian copula."""
     mean = np.zeros(n_players)
     z = np.random.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
 
@@ -152,6 +177,44 @@ def _generate_correlated_uniforms(
     u = stats.norm.cdf(z)
 
     # Clip to avoid exact 0 or 1 (causes issues with inverse CDF)
+    u = np.clip(u, 1e-10, 1 - 1e-10)
+
+    return u
+
+
+def _generate_correlated_uniforms_t(
+    n_players: int,
+    n_sims: int,
+    corr: np.ndarray,
+    df: int
+) -> np.ndarray:
+    """
+    Generate correlated uniforms using Student-t copula.
+
+    The t-copula captures tail dependence: when one player booms,
+    correlated players are more likely to also boom (and vice versa for busts).
+    Lower df = heavier tails = more extreme joint outcomes.
+
+    Sampling: t = z / sqrt(s / df), where z ~ N(0, corr), s ~ chi2(df)
+    Then u = t_cdf(t, df) to get uniforms.
+    """
+    mean = np.zeros(n_players)
+
+    # Draw correlated normals
+    z = np.random.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
+
+    # Draw chi-squared for the t-distribution scaling
+    # Shared across all players in a given sim (this is what creates tail dependence)
+    s = np.random.chisquare(df, size=n_sims)  # [n_sims]
+
+    # Scale: t = z / sqrt(s / df)
+    scaling = np.sqrt(s / df)  # [n_sims]
+    t_samples = z / scaling[np.newaxis, :]  # [n_players, n_sims]
+
+    # Transform to uniform via t-distribution CDF
+    u = stats.t.cdf(t_samples, df=df)
+
+    # Clip to avoid exact 0 or 1
     u = np.clip(u, 1e-10, 1 - 1e-10)
 
     return u
