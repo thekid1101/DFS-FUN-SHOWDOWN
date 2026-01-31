@@ -1,0 +1,3338 @@
+{
+  "metadata": {
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ],
+    "min_plays": 100,
+    "generated": "2026-01-27"
+  },
+  "simulation_rules": {
+    "defensive_tags": {
+      "PASS_FUNNEL": {
+        "wr_volume_mult": 1.15,
+        "rb_volume_mult": 0.9
+      },
+      "RUN_FUNNEL": {
+        "rb_efficiency_mult": 1.1,
+        "wr_volume_mult": 0.95
+      },
+      "MAN_HEAVY": {
+        "activates": "MAN_BEATER",
+        "deactivates": "ZONE_MERCHANT"
+      },
+      "ZONE_HEAVY": {
+        "activates": "ZONE_MERCHANT",
+        "deactivates": "MAN_BEATER"
+      },
+      "HAVOC_DEFENSE": {
+        "qb_ceiling_cap": 0.75,
+        "affects": "COLLAPSIBLE"
+      }
+    },
+    "qb_tags": {
+      "COLLAPSIBLE": {
+        "vs_havoc": {
+          "percentile_cap": 75,
+          "variance_mult": 0.8
+        },
+        "correlation_mod": {
+          "SATELLITE_RB": 0.15
+        }
+      },
+      "ICE_VEINS": {
+        "vs_havoc": {
+          "ignore": true
+        },
+        "correlation_mod": {
+          "DEEP_THREAT_WR": 0.1
+        }
+      },
+      "CHAOS_GRENADE": {
+        "vs_havoc": {
+          "variance_mult": 1.3,
+          "rush_boost": 1.2
+        },
+        "correlation_mod": {
+          "BELLCOW_RB": -0.1
+        }
+      }
+    },
+    "beta_pivot": {
+      "trigger": "alpha_below_25th_percentile",
+      "action": "beta_to_75th_percentile",
+      "use_case": "tournament_leverage"
+    }
+  },
+  "defensive_profiles": {
+    "ARI": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.36,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "ATL": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.52,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "BAL": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.48,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "BUF": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.38,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "CAR": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.42,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "CHI": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.39,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "CIN": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.46,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "CLE": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.51,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "DAL": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.5,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "DEN": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.57,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "DET": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.5,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "GB": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.33,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "HOU": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.41,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "IND": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.39,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "JAX": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.4,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "KC": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.51,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "LAC": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.39,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "LAR": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.46,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "LV": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.34,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "MIA": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.45,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "MIN": {
+      "tags": [
+        "ZONE_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.25,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "NE": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.46,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "NO": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.5,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "NYG": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.48,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "NYJ": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.5,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "PHI": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.56,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "PIT": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.43,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "SEA": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.43,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "SF": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.35,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "TB": {
+      "tags": [
+        "NEUTRAL"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.35,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "TEN": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.4,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    },
+    "WAS": {
+      "tags": [
+        "MAN_HEAVY"
+      ],
+      "metrics": {
+        "ypa_allowed": null,
+        "ypc_allowed": null,
+        "man_rate": 0.46,
+        "ypa_rank": null,
+        "ypc_rank": null
+      }
+    }
+  },
+  "qb_profiles": {
+    "Aaron Rodgers": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "PIT",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 14.4,
+        "cv": 0.44,
+        "pressure_rate": 0,
+        "rush_share": 0.013,
+        "td_int_ratio": 3.24
+      }
+    },
+    "Joe Flacco": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "IND",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.2,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.017,
+        "td_int_ratio": 1.55
+      }
+    },
+    "Matthew Stafford": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "LAR",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.3,
+        "cv": 0.38,
+        "pressure_rate": 0,
+        "rush_share": 0.008,
+        "td_int_ratio": 3.25
+      }
+    },
+    "Andy Dalton": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CAR",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.9,
+        "cv": 0.76,
+        "pressure_rate": 0,
+        "rush_share": 0.029,
+        "td_int_ratio": 1.27
+      }
+    },
+    "Tyrod Taylor": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NYJ",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 13.2,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.148,
+        "td_int_ratio": 1.71
+      }
+    },
+    "Russell Wilson": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "PIT",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 16.6,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.056,
+        "td_int_ratio": 2.94
+      }
+    },
+    "Kirk Cousins": {
+      "tag": "ICE_VEINS",
+      "team": "MIN",
+      "confidence": 0.71,
+      "metrics": {
+        "avg_fp": 19.3,
+        "cv": 0.35,
+        "pressure_rate": 0,
+        "rush_share": 0.011,
+        "td_int_ratio": 3.53
+      }
+    },
+    "Ryan Tannehill": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "TEN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 9.7,
+        "cv": 0.61,
+        "pressure_rate": 0,
+        "rush_share": 0.044,
+        "td_int_ratio": 0.56
+      }
+    },
+    "Geno Smith": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "SEA",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.8,
+        "cv": 0.4,
+        "pressure_rate": 0,
+        "rush_share": 0.051,
+        "td_int_ratio": 1.54
+      }
+    },
+    "Derek Carr": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NO",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.0,
+        "cv": 0.4,
+        "pressure_rate": 0,
+        "rush_share": 0.018,
+        "td_int_ratio": 3.05
+      }
+    },
+    "Jimmy Garoppolo": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "LV",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.2,
+        "cv": 0.45,
+        "pressure_rate": 0,
+        "rush_share": 0.031,
+        "td_int_ratio": 0.77
+      }
+    },
+    "Jameis Winston": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CLE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.8,
+        "cv": 0.6,
+        "pressure_rate": 0,
+        "rush_share": 0.037,
+        "td_int_ratio": 1.07
+      }
+    },
+    "Marcus Mariota": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "WAS",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 16.5,
+        "cv": 0.35,
+        "pressure_rate": 0,
+        "rush_share": 0.138,
+        "td_int_ratio": 2.35
+      }
+    },
+    "Dak Prescott": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "DAL",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 19.8,
+        "cv": 0.41,
+        "pressure_rate": 0,
+        "rush_share": 0.044,
+        "td_int_ratio": 2.75
+      }
+    },
+    "Jared Goff": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "DET",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 18.6,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.009,
+        "td_int_ratio": 3.54
+      }
+    },
+    "Jacoby Brissett": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 7.7,
+        "cv": 0.28,
+        "pressure_rate": 0,
+        "rush_share": 0.07,
+        "td_int_ratio": 1.82
+      }
+    },
+    "Deshaun Watson": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CLE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 14.3,
+        "cv": 0.36,
+        "pressure_rate": 0,
+        "rush_share": 0.114,
+        "td_int_ratio": 1.97
+      }
+    },
+    "Cooper Rush": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "DAL",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 11.4,
+        "cv": 0.63,
+        "pressure_rate": 0,
+        "rush_share": 0.01,
+        "td_int_ratio": 2.35
+      }
+    },
+    "Patrick Mahomes": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "KC",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 19.3,
+        "cv": 0.31,
+        "pressure_rate": 0,
+        "rush_share": 0.09,
+        "td_int_ratio": 2.18
+      }
+    },
+    "Joshua Dobbs": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "ARI",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 16.2,
+        "cv": 0.52,
+        "pressure_rate": 0,
+        "rush_share": 0.141,
+        "td_int_ratio": 1.57
+      }
+    },
+    "Mason Rudolph": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "TEN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 14.5,
+        "cv": 0.42,
+        "pressure_rate": 0,
+        "rush_share": 0.065,
+        "td_int_ratio": 0.99
+      }
+    },
+    "Lamar Jackson": {
+      "tag": "CHAOS_GRENADE",
+      "team": "BAL",
+      "confidence": 0.7,
+      "metrics": {
+        "avg_fp": 22.2,
+        "cv": 0.38,
+        "pressure_rate": 0,
+        "rush_share": 0.174,
+        "td_int_ratio": 4.64
+      }
+    },
+    "Baker Mayfield": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "TB",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 18.9,
+        "cv": 0.37,
+        "pressure_rate": 0,
+        "rush_share": 0.064,
+        "td_int_ratio": 2.64
+      }
+    },
+    "Josh Allen": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "BUF",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 24.2,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.128,
+        "td_int_ratio": 2.52
+      }
+    },
+    "Sam Darnold": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "SEA",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.0,
+        "cv": 0.54,
+        "pressure_rate": 0,
+        "rush_share": 0.022,
+        "td_int_ratio": 1.77
+      }
+    },
+    "Jake Browning": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CIN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.3,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.058,
+        "td_int_ratio": 1.19
+      }
+    },
+    "Kyler Murray": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "ARI",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.7,
+        "cv": 0.32,
+        "pressure_rate": 0,
+        "rush_share": 0.132,
+        "td_int_ratio": 1.73
+      }
+    },
+    "Gardner Minshew": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "IND",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 13.7,
+        "cv": 0.42,
+        "pressure_rate": 0,
+        "rush_share": 0.029,
+        "td_int_ratio": 1.65
+      }
+    },
+    "Gardner Minshew II": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "LV",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 10.6,
+        "cv": 0.54,
+        "pressure_rate": 0,
+        "rush_share": 0.028,
+        "td_int_ratio": 0.89
+      }
+    },
+    "Daniel Jones": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NYG",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 13.6,
+        "cv": 0.59,
+        "pressure_rate": 0,
+        "rush_share": 0.135,
+        "td_int_ratio": 0.76
+      }
+    },
+    "Tua Tagovailoa": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "MIA",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.4,
+        "cv": 0.44,
+        "pressure_rate": 0,
+        "rush_share": 0.018,
+        "td_int_ratio": 1.86
+      }
+    },
+    "Jordan Love": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "GB",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.8,
+        "cv": 0.36,
+        "pressure_rate": 0,
+        "rush_share": 0.045,
+        "td_int_ratio": 2.82
+      }
+    },
+    "Justin Herbert": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "LAC",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.8,
+        "cv": 0.41,
+        "pressure_rate": 0,
+        "rush_share": 0.087,
+        "td_int_ratio": 2.9
+      }
+    },
+    "Jalen Hurts": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "PHI",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 21.0,
+        "cv": 0.35,
+        "pressure_rate": 0,
+        "rush_share": 0.137,
+        "td_int_ratio": 2.57
+      }
+    },
+    "Joe Burrow": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CIN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 19.3,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.036,
+        "td_int_ratio": 3.92
+      }
+    },
+    "Davis Mills": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "HOU",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 14.3,
+        "cv": 0.63,
+        "pressure_rate": 0,
+        "rush_share": 0.047,
+        "td_int_ratio": 6.36
+      }
+    },
+    "Justin Fields": {
+      "tag": "CHAOS_GRENADE",
+      "team": "PIT",
+      "confidence": 0.69,
+      "metrics": {
+        "avg_fp": 19.1,
+        "cv": 0.41,
+        "pressure_rate": 0,
+        "rush_share": 0.173,
+        "td_int_ratio": 4.55
+      }
+    },
+    "Trevor Lawrence": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "JAX",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 18.4,
+        "cv": 0.4,
+        "pressure_rate": 0,
+        "rush_share": 0.076,
+        "td_int_ratio": 1.81
+      }
+    },
+    "Mac Jones": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "SF",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.1,
+        "cv": 0.35,
+        "pressure_rate": 0,
+        "rush_share": 0.029,
+        "td_int_ratio": 2.13
+      }
+    },
+    "Zach Wilson": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NYJ",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 10.6,
+        "cv": 0.53,
+        "pressure_rate": 0,
+        "rush_share": 0.085,
+        "td_int_ratio": 1.13
+      }
+    },
+    "Sam Howell": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "WAS",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 16.4,
+        "cv": 0.5,
+        "pressure_rate": 0,
+        "rush_share": 0.062,
+        "td_int_ratio": 1.0
+      }
+    },
+    "Brock Purdy": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "SF",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 19.4,
+        "cv": 0.38,
+        "pressure_rate": 0,
+        "rush_share": 0.057,
+        "td_int_ratio": 2.24
+      }
+    },
+    "Kenny Pickett": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "PIT",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 10.1,
+        "cv": 0.46,
+        "pressure_rate": 0,
+        "rush_share": 0.025,
+        "td_int_ratio": 1.46
+      }
+    },
+    "Bailey Zappe": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 10.7,
+        "cv": 0.71,
+        "pressure_rate": 0,
+        "rush_share": 0.066,
+        "td_int_ratio": 0.74
+      }
+    },
+    "Desmond Ridder": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "ATL",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 13.9,
+        "cv": 0.55,
+        "pressure_rate": 0,
+        "rush_share": 0.061,
+        "td_int_ratio": 1.08
+      }
+    },
+    "Tommy Devito": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NYG",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.4,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.144,
+        "td_int_ratio": 2.58
+      }
+    },
+    "Aidan O'Connell": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "LV",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 11.7,
+        "cv": 0.55,
+        "pressure_rate": 0,
+        "rush_share": 0.008,
+        "td_int_ratio": 1.78
+      }
+    },
+    "Dorian Thompson-Robinson": {
+      "tag": "CHAOS_GRENADE",
+      "team": "CLE",
+      "confidence": 0.67,
+      "metrics": {
+        "avg_fp": 7.2,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.168,
+        "td_int_ratio": 0.11
+      }
+    },
+    "Bryce Young": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CAR",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.9,
+        "cv": 0.51,
+        "pressure_rate": 0,
+        "rush_share": 0.082,
+        "td_int_ratio": 1.51
+      }
+    },
+    "Will Levis": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "TEN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.6,
+        "cv": 0.5,
+        "pressure_rate": 0,
+        "rush_share": 0.058,
+        "td_int_ratio": 1.32
+      }
+    },
+    "C.J. Stroud": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "HOU",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 16.3,
+        "cv": 0.42,
+        "pressure_rate": 0,
+        "rush_share": 0.052,
+        "td_int_ratio": 2.51
+      }
+    },
+    "Anthony Richardson": {
+      "tag": "CHAOS_GRENADE",
+      "team": "IND",
+      "confidence": 0.81,
+      "metrics": {
+        "avg_fp": 17.4,
+        "cv": 0.48,
+        "pressure_rate": 0,
+        "rush_share": 0.203,
+        "td_int_ratio": 0.84
+      }
+    },
+    "Spencer Rattler": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NO",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 11.6,
+        "cv": 0.42,
+        "pressure_rate": 0,
+        "rush_share": 0.102,
+        "td_int_ratio": 1.09
+      }
+    },
+    "Bo Nix": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "DEN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 18.8,
+        "cv": 0.38,
+        "pressure_rate": 0,
+        "rush_share": 0.087,
+        "td_int_ratio": 2.16
+      }
+    },
+    "Drake Maye": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 19.9,
+        "cv": 0.26,
+        "pressure_rate": 0,
+        "rush_share": 0.107,
+        "td_int_ratio": 2.49
+      }
+    },
+    "Jayden Daniels": {
+      "tag": "CHAOS_GRENADE",
+      "team": "WAS",
+      "confidence": 0.74,
+      "metrics": {
+        "avg_fp": 21.5,
+        "cv": 0.37,
+        "pressure_rate": 0,
+        "rush_share": 0.186,
+        "td_int_ratio": 2.73
+      }
+    },
+    "Michael Penix Jr.": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "ATL",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 13.0,
+        "cv": 0.51,
+        "pressure_rate": 0,
+        "rush_share": 0.031,
+        "td_int_ratio": 1.96
+      }
+    },
+    "Caleb Williams": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CHI",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 17.4,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.107,
+        "td_int_ratio": 3.64
+      }
+    },
+    "J.J. McCarthy": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "MIN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 14.4,
+        "cv": 0.58,
+        "pressure_rate": 0,
+        "rush_share": 0.107,
+        "td_int_ratio": 0.91
+      }
+    },
+    "Shedeur Sanders": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "CLE",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 12.8,
+        "cv": 0.8,
+        "pressure_rate": 0,
+        "rush_share": 0.1,
+        "td_int_ratio": 0.69
+      }
+    },
+    "Cameron Ward": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "TEN",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 11.5,
+        "cv": 0.47,
+        "pressure_rate": 0,
+        "rush_share": 0.045,
+        "td_int_ratio": 2.11
+      }
+    },
+    "Jaxson Dart": {
+      "tag": "CHAOS_GRENADE",
+      "team": "NYG",
+      "confidence": 0.73,
+      "metrics": {
+        "avg_fp": 20.6,
+        "cv": 0.39,
+        "pressure_rate": 0,
+        "rush_share": 0.182,
+        "td_int_ratio": 2.55
+      }
+    },
+    "Tyler Shough": {
+      "tag": "PRESSURE_NEUTRAL",
+      "team": "NO",
+      "confidence": 0.5,
+      "metrics": {
+        "avg_fp": 15.7,
+        "cv": 0.38,
+        "pressure_rate": 0,
+        "rush_share": 0.067,
+        "td_int_ratio": 1.76
+      }
+    }
+  },
+  "beta_pivots": [
+    {
+      "team": "ARI",
+      "season": 2025,
+      "alpha": "Marvin Harrison Jr.",
+      "beta": "Greg Dortch",
+      "correlation": -0.226,
+      "alpha_avg_fp": 10.6,
+      "beta_avg_fp": 6.3
+    },
+    {
+      "team": "ARI",
+      "season": 2025,
+      "alpha": "Michael Wilson",
+      "beta": "Marvin Harrison Jr.",
+      "correlation": -0.578,
+      "alpha_avg_fp": 12.5,
+      "beta_avg_fp": 10.6
+    },
+    {
+      "team": "ARI",
+      "season": 2023,
+      "alpha": "Marquise Brown",
+      "beta": "Greg Dortch",
+      "correlation": -0.225,
+      "alpha_avg_fp": 9.6,
+      "beta_avg_fp": 4.0
+    },
+    {
+      "team": "ARI",
+      "season": 2023,
+      "alpha": "Greg Dortch",
+      "beta": "Zach Pascal",
+      "correlation": -0.273,
+      "alpha_avg_fp": 4.0,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "ARI",
+      "season": 2023,
+      "alpha": "Rondale Moore",
+      "beta": "Zach Pascal",
+      "correlation": -0.517,
+      "alpha_avg_fp": 6.2,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "ATL",
+      "season": 2025,
+      "alpha": "Drake London",
+      "beta": "Casey Washington",
+      "correlation": -0.574,
+      "alpha_avg_fp": 16.7,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "ATL",
+      "season": 2025,
+      "alpha": "Darnell Mooney",
+      "beta": "Deven Thompkins",
+      "correlation": -0.266,
+      "alpha_avg_fp": 5.5,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "ATL",
+      "season": 2025,
+      "alpha": "David Sills V",
+      "beta": "Jamal Agnew",
+      "correlation": -0.636,
+      "alpha_avg_fp": 2.9,
+      "beta_avg_fp": -0.2
+    },
+    {
+      "team": "ATL",
+      "season": 2025,
+      "alpha": "Deven Thompkins",
+      "beta": "Jamal Agnew",
+      "correlation": -0.959,
+      "alpha_avg_fp": 1.0,
+      "beta_avg_fp": -0.2
+    },
+    {
+      "team": "ATL",
+      "season": 2024,
+      "alpha": "KhaDarel Hodge",
+      "beta": "Casey Washington",
+      "correlation": -0.205,
+      "alpha_avg_fp": 1.4,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "ATL",
+      "season": 2024,
+      "alpha": "Ray-Ray McCloud III",
+      "beta": "Casey Washington",
+      "correlation": -0.591,
+      "alpha_avg_fp": 8.1,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "ATL",
+      "season": 2023,
+      "alpha": "Mack Hollins",
+      "beta": "Scotty Miller",
+      "correlation": -0.242,
+      "alpha_avg_fp": 3.3,
+      "beta_avg_fp": 2.3
+    },
+    {
+      "team": "BAL",
+      "season": 2025,
+      "alpha": "Rashod Bateman",
+      "beta": "DeAndre Hopkins",
+      "correlation": -0.307,
+      "alpha_avg_fp": 4.3,
+      "beta_avg_fp": 4.2
+    },
+    {
+      "team": "BAL",
+      "season": 2025,
+      "alpha": "Zay Flowers",
+      "beta": "Rashod Bateman",
+      "correlation": -0.29,
+      "alpha_avg_fp": 13.3,
+      "beta_avg_fp": 4.3
+    },
+    {
+      "team": "BAL",
+      "season": 2024,
+      "alpha": "Nelson Agholor",
+      "beta": "Devontez Walker",
+      "correlation": -0.169,
+      "alpha_avg_fp": 3.5,
+      "beta_avg_fp": 1.1
+    },
+    {
+      "team": "BAL",
+      "season": 2023,
+      "alpha": "Tylan Wallace",
+      "beta": "Devin Duvernay",
+      "correlation": -0.24,
+      "alpha_avg_fp": 0.7,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "BUF",
+      "season": 2025,
+      "alpha": "Brandin Cooks",
+      "beta": "Gabe Davis",
+      "correlation": -0.865,
+      "alpha_avg_fp": 3.3,
+      "beta_avg_fp": 3.2
+    },
+    {
+      "team": "BUF",
+      "season": 2025,
+      "alpha": "Khalil Shakir",
+      "beta": "Curtis Samuel",
+      "correlation": -0.394,
+      "alpha_avg_fp": 10.4,
+      "beta_avg_fp": 3.5
+    },
+    {
+      "team": "BUF",
+      "season": 2025,
+      "alpha": "Keon Coleman",
+      "beta": "Elijah Moore",
+      "correlation": -0.203,
+      "alpha_avg_fp": 7.8,
+      "beta_avg_fp": 3.2
+    },
+    {
+      "team": "BUF",
+      "season": 2025,
+      "alpha": "Joshua Palmer",
+      "beta": "Mecole Hardman",
+      "correlation": -1.0,
+      "alpha_avg_fp": 4.7,
+      "beta_avg_fp": -1.0
+    },
+    {
+      "team": "BUF",
+      "season": 2025,
+      "alpha": "Tyrell Shavers",
+      "beta": "Mecole Hardman",
+      "correlation": -1.0,
+      "alpha_avg_fp": 2.8,
+      "beta_avg_fp": -1.0
+    },
+    {
+      "team": "BUF",
+      "season": 2023,
+      "alpha": "Gabe Davis",
+      "beta": "Trent Sherfield",
+      "correlation": -0.282,
+      "alpha_avg_fp": 9.5,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "BUF",
+      "season": 2023,
+      "alpha": "Stefon Diggs",
+      "beta": "Khalil Shakir",
+      "correlation": -0.367,
+      "alpha_avg_fp": 15.4,
+      "beta_avg_fp": 7.9
+    },
+    {
+      "team": "CAR",
+      "season": 2025,
+      "alpha": "Jimmy Horn Jr.",
+      "beta": "Brycen Tremayne",
+      "correlation": -0.186,
+      "alpha_avg_fp": 2.2,
+      "beta_avg_fp": 1.7
+    },
+    {
+      "team": "CAR",
+      "season": 2025,
+      "alpha": "Hunter Renfrow",
+      "beta": "David Moore",
+      "correlation": -0.584,
+      "alpha_avg_fp": 6.0,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "CAR",
+      "season": 2025,
+      "alpha": "Tetairoa McMillan",
+      "beta": "David Moore",
+      "correlation": -0.854,
+      "alpha_avg_fp": 12.6,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "CAR",
+      "season": 2025,
+      "alpha": "Xavier Legette",
+      "beta": "Hunter Renfrow",
+      "correlation": -0.612,
+      "alpha_avg_fp": 6.0,
+      "beta_avg_fp": 6.0
+    },
+    {
+      "team": "CAR",
+      "season": 2025,
+      "alpha": "Jalen Coker",
+      "beta": "Jimmy Horn Jr.",
+      "correlation": -0.548,
+      "alpha_avg_fp": 7.4,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "CAR",
+      "season": 2024,
+      "alpha": "Adam Thielen",
+      "beta": "Deven Thompkins",
+      "correlation": -0.505,
+      "alpha_avg_fp": 14.5,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "CAR",
+      "season": 2024,
+      "alpha": "David Moore",
+      "beta": "Dan Chisena",
+      "correlation": -0.158,
+      "alpha_avg_fp": 4.8,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "CAR",
+      "season": 2024,
+      "alpha": "Dan Chisena",
+      "beta": "Deven Thompkins",
+      "correlation": -0.626,
+      "alpha_avg_fp": 1.3,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "CAR",
+      "season": 2024,
+      "alpha": "Diontae Johnson",
+      "beta": "Jalen Coker",
+      "correlation": -0.336,
+      "alpha_avg_fp": 12.0,
+      "beta_avg_fp": 7.9
+    },
+    {
+      "team": "CAR",
+      "season": 2023,
+      "alpha": "Jonathan Mingo",
+      "beta": "Ihmir Smith-Marsette",
+      "correlation": -0.271,
+      "alpha_avg_fp": 5.7,
+      "beta_avg_fp": 1.9
+    },
+    {
+      "team": "CAR",
+      "season": 2023,
+      "alpha": "Laviska Shenault Jr.",
+      "beta": "Ihmir Smith-Marsette",
+      "correlation": -0.276,
+      "alpha_avg_fp": 2.7,
+      "beta_avg_fp": 1.9
+    },
+    {
+      "team": "CAR",
+      "season": 2023,
+      "alpha": "Terrace Marshall Jr.",
+      "beta": "Ihmir Smith-Marsette",
+      "correlation": -0.162,
+      "alpha_avg_fp": 3.7,
+      "beta_avg_fp": 1.9
+    },
+    {
+      "team": "CHI",
+      "season": 2025,
+      "alpha": "DJ Moore",
+      "beta": "Devin Duvernay",
+      "correlation": -0.298,
+      "alpha_avg_fp": 10.5,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "CHI",
+      "season": 2025,
+      "alpha": "Rome Odunze",
+      "beta": "DJ Moore",
+      "correlation": -0.256,
+      "alpha_avg_fp": 12.2,
+      "beta_avg_fp": 10.5
+    },
+    {
+      "team": "CHI",
+      "season": 2025,
+      "alpha": "Jahdae Walker",
+      "beta": "Devin Duvernay",
+      "correlation": -0.272,
+      "alpha_avg_fp": 1.9,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "CHI",
+      "season": 2025,
+      "alpha": "Olamide Zaccheaus",
+      "beta": "Jahdae Walker",
+      "correlation": -0.45,
+      "alpha_avg_fp": 5.7,
+      "beta_avg_fp": 1.9
+    },
+    {
+      "team": "CHI",
+      "season": 2025,
+      "alpha": "Luther Burden III",
+      "beta": "Olamide Zaccheaus",
+      "correlation": -0.279,
+      "alpha_avg_fp": 8.6,
+      "beta_avg_fp": 5.7
+    },
+    {
+      "team": "CHI",
+      "season": 2024,
+      "alpha": "DeAndre Carter",
+      "beta": "Collin Johnson",
+      "correlation": -0.406,
+      "alpha_avg_fp": 1.2,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "CHI",
+      "season": 2024,
+      "alpha": "Keenan Allen",
+      "beta": "Collin Johnson",
+      "correlation": -0.641,
+      "alpha_avg_fp": 12.9,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "CHI",
+      "season": 2023,
+      "alpha": "Darnell Mooney",
+      "beta": "Chase Claypool",
+      "correlation": -0.653,
+      "alpha_avg_fp": 5.3,
+      "beta_avg_fp": 5.0
+    },
+    {
+      "team": "CHI",
+      "season": 2023,
+      "alpha": "Chase Claypool",
+      "beta": "Tyler Scott",
+      "correlation": -0.933,
+      "alpha_avg_fp": 5.0,
+      "beta_avg_fp": 2.1
+    },
+    {
+      "team": "CHI",
+      "season": 2023,
+      "alpha": "Equanimeous St. Brown",
+      "beta": "Collin Johnson",
+      "correlation": -1.0,
+      "alpha_avg_fp": 1.6,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "CHI",
+      "season": 2023,
+      "alpha": "Velus Jones Jr.",
+      "beta": "Trent Taylor",
+      "correlation": -0.168,
+      "alpha_avg_fp": 0.8,
+      "beta_avg_fp": -0.0
+    },
+    {
+      "team": "CIN",
+      "season": 2025,
+      "alpha": "Tee Higgins",
+      "beta": "Ke'Shawn Williams",
+      "correlation": -1.0,
+      "alpha_avg_fp": 13.8,
+      "beta_avg_fp": 0.8
+    },
+    {
+      "team": "CIN",
+      "season": 2024,
+      "alpha": "Andrei Iosivas",
+      "beta": "Charlie Jones",
+      "correlation": -0.414,
+      "alpha_avg_fp": 7.3,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "CIN",
+      "season": 2024,
+      "alpha": "Jermaine Burton",
+      "beta": "Charlie Jones",
+      "correlation": -0.232,
+      "alpha_avg_fp": 1.0,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "CIN",
+      "season": 2024,
+      "alpha": "Charlie Jones",
+      "beta": "Trenton Irwin",
+      "correlation": -0.42,
+      "alpha_avg_fp": 0.7,
+      "beta_avg_fp": 0.6
+    },
+    {
+      "team": "CIN",
+      "season": 2024,
+      "alpha": "Ja'Marr Chase",
+      "beta": "Jermaine Burton",
+      "correlation": -0.177,
+      "alpha_avg_fp": 23.6,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "CLE",
+      "season": 2025,
+      "alpha": "Cedric Tillman",
+      "beta": "Gage Larvadain",
+      "correlation": -0.36,
+      "alpha_avg_fp": 4.7,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "CLE",
+      "season": 2025,
+      "alpha": "Malachi Corley",
+      "beta": "Gage Larvadain",
+      "correlation": -0.635,
+      "alpha_avg_fp": 2.2,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "CLE",
+      "season": 2025,
+      "alpha": "Isaiah Bond",
+      "beta": "Jamari Thrash",
+      "correlation": -0.693,
+      "alpha_avg_fp": 3.5,
+      "beta_avg_fp": 2.3
+    },
+    {
+      "team": "CLE",
+      "season": 2025,
+      "alpha": "Jerry Jeudy",
+      "beta": "Isaiah Bond",
+      "correlation": -0.219,
+      "alpha_avg_fp": 7.3,
+      "beta_avg_fp": 3.5
+    },
+    {
+      "team": "CLE",
+      "season": 2024,
+      "alpha": "Amari Cooper",
+      "beta": "Elijah Moore",
+      "correlation": -0.286,
+      "alpha_avg_fp": 10.8,
+      "beta_avg_fp": 7.1
+    },
+    {
+      "team": "CLE",
+      "season": 2024,
+      "alpha": "Elijah Moore",
+      "beta": "Jaelon Darden",
+      "correlation": -0.39,
+      "alpha_avg_fp": 7.1,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "CLE",
+      "season": 2023,
+      "alpha": "David Bell",
+      "beta": "Donovan Peoples-Jones",
+      "correlation": -0.247,
+      "alpha_avg_fp": 3.9,
+      "beta_avg_fp": 2.5
+    },
+    {
+      "team": "DAL",
+      "season": 2025,
+      "alpha": "George Pickens",
+      "beta": "CeeDee Lamb",
+      "correlation": -0.236,
+      "alpha_avg_fp": 18.1,
+      "beta_avg_fp": 15.3
+    },
+    {
+      "team": "DAL",
+      "season": 2025,
+      "alpha": "CeeDee Lamb",
+      "beta": "Jalen Tolbert",
+      "correlation": -0.544,
+      "alpha_avg_fp": 15.3,
+      "beta_avg_fp": 3.9
+    },
+    {
+      "team": "DAL",
+      "season": 2025,
+      "alpha": "Ryan Flournoy",
+      "beta": "Jalen Tolbert",
+      "correlation": -0.398,
+      "alpha_avg_fp": 6.8,
+      "beta_avg_fp": 3.9
+    },
+    {
+      "team": "DAL",
+      "season": 2025,
+      "alpha": "KaVontae Turpin",
+      "beta": "Jonathan Mingo",
+      "correlation": -0.365,
+      "alpha_avg_fp": 6.0,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "DAL",
+      "season": 2024,
+      "alpha": "Jalen Tolbert",
+      "beta": "Brandin Cooks",
+      "correlation": -0.462,
+      "alpha_avg_fp": 8.6,
+      "beta_avg_fp": 7.3
+    },
+    {
+      "team": "DAL",
+      "season": 2024,
+      "alpha": "Jalen Brooks",
+      "beta": "Jonathan Mingo",
+      "correlation": -0.49,
+      "alpha_avg_fp": 2.7,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "DAL",
+      "season": 2023,
+      "alpha": "Brandin Cooks",
+      "beta": "KaVontae Turpin",
+      "correlation": -0.316,
+      "alpha_avg_fp": 10.9,
+      "beta_avg_fp": 3.5
+    },
+    {
+      "team": "DAL",
+      "season": 2023,
+      "alpha": "Michael Gallup",
+      "beta": "Jalen Tolbert",
+      "correlation": -0.244,
+      "alpha_avg_fp": 5.8,
+      "beta_avg_fp": 3.3
+    },
+    {
+      "team": "DEN",
+      "season": 2025,
+      "alpha": "Courtland Sutton",
+      "beta": "Pat Bryant",
+      "correlation": -0.317,
+      "alpha_avg_fp": 13.6,
+      "beta_avg_fp": 4.8
+    },
+    {
+      "team": "DEN",
+      "season": 2025,
+      "alpha": "Pat Bryant",
+      "beta": "Lil'Jordan Humphrey",
+      "correlation": -0.5,
+      "alpha_avg_fp": 4.8,
+      "beta_avg_fp": 4.2
+    },
+    {
+      "team": "DEN",
+      "season": 2025,
+      "alpha": "Marvin Mims Jr.",
+      "beta": "Pat Bryant",
+      "correlation": -0.411,
+      "alpha_avg_fp": 6.4,
+      "beta_avg_fp": 4.8
+    },
+    {
+      "team": "DEN",
+      "season": 2024,
+      "alpha": "Devaughn Vele",
+      "beta": "Marvin Mims Jr.",
+      "correlation": -0.221,
+      "alpha_avg_fp": 7.6,
+      "beta_avg_fp": 6.7
+    },
+    {
+      "team": "DEN",
+      "season": 2024,
+      "alpha": "Josh Reynolds",
+      "beta": "Troy Franklin",
+      "correlation": -0.202,
+      "alpha_avg_fp": 6.0,
+      "beta_avg_fp": 4.3
+    },
+    {
+      "team": "DET",
+      "season": 2025,
+      "alpha": "Amon-Ra St. Brown",
+      "beta": "Isaac TeSlaa",
+      "correlation": -0.485,
+      "alpha_avg_fp": 18.7,
+      "beta_avg_fp": 4.6
+    },
+    {
+      "team": "DET",
+      "season": 2024,
+      "alpha": "Tim Patrick",
+      "beta": "Allen Robinson II",
+      "correlation": -0.238,
+      "alpha_avg_fp": 5.9,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "DET",
+      "season": 2023,
+      "alpha": "Marvin Jones Jr.",
+      "beta": "Antoine Green",
+      "correlation": -0.348,
+      "alpha_avg_fp": 1.1,
+      "beta_avg_fp": 0.1
+    },
+    {
+      "team": "DET",
+      "season": 2023,
+      "alpha": "Jameson Williams",
+      "beta": "Donovan Peoples-Jones",
+      "correlation": -0.417,
+      "alpha_avg_fp": 7.4,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "DET",
+      "season": 2023,
+      "alpha": "Josh Reynolds",
+      "beta": "Jameson Williams",
+      "correlation": -0.453,
+      "alpha_avg_fp": 7.8,
+      "beta_avg_fp": 7.4
+    },
+    {
+      "team": "DET",
+      "season": 2023,
+      "alpha": "Kalif Raymond",
+      "beta": "Marvin Jones Jr.",
+      "correlation": -0.174,
+      "alpha_avg_fp": 5.7,
+      "beta_avg_fp": 1.1
+    },
+    {
+      "team": "GB",
+      "season": 2025,
+      "alpha": "Dontayvion Wicks",
+      "beta": "Bo Melton",
+      "correlation": -1.0,
+      "alpha_avg_fp": 5.4,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "GB",
+      "season": 2025,
+      "alpha": "Romeo Doubs",
+      "beta": "Bo Melton",
+      "correlation": -1.0,
+      "alpha_avg_fp": 10.3,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "GB",
+      "season": 2025,
+      "alpha": "Christian Watson",
+      "beta": "Matthew Golden",
+      "correlation": -0.377,
+      "alpha_avg_fp": 13.2,
+      "beta_avg_fp": 5.2
+    },
+    {
+      "team": "GB",
+      "season": 2025,
+      "alpha": "Jayden Reed",
+      "beta": "Dontayvion Wicks",
+      "correlation": -0.587,
+      "alpha_avg_fp": 8.1,
+      "beta_avg_fp": 5.4
+    },
+    {
+      "team": "GB",
+      "season": 2025,
+      "alpha": "Matthew Golden",
+      "beta": "Malik Heath",
+      "correlation": -0.596,
+      "alpha_avg_fp": 5.2,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "GB",
+      "season": 2023,
+      "alpha": "Bo Melton",
+      "beta": "Malik Heath",
+      "correlation": -0.726,
+      "alpha_avg_fp": 8.1,
+      "beta_avg_fp": 2.6
+    },
+    {
+      "team": "HOU",
+      "season": 2025,
+      "alpha": "Nico Collins",
+      "beta": "Braxton Berrios",
+      "correlation": -0.861,
+      "alpha_avg_fp": 15.1,
+      "beta_avg_fp": 2.4
+    },
+    {
+      "team": "HOU",
+      "season": 2024,
+      "alpha": "Stefon Diggs",
+      "beta": "Xavier Hutchinson",
+      "correlation": -0.28,
+      "alpha_avg_fp": 15.2,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "HOU",
+      "season": 2024,
+      "alpha": "Tank Dell",
+      "beta": "Xavier Hutchinson",
+      "correlation": -0.226,
+      "alpha_avg_fp": 10.0,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "HOU",
+      "season": 2023,
+      "alpha": "Steven Sims",
+      "beta": "John Metchie III",
+      "correlation": -0.393,
+      "alpha_avg_fp": 2.9,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "HOU",
+      "season": 2023,
+      "alpha": "Noah Brown",
+      "beta": "Xavier Hutchinson",
+      "correlation": -0.618,
+      "alpha_avg_fp": 9.2,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "HOU",
+      "season": 2023,
+      "alpha": "Robert Woods",
+      "beta": "Steven Sims",
+      "correlation": -0.303,
+      "alpha_avg_fp": 5.8,
+      "beta_avg_fp": 2.9
+    },
+    {
+      "team": "IND",
+      "season": 2025,
+      "alpha": "Alec Pierce",
+      "beta": "Adonai Mitchell",
+      "correlation": -0.284,
+      "alpha_avg_fp": 11.0,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "IND",
+      "season": 2025,
+      "alpha": "Josh Downs",
+      "beta": "Adonai Mitchell",
+      "correlation": -0.381,
+      "alpha_avg_fp": 8.5,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "IND",
+      "season": 2025,
+      "alpha": "Michael Pittman Jr.",
+      "beta": "Adonai Mitchell",
+      "correlation": -0.369,
+      "alpha_avg_fp": 12.5,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "IND",
+      "season": 2025,
+      "alpha": "Lil'Jordan Humphrey",
+      "beta": "Anthony Gould",
+      "correlation": -0.5,
+      "alpha_avg_fp": 3.2,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "IND",
+      "season": 2025,
+      "alpha": "Ashton Dulin",
+      "beta": "Michael Bandy",
+      "correlation": -1.0,
+      "alpha_avg_fp": 1.8,
+      "beta_avg_fp": 1.7
+    },
+    {
+      "team": "IND",
+      "season": 2024,
+      "alpha": "Adonai Mitchell",
+      "beta": "Anthony Gould",
+      "correlation": -0.713,
+      "alpha_avg_fp": 3.4,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "JAX",
+      "season": 2025,
+      "alpha": "Dyami Brown",
+      "beta": "Austin Trammell",
+      "correlation": -0.364,
+      "alpha_avg_fp": 3.7,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "JAX",
+      "season": 2025,
+      "alpha": "Jakobi Meyers",
+      "beta": "Austin Trammell",
+      "correlation": -0.859,
+      "alpha_avg_fp": 12.3,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "JAX",
+      "season": 2025,
+      "alpha": "Tim Patrick",
+      "beta": "Austin Trammell",
+      "correlation": -0.299,
+      "alpha_avg_fp": 3.4,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "JAX",
+      "season": 2025,
+      "alpha": "Brian Thomas Jr.",
+      "beta": "Dyami Brown",
+      "correlation": -0.212,
+      "alpha_avg_fp": 10.1,
+      "beta_avg_fp": 3.7
+    },
+    {
+      "team": "JAX",
+      "season": 2025,
+      "alpha": "Parker Washington",
+      "beta": "Brian Thomas Jr.",
+      "correlation": -0.381,
+      "alpha_avg_fp": 11.0,
+      "beta_avg_fp": 10.1
+    },
+    {
+      "team": "JAX",
+      "season": 2024,
+      "alpha": "Christian Kirk",
+      "beta": "Gabe Davis",
+      "correlation": -0.332,
+      "alpha_avg_fp": 8.9,
+      "beta_avg_fp": 5.4
+    },
+    {
+      "team": "JAX",
+      "season": 2024,
+      "alpha": "Gabe Davis",
+      "beta": "Tim Jones",
+      "correlation": -0.298,
+      "alpha_avg_fp": 5.4,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "JAX",
+      "season": 2023,
+      "alpha": "Calvin Ridley",
+      "beta": "Christian Kirk",
+      "correlation": -0.542,
+      "alpha_avg_fp": 13.5,
+      "beta_avg_fp": 12.5
+    },
+    {
+      "team": "KC",
+      "season": 2025,
+      "alpha": "Rashee Rice",
+      "beta": "Tyquan Thornton",
+      "correlation": -0.725,
+      "alpha_avg_fp": 18.8,
+      "beta_avg_fp": 5.8
+    },
+    {
+      "team": "KC",
+      "season": 2024,
+      "alpha": "DeAndre Hopkins",
+      "beta": "Xavier Worthy",
+      "correlation": -0.735,
+      "alpha_avg_fp": 11.8,
+      "beta_avg_fp": 11.7
+    },
+    {
+      "team": "KC",
+      "season": 2024,
+      "alpha": "JuJu Smith-Schuster",
+      "beta": "Justin Watson",
+      "correlation": -0.283,
+      "alpha_avg_fp": 4.0,
+      "beta_avg_fp": 3.8
+    },
+    {
+      "team": "KC",
+      "season": 2024,
+      "alpha": "Marquise Brown",
+      "beta": "JuJu Smith-Schuster",
+      "correlation": -1.0,
+      "alpha_avg_fp": 9.0,
+      "beta_avg_fp": 4.0
+    },
+    {
+      "team": "KC",
+      "season": 2024,
+      "alpha": "Justin Watson",
+      "beta": "Mecole Hardman",
+      "correlation": -0.379,
+      "alpha_avg_fp": 3.8,
+      "beta_avg_fp": 2.8
+    },
+    {
+      "team": "KC",
+      "season": 2024,
+      "alpha": "Xavier Worthy",
+      "beta": "Marquise Brown",
+      "correlation": -1.0,
+      "alpha_avg_fp": 11.7,
+      "beta_avg_fp": 9.0
+    },
+    {
+      "team": "KC",
+      "season": 2023,
+      "alpha": "Marquez Valdes-Scantling",
+      "beta": "Justyn Ross",
+      "correlation": -0.189,
+      "alpha_avg_fp": 4.2,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "KC",
+      "season": 2023,
+      "alpha": "Skyy Moore",
+      "beta": "Justyn Ross",
+      "correlation": -0.323,
+      "alpha_avg_fp": 3.8,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "KC",
+      "season": 2023,
+      "alpha": "Kadarius Toney",
+      "beta": "Richie James",
+      "correlation": -0.784,
+      "alpha_avg_fp": 4.1,
+      "beta_avg_fp": 1.6
+    },
+    {
+      "team": "LAC",
+      "season": 2025,
+      "alpha": "Keenan Allen",
+      "beta": "Derius Davis",
+      "correlation": -0.251,
+      "alpha_avg_fp": 10.8,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "LAC",
+      "season": 2025,
+      "alpha": "Tre' Harris",
+      "beta": "Derius Davis",
+      "correlation": -0.343,
+      "alpha_avg_fp": 4.0,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "LAC",
+      "season": 2025,
+      "alpha": "Ladd McConkey",
+      "beta": "Keandre Lambert-Smith",
+      "correlation": -0.236,
+      "alpha_avg_fp": 11.3,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "LAC",
+      "season": 2024,
+      "alpha": "Derius Davis",
+      "beta": "DJ Chark",
+      "correlation": -0.612,
+      "alpha_avg_fp": 2.8,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "LAC",
+      "season": 2024,
+      "alpha": "Quentin Johnston",
+      "beta": "Derius Davis",
+      "correlation": -0.296,
+      "alpha_avg_fp": 10.2,
+      "beta_avg_fp": 2.8
+    },
+    {
+      "team": "LAC",
+      "season": 2023,
+      "alpha": "Alex Erickson",
+      "beta": "Derius Davis",
+      "correlation": -0.184,
+      "alpha_avg_fp": 5.6,
+      "beta_avg_fp": 2.1
+    },
+    {
+      "team": "LAC",
+      "season": 2023,
+      "alpha": "Mike Williams",
+      "beta": "Derius Davis",
+      "correlation": -0.385,
+      "alpha_avg_fp": 16.7,
+      "beta_avg_fp": 2.1
+    },
+    {
+      "team": "LAC",
+      "season": 2023,
+      "alpha": "Joshua Palmer",
+      "beta": "Keelan Doss",
+      "correlation": -0.257,
+      "alpha_avg_fp": 10.7,
+      "beta_avg_fp": 1.9
+    },
+    {
+      "team": "LAR",
+      "season": 2025,
+      "alpha": "Davante Adams",
+      "beta": "Tutu Atwell",
+      "correlation": -0.222,
+      "alpha_avg_fp": 15.9,
+      "beta_avg_fp": 3.1
+    },
+    {
+      "team": "LAR",
+      "season": 2025,
+      "alpha": "Xavier Smith",
+      "beta": "Jordan Whittington",
+      "correlation": -0.494,
+      "alpha_avg_fp": 3.1,
+      "beta_avg_fp": 2.3
+    },
+    {
+      "team": "LAR",
+      "season": 2025,
+      "alpha": "Tutu Atwell",
+      "beta": "Konata Mumpfield",
+      "correlation": -0.388,
+      "alpha_avg_fp": 3.1,
+      "beta_avg_fp": 1.6
+    },
+    {
+      "team": "LAR",
+      "season": 2024,
+      "alpha": "Cooper Kupp",
+      "beta": "Jordan Whittington",
+      "correlation": -0.301,
+      "alpha_avg_fp": 14.6,
+      "beta_avg_fp": 2.8
+    },
+    {
+      "team": "LAR",
+      "season": 2024,
+      "alpha": "Puka Nacua",
+      "beta": "Demarcus Robinson",
+      "correlation": -0.595,
+      "alpha_avg_fp": 18.8,
+      "beta_avg_fp": 7.1
+    },
+    {
+      "team": "LAR",
+      "season": 2024,
+      "alpha": "Tyler Johnson",
+      "beta": "Jordan Whittington",
+      "correlation": -0.299,
+      "alpha_avg_fp": 3.4,
+      "beta_avg_fp": 2.8
+    },
+    {
+      "team": "LAR",
+      "season": 2023,
+      "alpha": "Demarcus Robinson",
+      "beta": "Ben Skowronek",
+      "correlation": -0.242,
+      "alpha_avg_fp": 5.6,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "LAR",
+      "season": 2023,
+      "alpha": "Van Jefferson",
+      "beta": "Ben Skowronek",
+      "correlation": -0.212,
+      "alpha_avg_fp": 3.8,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "LV",
+      "season": 2025,
+      "alpha": "Dont'e Thornton Jr.",
+      "beta": "Alex Bachman",
+      "correlation": -0.475,
+      "alpha_avg_fp": 1.7,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "LV",
+      "season": 2025,
+      "alpha": "Jakobi Meyers",
+      "beta": "Alex Bachman",
+      "correlation": -0.34,
+      "alpha_avg_fp": 9.7,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "LV",
+      "season": 2025,
+      "alpha": "Tyler Lockett",
+      "beta": "Alex Bachman",
+      "correlation": -0.401,
+      "alpha_avg_fp": 5.4,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "LV",
+      "season": 2025,
+      "alpha": "Jack Bech",
+      "beta": "Dont'e Thornton Jr.",
+      "correlation": -0.153,
+      "alpha_avg_fp": 2.8,
+      "beta_avg_fp": 1.7
+    },
+    {
+      "team": "LV",
+      "season": 2024,
+      "alpha": "Tre Tucker",
+      "beta": "Alex Bachman",
+      "correlation": -0.544,
+      "alpha_avg_fp": 7.7,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "LV",
+      "season": 2024,
+      "alpha": "Davante Adams",
+      "beta": "DJ Turner",
+      "correlation": -0.274,
+      "alpha_avg_fp": 13.6,
+      "beta_avg_fp": 3.9
+    },
+    {
+      "team": "LV",
+      "season": 2024,
+      "alpha": "DJ Turner",
+      "beta": "Ramel Keyton",
+      "correlation": -0.819,
+      "alpha_avg_fp": 3.9,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "MIA",
+      "season": 2025,
+      "alpha": "Jaylen Waddle",
+      "beta": "Cedrick Wilson Jr.",
+      "correlation": -0.263,
+      "alpha_avg_fp": 12.1,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "MIA",
+      "season": 2025,
+      "alpha": "Tyreek Hill",
+      "beta": "Dee Eskridge",
+      "correlation": -0.301,
+      "alpha_avg_fp": 13.4,
+      "beta_avg_fp": 0.6
+    },
+    {
+      "team": "MIA",
+      "season": 2024,
+      "alpha": "Odell Beckham Jr.",
+      "beta": "Dee Eskridge",
+      "correlation": -0.689,
+      "alpha_avg_fp": 1.6,
+      "beta_avg_fp": 0.8
+    },
+    {
+      "team": "MIA",
+      "season": 2023,
+      "alpha": "Cedrick Wilson Jr.",
+      "beta": "Braxton Berrios",
+      "correlation": -0.202,
+      "alpha_avg_fp": 4.8,
+      "beta_avg_fp": 3.4
+    },
+    {
+      "team": "MIA",
+      "season": 2023,
+      "alpha": "River Cracraft",
+      "beta": "Chase Claypool",
+      "correlation": -0.329,
+      "alpha_avg_fp": 2.9,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "MIA",
+      "season": 2023,
+      "alpha": "Robbie Chosen",
+      "beta": "Chase Claypool",
+      "correlation": -0.513,
+      "alpha_avg_fp": 2.5,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "MIN",
+      "season": 2025,
+      "alpha": "Justin Jefferson",
+      "beta": "Adam Thielen",
+      "correlation": -0.152,
+      "alpha_avg_fp": 11.4,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "MIN",
+      "season": 2025,
+      "alpha": "Adam Thielen",
+      "beta": "Myles Price",
+      "correlation": -0.753,
+      "alpha_avg_fp": 1.5,
+      "beta_avg_fp": -0.2
+    },
+    {
+      "team": "MIN",
+      "season": 2025,
+      "alpha": "Jalen Nailor",
+      "beta": "Myles Price",
+      "correlation": -0.51,
+      "alpha_avg_fp": 5.8,
+      "beta_avg_fp": -0.2
+    },
+    {
+      "team": "MIN",
+      "season": 2025,
+      "alpha": "Jordan Addison",
+      "beta": "Tai Felton",
+      "correlation": -0.207,
+      "alpha_avg_fp": 10.3,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "MIN",
+      "season": 2023,
+      "alpha": "K.J. Osborn",
+      "beta": "Trishton Jackson",
+      "correlation": -0.36,
+      "alpha_avg_fp": 7.5,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "NE",
+      "season": 2025,
+      "alpha": "DeMario Douglas",
+      "beta": "Efton Chism III",
+      "correlation": -0.44,
+      "alpha_avg_fp": 5.7,
+      "beta_avg_fp": 1.7
+    },
+    {
+      "team": "NE",
+      "season": 2025,
+      "alpha": "Mack Hollins",
+      "beta": "DeMario Douglas",
+      "correlation": -0.332,
+      "alpha_avg_fp": 7.6,
+      "beta_avg_fp": 5.7
+    },
+    {
+      "team": "NE",
+      "season": 2025,
+      "alpha": "Stefon Diggs",
+      "beta": "DeMario Douglas",
+      "correlation": -0.212,
+      "alpha_avg_fp": 12.7,
+      "beta_avg_fp": 5.7
+    },
+    {
+      "team": "NE",
+      "season": 2024,
+      "alpha": "Demario Douglas",
+      "beta": "Ja'Lynn Polk",
+      "correlation": -0.43,
+      "alpha_avg_fp": 7.8,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "NE",
+      "season": 2024,
+      "alpha": "K.J. Osborn",
+      "beta": "Ja'Lynn Polk",
+      "correlation": -0.481,
+      "alpha_avg_fp": 2.3,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "NE",
+      "season": 2024,
+      "alpha": "Kayshon Boutte",
+      "beta": "Ja'Lynn Polk",
+      "correlation": -0.219,
+      "alpha_avg_fp": 6.9,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "NE",
+      "season": 2024,
+      "alpha": "Kendrick Bourne",
+      "beta": "Ja'Lynn Polk",
+      "correlation": -0.405,
+      "alpha_avg_fp": 5.6,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "NE",
+      "season": 2024,
+      "alpha": "Ja'Lynn Polk",
+      "beta": "Tyquan Thornton",
+      "correlation": -0.515,
+      "alpha_avg_fp": 2.2,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "NE",
+      "season": 2023,
+      "alpha": "Jalen Reagor",
+      "beta": "Kayshon Boutte",
+      "correlation": -0.994,
+      "alpha_avg_fp": 2.6,
+      "beta_avg_fp": 0.8
+    },
+    {
+      "team": "NE",
+      "season": 2023,
+      "alpha": "JuJu Smith-Schuster",
+      "beta": "Kayshon Boutte",
+      "correlation": -0.998,
+      "alpha_avg_fp": 5.5,
+      "beta_avg_fp": 0.8
+    },
+    {
+      "team": "NO",
+      "season": 2025,
+      "alpha": "Chris Olave",
+      "beta": "Brandin Cooks",
+      "correlation": -0.639,
+      "alpha_avg_fp": 16.8,
+      "beta_avg_fp": 3.6
+    },
+    {
+      "team": "NO",
+      "season": 2025,
+      "alpha": "Rashid Shaheed",
+      "beta": "Brandin Cooks",
+      "correlation": -0.259,
+      "alpha_avg_fp": 11.6,
+      "beta_avg_fp": 3.6
+    },
+    {
+      "team": "NO",
+      "season": 2025,
+      "alpha": "Devaughn Vele",
+      "beta": "Dante Pettis",
+      "correlation": -0.25,
+      "alpha_avg_fp": 5.1,
+      "beta_avg_fp": 1.2
+    },
+    {
+      "team": "NO",
+      "season": 2024,
+      "alpha": "Marquez Valdes-Scantling",
+      "beta": "Cedrick Wilson Jr.",
+      "correlation": -0.905,
+      "alpha_avg_fp": 12.3,
+      "beta_avg_fp": 3.3
+    },
+    {
+      "team": "NO",
+      "season": 2023,
+      "alpha": "A.T. Perry",
+      "beta": "Lynn Bowden Jr.",
+      "correlation": -0.356,
+      "alpha_avg_fp": 6.1,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "NO",
+      "season": 2023,
+      "alpha": "Michael Thomas",
+      "beta": "A.T. Perry",
+      "correlation": -0.35,
+      "alpha_avg_fp": 9.0,
+      "beta_avg_fp": 6.1
+    },
+    {
+      "team": "NYG",
+      "season": 2025,
+      "alpha": "Darius Slayton",
+      "beta": "Beaux Collins",
+      "correlation": -0.304,
+      "alpha_avg_fp": 6.9,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "NYG",
+      "season": 2025,
+      "alpha": "Gunner Olszewski",
+      "beta": "Beaux Collins",
+      "correlation": -0.182,
+      "alpha_avg_fp": 1.0,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "NYG",
+      "season": 2025,
+      "alpha": "Jalin Hyatt",
+      "beta": "Beaux Collins",
+      "correlation": -0.2,
+      "alpha_avg_fp": 1.1,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "NYG",
+      "season": 2025,
+      "alpha": "Wan'Dale Robinson",
+      "beta": "Beaux Collins",
+      "correlation": -0.318,
+      "alpha_avg_fp": 13.6,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "NYG",
+      "season": 2024,
+      "alpha": "Malik Nabers",
+      "beta": "Jalin Hyatt",
+      "correlation": -0.346,
+      "alpha_avg_fp": 18.3,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "NYG",
+      "season": 2023,
+      "alpha": "Sterling Shepard",
+      "beta": "Gunner Olszewski",
+      "correlation": -0.283,
+      "alpha_avg_fp": 1.4,
+      "beta_avg_fp": 0.7
+    },
+    {
+      "team": "NYJ",
+      "season": 2025,
+      "alpha": "Adonai Mitchell",
+      "beta": "Arian Smith",
+      "correlation": -0.181,
+      "alpha_avg_fp": 9.4,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "NYJ",
+      "season": 2025,
+      "alpha": "Isaiah Williams",
+      "beta": "Allen Lazard",
+      "correlation": -0.344,
+      "alpha_avg_fp": 3.7,
+      "beta_avg_fp": 2.3
+    },
+    {
+      "team": "NYJ",
+      "season": 2025,
+      "alpha": "Garrett Wilson",
+      "beta": "Isaiah Williams",
+      "correlation": -0.68,
+      "alpha_avg_fp": 14.2,
+      "beta_avg_fp": 3.7
+    },
+    {
+      "team": "NYJ",
+      "season": 2025,
+      "alpha": "John Metchie III",
+      "beta": "Isaiah Williams",
+      "correlation": -0.526,
+      "alpha_avg_fp": 7.6,
+      "beta_avg_fp": 3.7
+    },
+    {
+      "team": "NYJ",
+      "season": 2025,
+      "alpha": "Josh Reynolds",
+      "beta": "Tyler Johnson",
+      "correlation": -0.405,
+      "alpha_avg_fp": 4.6,
+      "beta_avg_fp": 3.1
+    },
+    {
+      "team": "NYJ",
+      "season": 2024,
+      "alpha": "Davante Adams",
+      "beta": "Allen Lazard",
+      "correlation": -0.963,
+      "alpha_avg_fp": 18.4,
+      "beta_avg_fp": 10.0
+    },
+    {
+      "team": "NYJ",
+      "season": 2024,
+      "alpha": "Allen Lazard",
+      "beta": "Malachi Corley",
+      "correlation": -0.478,
+      "alpha_avg_fp": 10.0,
+      "beta_avg_fp": 0.6
+    },
+    {
+      "team": "NYJ",
+      "season": 2023,
+      "alpha": "Jason Brownlee",
+      "beta": "Randall Cobb",
+      "correlation": -0.988,
+      "alpha_avg_fp": 2.4,
+      "beta_avg_fp": 1.5
+    },
+    {
+      "team": "NYJ",
+      "season": 2023,
+      "alpha": "Randall Cobb",
+      "beta": "Mecole Hardman Jr.",
+      "correlation": -0.96,
+      "alpha_avg_fp": 1.5,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "NYJ",
+      "season": 2023,
+      "alpha": "Xavier Gipson",
+      "beta": "Mecole Hardman Jr.",
+      "correlation": -0.556,
+      "alpha_avg_fp": 3.5,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "PHI",
+      "season": 2025,
+      "alpha": "A.J. Brown",
+      "beta": "Jahan Dotson",
+      "correlation": -0.235,
+      "alpha_avg_fp": 14.7,
+      "beta_avg_fp": 2.7
+    },
+    {
+      "team": "PHI",
+      "season": 2025,
+      "alpha": "DeVonta Smith",
+      "beta": "Darius Cooper",
+      "correlation": -0.187,
+      "alpha_avg_fp": 12.1,
+      "beta_avg_fp": 1.1
+    },
+    {
+      "team": "PHI",
+      "season": 2025,
+      "alpha": "Jahan Dotson",
+      "beta": "Darius Cooper",
+      "correlation": -0.489,
+      "alpha_avg_fp": 2.7,
+      "beta_avg_fp": 1.1
+    },
+    {
+      "team": "PHI",
+      "season": 2025,
+      "alpha": "Darius Cooper",
+      "beta": "Xavier Gipson",
+      "correlation": -1.0,
+      "alpha_avg_fp": 1.1,
+      "beta_avg_fp": 0.1
+    },
+    {
+      "team": "PHI",
+      "season": 2024,
+      "alpha": "Parris Campbell",
+      "beta": "Britain Covey",
+      "correlation": -0.274,
+      "alpha_avg_fp": 3.0,
+      "beta_avg_fp": 2.1
+    },
+    {
+      "team": "PHI",
+      "season": 2023,
+      "alpha": "Julio Jones",
+      "beta": "Olamide Zaccheaus",
+      "correlation": -0.222,
+      "alpha_avg_fp": 3.5,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "Adam Thielen",
+      "beta": "Ben Skowronek",
+      "correlation": -0.469,
+      "alpha_avg_fp": 3.8,
+      "beta_avg_fp": 1.1
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "DK Metcalf",
+      "beta": "Adam Thielen",
+      "correlation": -1.0,
+      "alpha_avg_fp": 12.8,
+      "beta_avg_fp": 3.8
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "Marquez Valdes-Scantling",
+      "beta": "Adam Thielen",
+      "correlation": -0.323,
+      "alpha_avg_fp": 3.9,
+      "beta_avg_fp": 3.8
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "Ben Skowronek",
+      "beta": "Scotty Miller",
+      "correlation": -0.246,
+      "alpha_avg_fp": 1.1,
+      "beta_avg_fp": 1.0
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "Calvin Austin III",
+      "beta": "Marquez Valdes-Scantling",
+      "correlation": -0.911,
+      "alpha_avg_fp": 5.5,
+      "beta_avg_fp": 3.9
+    },
+    {
+      "team": "PIT",
+      "season": 2025,
+      "alpha": "Roman Wilson",
+      "beta": "Ke'Shawn Williams",
+      "correlation": -0.432,
+      "alpha_avg_fp": 3.0,
+      "beta_avg_fp": -0.2
+    },
+    {
+      "team": "PIT",
+      "season": 2024,
+      "alpha": "Mike Williams",
+      "beta": "Ben Skowronek",
+      "correlation": -0.249,
+      "alpha_avg_fp": 3.3,
+      "beta_avg_fp": 1.3
+    },
+    {
+      "team": "PIT",
+      "season": 2024,
+      "alpha": "George Pickens",
+      "beta": "Brandon Johnson",
+      "correlation": -0.769,
+      "alpha_avg_fp": 12.6,
+      "beta_avg_fp": 0.6
+    },
+    {
+      "team": "PIT",
+      "season": 2024,
+      "alpha": "Van Jefferson",
+      "beta": "Brandon Johnson",
+      "correlation": -0.99,
+      "alpha_avg_fp": 3.7,
+      "beta_avg_fp": 0.6
+    },
+    {
+      "team": "PIT",
+      "season": 2023,
+      "alpha": "Diontae Johnson",
+      "beta": "Allen Robinson II",
+      "correlation": -0.366,
+      "alpha_avg_fp": 12.0,
+      "beta_avg_fp": 3.6
+    },
+    {
+      "team": "PIT",
+      "season": 2023,
+      "alpha": "Allen Robinson II",
+      "beta": "Gunner Olszewski",
+      "correlation": -0.994,
+      "alpha_avg_fp": 3.6,
+      "beta_avg_fp": -1.0
+    },
+    {
+      "team": "SEA",
+      "season": 2025,
+      "alpha": "Cooper Kupp",
+      "beta": "Jake Bobo",
+      "correlation": -0.283,
+      "alpha_avg_fp": 7.5,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "SEA",
+      "season": 2025,
+      "alpha": "Dareke Young",
+      "beta": "Jake Bobo",
+      "correlation": -0.341,
+      "alpha_avg_fp": 0.8,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "SEA",
+      "season": 2025,
+      "alpha": "Jaxon Smith-Njigba",
+      "beta": "Jake Bobo",
+      "correlation": -0.409,
+      "alpha_avg_fp": 21.6,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "SEA",
+      "season": 2025,
+      "alpha": "Tory Horton",
+      "beta": "Jake Bobo",
+      "correlation": -0.555,
+      "alpha_avg_fp": 8.1,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "SEA",
+      "season": 2024,
+      "alpha": "Cody White",
+      "beta": "Jake Bobo",
+      "correlation": -0.333,
+      "alpha_avg_fp": 1.6,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "SEA",
+      "season": 2024,
+      "alpha": "DK Metcalf",
+      "beta": "Tyler Lockett",
+      "correlation": -0.152,
+      "alpha_avg_fp": 12.6,
+      "beta_avg_fp": 7.3
+    },
+    {
+      "team": "SEA",
+      "season": 2023,
+      "alpha": "Jake Bobo",
+      "beta": "Cody Thompson",
+      "correlation": -0.358,
+      "alpha_avg_fp": 3.3,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "SEA",
+      "season": 2023,
+      "alpha": "Tyler Lockett",
+      "beta": "Dee Eskridge",
+      "correlation": -0.893,
+      "alpha_avg_fp": 11.9,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "SF",
+      "season": 2025,
+      "alpha": "Demarcus Robinson",
+      "beta": "Jordan Watkins",
+      "correlation": -0.921,
+      "alpha_avg_fp": 4.1,
+      "beta_avg_fp": 1.2
+    },
+    {
+      "team": "SF",
+      "season": 2025,
+      "alpha": "Jauan Jennings",
+      "beta": "Jordan Watkins",
+      "correlation": -0.607,
+      "alpha_avg_fp": 11.8,
+      "beta_avg_fp": 1.2
+    },
+    {
+      "team": "SF",
+      "season": 2025,
+      "alpha": "Jordan Watkins",
+      "beta": "Skyy Moore",
+      "correlation": -0.242,
+      "alpha_avg_fp": 1.2,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "SF",
+      "season": 2024,
+      "alpha": "Deebo Samuel Sr.",
+      "beta": "Brandon Aiyuk",
+      "correlation": -0.406,
+      "alpha_avg_fp": 10.2,
+      "beta_avg_fp": 8.9
+    },
+    {
+      "team": "SF",
+      "season": 2024,
+      "alpha": "Brandon Aiyuk",
+      "beta": "Jacob Cowing",
+      "correlation": -0.535,
+      "alpha_avg_fp": 8.9,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "SF",
+      "season": 2024,
+      "alpha": "Ronnie Bell",
+      "beta": "Chris Conley",
+      "correlation": -0.258,
+      "alpha_avg_fp": 0.5,
+      "beta_avg_fp": 0.3
+    },
+    {
+      "team": "SF",
+      "season": 2024,
+      "alpha": "Ricky Pearsall",
+      "beta": "Ronnie Bell",
+      "correlation": -0.302,
+      "alpha_avg_fp": 7.5,
+      "beta_avg_fp": 0.5
+    },
+    {
+      "team": "SF",
+      "season": 2023,
+      "alpha": "Deebo Samuel",
+      "beta": "Chris Conley",
+      "correlation": -0.591,
+      "alpha_avg_fp": 15.2,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "TB",
+      "season": 2025,
+      "alpha": "Tez Johnson",
+      "beta": "Chris Godwin",
+      "correlation": -0.686,
+      "alpha_avg_fp": 5.9,
+      "beta_avg_fp": 4.7
+    },
+    {
+      "team": "TB",
+      "season": 2025,
+      "alpha": "Chris Godwin Jr.",
+      "beta": "Mike Evans",
+      "correlation": -0.403,
+      "alpha_avg_fp": 13.4,
+      "beta_avg_fp": 11.3
+    },
+    {
+      "team": "TB",
+      "season": 2025,
+      "alpha": "Emeka Egbuka",
+      "beta": "Jalen McMillan",
+      "correlation": -0.376,
+      "alpha_avg_fp": 12.1,
+      "beta_avg_fp": 9.3
+    },
+    {
+      "team": "TB",
+      "season": 2025,
+      "alpha": "Mike Evans",
+      "beta": "Jalen McMillan",
+      "correlation": -0.615,
+      "alpha_avg_fp": 11.3,
+      "beta_avg_fp": 9.3
+    },
+    {
+      "team": "TB",
+      "season": 2024,
+      "alpha": "Chris Godwin",
+      "beta": "Jalen McMillan",
+      "correlation": -0.428,
+      "alpha_avg_fp": 19.7,
+      "beta_avg_fp": 9.7
+    },
+    {
+      "team": "TB",
+      "season": 2024,
+      "alpha": "Jalen McMillan",
+      "beta": "Rakim Jarrett",
+      "correlation": -0.381,
+      "alpha_avg_fp": 9.7,
+      "beta_avg_fp": 2.4
+    },
+    {
+      "team": "TB",
+      "season": 2024,
+      "alpha": "Trey Palmer",
+      "beta": "Kameron Johnson",
+      "correlation": -0.44,
+      "alpha_avg_fp": 2.5,
+      "beta_avg_fp": 0.2
+    },
+    {
+      "team": "TB",
+      "season": 2024,
+      "alpha": "Sterling Shepard",
+      "beta": "Rakim Jarrett",
+      "correlation": -0.254,
+      "alpha_avg_fp": 6.0,
+      "beta_avg_fp": 2.4
+    },
+    {
+      "team": "TEN",
+      "season": 2025,
+      "alpha": "Calvin Ridley",
+      "beta": "Bryce Oliver",
+      "correlation": -1.0,
+      "alpha_avg_fp": 6.8,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "TEN",
+      "season": 2025,
+      "alpha": "Chimere Dike",
+      "beta": "Bryce Oliver",
+      "correlation": -1.0,
+      "alpha_avg_fp": 7.5,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "TEN",
+      "season": 2025,
+      "alpha": "Elic Ayomanor",
+      "beta": "Bryce Oliver",
+      "correlation": -1.0,
+      "alpha_avg_fp": 7.2,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "TEN",
+      "season": 2025,
+      "alpha": "Tyler Lockett",
+      "beta": "Bryce Oliver",
+      "correlation": -1.0,
+      "alpha_avg_fp": 2.4,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "TEN",
+      "season": 2025,
+      "alpha": "Van Jefferson",
+      "beta": "Bryce Oliver",
+      "correlation": -1.0,
+      "alpha_avg_fp": 4.4,
+      "beta_avg_fp": 0.9
+    },
+    {
+      "team": "TEN",
+      "season": 2024,
+      "alpha": "Nick Westbrook-Ikhine",
+      "beta": "Bryce Oliver",
+      "correlation": -0.171,
+      "alpha_avg_fp": 7.9,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "TEN",
+      "season": 2024,
+      "alpha": "Tyler Boyd",
+      "beta": "Bryce Oliver",
+      "correlation": -0.332,
+      "alpha_avg_fp": 4.9,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "TEN",
+      "season": 2023,
+      "alpha": "Chris Moore",
+      "beta": "Colton Dowell",
+      "correlation": -0.27,
+      "alpha_avg_fp": 4.0,
+      "beta_avg_fp": 0.1
+    },
+    {
+      "team": "TEN",
+      "season": 2023,
+      "alpha": "DeAndre Hopkins",
+      "beta": "Chris Moore",
+      "correlation": -0.371,
+      "alpha_avg_fp": 13.2,
+      "beta_avg_fp": 4.0
+    },
+    {
+      "team": "WAS",
+      "season": 2025,
+      "alpha": "Deebo Samuel Sr.",
+      "beta": "Chris Moore",
+      "correlation": -0.157,
+      "alpha_avg_fp": 12.3,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "WAS",
+      "season": 2025,
+      "alpha": "Chris Moore",
+      "beta": "Robbie Chosen",
+      "correlation": -1.0,
+      "alpha_avg_fp": 3.0,
+      "beta_avg_fp": 1.4
+    },
+    {
+      "team": "WAS",
+      "season": 2025,
+      "alpha": "Terry McLaurin",
+      "beta": "Chris Moore",
+      "correlation": -0.6,
+      "alpha_avg_fp": 11.6,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "WAS",
+      "season": 2025,
+      "alpha": "Treylon Burks",
+      "beta": "Chris Moore",
+      "correlation": -0.572,
+      "alpha_avg_fp": 3.7,
+      "beta_avg_fp": 3.0
+    },
+    {
+      "team": "WAS",
+      "season": 2025,
+      "alpha": "Luke McCaffrey",
+      "beta": "Noah Brown",
+      "correlation": -1.0,
+      "alpha_avg_fp": 5.7,
+      "beta_avg_fp": 3.3
+    },
+    {
+      "team": "WAS",
+      "season": 2024,
+      "alpha": "Olamide Zaccheaus",
+      "beta": "Brycen Tremayne",
+      "correlation": -1.0,
+      "alpha_avg_fp": 6.7,
+      "beta_avg_fp": 0.4
+    },
+    {
+      "team": "WAS",
+      "season": 2024,
+      "alpha": "Jamison Crowder",
+      "beta": "Luke McCaffrey",
+      "correlation": -0.536,
+      "alpha_avg_fp": 5.6,
+      "beta_avg_fp": 2.2
+    },
+    {
+      "team": "WAS",
+      "season": 2024,
+      "alpha": "Noah Brown",
+      "beta": "Olamide Zaccheaus",
+      "correlation": -0.238,
+      "alpha_avg_fp": 7.8,
+      "beta_avg_fp": 6.7
+    }
+  ]
+}

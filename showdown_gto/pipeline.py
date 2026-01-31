@@ -14,7 +14,8 @@ from .types import (
 from .data.loader import load_projections
 from .data.correlations import (
     CorrelationMatrix, ArchetypeCorrelationConfig,
-    create_archetype_mapping_template, load_archetype_mapping
+    create_archetype_mapping_template, load_archetype_mapping,
+    _infer_archetype
 )
 from .simulation.engine import simulate_outcomes, CopulaType
 from .simulation.bounds import compute_guaranteed_score_bounds
@@ -51,8 +52,12 @@ def run_portfolio_optimization(
     copula_type: CopulaType = "gaussian",
     copula_df: int = 5,
     selection_method: Literal["top_n", "greedy_marginal"] = "top_n",
-    shortlist_size: int = 500,
-    greedy_n_sims: Optional[int] = None
+    shortlist_size: int = 2000,
+    greedy_n_sims: Optional[int] = None,
+    effects_path: Optional[str] = None,
+    sim_config_path: Optional[str] = None,
+    spread_str: Optional[str] = None,
+    game_total: Optional[float] = None
 ) -> Dict:
     """
     Full portfolio optimization pipeline.
@@ -102,18 +107,78 @@ def run_portfolio_optimization(
 
     # === BUILD CORRELATION MATRIX ===
     corr_matrix = correlation_matrix
+    corr_config = None  # Keep reference for variance_decomposition
+    archetype_map = {}
     if corr_matrix is None and correlation_config_path is not None:
         logger.info(f"Loading correlation config from {correlation_config_path}...")
-        archetype_map = {}
         if archetype_map_path is not None:
             archetype_map = load_archetype_mapping(archetype_map_path)
             logger.info(f"Loaded {len(archetype_map)} archetype mappings")
 
-        corr_obj = CorrelationMatrix.from_players_and_config_file(
-            data.flex_players, correlation_config_path, archetype_map
+        corr_config = ArchetypeCorrelationConfig.from_json(correlation_config_path)
+        corr_obj = CorrelationMatrix.from_archetype_config(
+            data.flex_players, corr_config, archetype_map
         )
         corr_matrix = corr_obj.matrix
         logger.info(f"Built {corr_matrix.shape[0]}x{corr_matrix.shape[0]} correlation matrix")
+
+    # === APPLY PLAYER EFFECTS ===
+    if effects_path is not None:
+        from .data.effects import apply_player_effects, parse_game_context, sync_cpt_from_flex
+
+        game_context = parse_game_context(spread_str, game_total, data.teams)
+
+        data.flex_players, corr_matrix = apply_player_effects(
+            players=data.flex_players,
+            correlation_matrix=corr_matrix,
+            effects_path=effects_path,
+            sim_config_path=sim_config_path,
+            archetype_map=archetype_map if archetype_map else None,
+            game_context=game_context
+        )
+
+        data.cpt_players = sync_cpt_from_flex(
+            data.cpt_players, data.flex_players, data.cpt_to_flex_map
+        )
+
+        logger.info("Applied player effects from %s", effects_path)
+
+    # === BUILD GAME ENVIRONMENT PARAMS ===
+    game_shares = None
+    team_idx_map = None
+    if corr_config is not None and corr_config.variance_decomposition:
+        var_decomp = corr_config.variance_decomposition
+        n_flex = len(data.flex_players)
+        game_shares = np.zeros(n_flex, dtype=np.float64)
+
+        # Default game_shares for archetypes not in variance_decomposition
+        default_game_shares = {'K': 0.30, 'DST': 0.50}
+
+        matched = 0
+        for i, player in enumerate(data.flex_players):
+            arch = archetype_map.get(player.name, _infer_archetype(player))
+            if arch in var_decomp:
+                game_shares[i] = var_decomp[arch]['game_share']
+                matched += 1
+            elif arch in default_game_shares:
+                game_shares[i] = default_game_shares[arch]
+                matched += 1
+
+        # Build team -> player indices mapping
+        team_idx_map = {}
+        for i, player in enumerate(data.flex_players):
+            if player.team not in team_idx_map:
+                team_idx_map[player.team] = []
+            team_idx_map[player.team].append(i)
+
+        logger.info(
+            "Game environment: %d/%d players matched, teams=%s",
+            matched, n_flex, list(team_idx_map.keys())
+        )
+        logger.info(
+            "Game shares: min=%.3f, max=%.3f, mean=%.3f",
+            game_shares.min(), game_shares.max(), game_shares.mean()
+        )
 
     # === SIMULATE OUTCOMES ===
     logger.info(f"Simulating {n_sims} outcomes...")
@@ -123,7 +188,9 @@ def run_portfolio_optimization(
         correlation_matrix=corr_matrix,
         seed=seed,
         copula_type=copula_type,
-        copula_df=copula_df
+        copula_df=copula_df,
+        game_shares=game_shares,
+        team_indices=team_idx_map
     )
     logger.info(f"Outcomes shape: {outcomes.shape}")
 
@@ -298,6 +365,13 @@ def run_portfolio_optimization(
             'copula_df': copula_df if copula_type == 't' else None,
             'selection_method': selection_method,
             'shortlist_size': shortlist_size if selection_method == 'greedy_marginal' else None,
+            'effects_path': effects_path,
+            'sim_config_path': sim_config_path,
+            'game_environment': game_shares is not None,
+            'game_context': {
+                'spread': spread_str,
+                'game_total': game_total,
+            } if spread_str or game_total else None,
         }
     }
 

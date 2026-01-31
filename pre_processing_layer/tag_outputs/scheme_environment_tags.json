@@ -1,0 +1,5626 @@
+{
+  "metadata": {
+    "description": "Scheme & Environment tags for simulation pre-processing",
+    "clusters": {
+      "scheme_specific": "Formation-based correlations (shotgun, PA, box counts)",
+      "clutch": "Down & distance situational tags",
+      "environmental": "Game environment correlations",
+      "creator": "Independent value (QB-proof metrics)"
+    }
+  },
+  "effect_types": {
+    "correlation_boost_trailing_script": "Add to correlation when team trailing",
+    "correlation_boost_leading_script": "Add to correlation when team leading",
+    "correlation_boost_rb1": "Add to correlation with team RB1 (unusual WR/RB)",
+    "correlation_boost_dst": "Add to DST correlation",
+    "correlation_boost_shootout": "Add to correlation in high-scoring games",
+    "correlation_boost_high_total": "Add to correlation with high game totals",
+    "correlation_boost_qb_volume": "Add to QB pass volume correlation",
+    "correlation_boost_pocket_qb": "Add to pocket passer QB correlation",
+    "correlation_reduction_qb": "Reduce QB dependency (independent scorers)",
+    "floor_boost_pct": "Increase floor percentile",
+    "ceiling_penalty_pct": "Reduce ceiling percentile",
+    "cv_boost": "Increase coefficient of variation",
+    "negative_tail_boost": "Widen left tail (injury/fumble risk)"
+  },
+  "player_effects": {
+    "Michael Carter": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.131,
+      "shotgun_snap_rate": 0.755,
+      "signal": "Yards created/touch 1.1",
+      "correlation_boost_shootout": 0.109,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.055,
+      "ceiling_penalty_pct": -0.046,
+      "third_down_target_rate": 0.339,
+      "correlation_reduction_qb": -0.083,
+      "yards_created_per_touch": 1.07
+    },
+    "Tyler Badie": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.955,
+      "signal": "Shotgun rate 95.5%"
+    },
+    "Austin Ekeler": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.224,
+      "shotgun_snap_rate": 0.832,
+      "signal": "Yards created/touch 1.2",
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.055,
+      "ceiling_penalty_pct": -0.024,
+      "third_down_target_rate": 0.273,
+      "correlation_reduction_qb": -0.082,
+      "yards_created_per_touch": 1.21
+    },
+    "Mike Boone": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.08,
+      "shotgun_snap_rate": 0.714,
+      "signal": "Yards created/touch 1.0",
+      "correlation_reduction_qb": -0.079,
+      "floor_boost_pct": 0.053,
+      "yards_created_per_touch": 0.97
+    },
+    "Samaje Perine": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.214,
+      "shotgun_snap_rate": 0.823,
+      "signal": "Yards created/touch 0.9",
+      "correlation_boost_shootout": 0.121,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.051,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.455,
+      "correlation_reduction_qb": -0.076,
+      "yards_created_per_touch": 0.9
+    },
+    "Salvon Ahmed": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.942,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.07,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.696,
+      "correlation_reduction_qb": -0.105,
+      "yards_created_per_touch": 2.02
+    },
+    "Jeremy McNichols": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.941,
+      "signal": "Yards created/touch 2.8",
+      "correlation_reduction_qb": -0.131,
+      "floor_boost_pct": 0.088,
+      "yards_created_per_touch": 2.77
+    },
+    "Zack Moss": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.195,
+      "shotgun_snap_rate": 0.815,
+      "signal": "Yards created/touch 1.8",
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.072,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.432,
+      "correlation_reduction_qb": -0.108,
+      "yards_created_per_touch": 1.79
+    },
+    "Jerick McKinnon": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.246,
+      "shotgun_snap_rate": 0.844,
+      "signal": "Yards created/touch 1.0",
+      "floor_boost_pct": 0.054,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.414,
+      "correlation_reduction_qb": -0.081,
+      "yards_created_per_touch": 1.02
+    },
+    "D'Andre Swift": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.085,
+      "shotgun_snap_rate": 0.712,
+      "signal": "Yards created/touch 1.6",
+      "correlation_boost_shootout": 0.087,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "floor_boost_pct": 0.065,
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.291,
+      "correlation_reduction_qb": -0.098,
+      "yards_created_per_touch": 1.56
+    },
+    "J.D. McKissic": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.934,
+      "signal": "3rd down rate 40.0%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.4
+    },
+    "Eno Benjamin": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.933,
+      "signal": "Yards created/touch 1.2",
+      "correlation_boost_shootout": 0.125,
+      "light_box_rate": 0.0,
+      "avg_box_count": 5.5,
+      "floor_boost_pct": 0.058,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.364,
+      "correlation_reduction_qb": -0.086,
+      "yards_created_per_touch": 1.18
+    },
+    "Kenneth Gainwell": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.205,
+      "shotgun_snap_rate": 0.804,
+      "signal": "Yards created/touch 1.0",
+      "correlation_boost_shootout": 0.125,
+      "light_box_rate": 0.0,
+      "avg_box_count": 5.9,
+      "floor_boost_pct": 0.054,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.421,
+      "correlation_reduction_qb": -0.08,
+      "yards_created_per_touch": 1.01
+    },
+    "Justice Hill": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.222,
+      "shotgun_snap_rate": 0.85,
+      "signal": "Yards created/touch 1.2",
+      "floor_boost_pct": 0.057,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.62,
+      "correlation_reduction_qb": -0.086,
+      "yards_created_per_touch": 1.17
+    },
+    "Dare Ogunbowale": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.108,
+      "shotgun_snap_rate": 0.733,
+      "signal": "Shotgun rate 73.3%"
+    },
+    "Raheem Mostert": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.13,
+      "shotgun_snap_rate": 0.765,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.099,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.059,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.571,
+      "correlation_reduction_qb": -0.089,
+      "yards_created_per_touch": 1.49
+    },
+    "Rasheen Ali": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.908,
+      "signal": "Shotgun rate 90.8%"
+    },
+    "Chris Brooks": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.9,
+      "signal": "Shotgun rate 90.0%"
+    },
+    "J.K. Dobbins": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.895,
+      "signal": "Yards created/touch 2.1",
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.079,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.514,
+      "correlation_reduction_qb": -0.119,
+      "yards_created_per_touch": 2.12
+    },
+    "Dontrell Hilliard": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.89,
+      "signal": "Yards created/touch 0.8",
+      "floor_boost_pct": 0.04,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.692,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 0.79
+    },
+    "Boston Scott": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.888,
+      "signal": "Yards created/touch 1.3",
+      "correlation_reduction_qb": -0.089,
+      "floor_boost_pct": 0.059,
+      "yards_created_per_touch": 1.29
+    },
+    "LeQuint Allen Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.885,
+      "signal": "Shotgun rate 88.5%"
+    },
+    "Ameer Abdullah": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.881,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.064,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.709,
+      "correlation_reduction_qb": -0.095,
+      "yards_created_per_touch": 1.99
+    },
+    "Emari Demercado": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.873,
+      "signal": "Yards created/touch 2.5",
+      "correlation_reduction_qb": -0.117,
+      "floor_boost_pct": 0.078,
+      "yards_created_per_touch": 2.5
+    },
+    "Trey Sermon": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.873,
+      "signal": "Yards created/touch 2.1",
+      "correlation_reduction_qb": -0.097,
+      "floor_boost_pct": 0.065,
+      "yards_created_per_touch": 2.13
+    },
+    "Antonio Gibson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.103,
+      "shotgun_snap_rate": 0.733,
+      "signal": "Yards created/touch 2.6",
+      "correlation_boost_shootout": 0.103,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.082,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.388,
+      "correlation_reduction_qb": -0.123,
+      "yards_created_per_touch": 2.6
+    },
+    "Nyheim Hines": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.869,
+      "signal": "Shotgun rate 86.9%"
+    },
+    "D'Ernest Johnson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.869,
+      "signal": "Yards created/touch 2.3",
+      "correlation_reduction_qb": -0.114,
+      "floor_boost_pct": 0.076,
+      "yards_created_per_touch": 2.26
+    },
+    "Miles Sanders": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.239,
+      "shotgun_snap_rate": 0.845,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.093,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.647,
+      "correlation_reduction_qb": -0.092,
+      "yards_created_per_touch": 1.45
+    },
+    "Travis Homer": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.86,
+      "signal": "Yards created/touch 1.1",
+      "correlation_reduction_qb": -0.083,
+      "floor_boost_pct": 0.055,
+      "yards_created_per_touch": 1.08
+    },
+    "Tyjae Spears": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.86,
+      "signal": "Yards created/touch 2.1",
+      "correlation_boost_shootout": 0.125,
+      "light_box_rate": 0.0,
+      "avg_box_count": 5.9,
+      "floor_boost_pct": 0.074,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.482,
+      "correlation_reduction_qb": -0.11,
+      "yards_created_per_touch": 2.13
+    },
+    "James Conner": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.242,
+      "shotgun_snap_rate": 0.854,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.104,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.336,
+      "correlation_reduction_qb": -0.091,
+      "yards_created_per_touch": 1.47
+    },
+    "Patrick Taylor": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.231,
+      "shotgun_snap_rate": 0.852,
+      "signal": "Yards created/touch 2.2",
+      "correlation_reduction_qb": -0.103,
+      "floor_boost_pct": 0.068,
+      "yards_created_per_touch": 2.15
+    },
+    "Rex Burkhead": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_trailing_script": 0.25,
+      "shotgun_snap_rate": 0.851,
+      "signal": "3rd down rate 77.0%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.77
+    },
+    "Jacory Croskey-Merritt": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.212,
+      "shotgun_snap_rate": 0.848,
+      "signal": "Yards created/touch 2.8",
+      "correlation_boost_shootout": 0.095,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "correlation_reduction_qb": -0.139,
+      "floor_boost_pct": 0.092,
+      "yards_created_per_touch": 2.79
+    },
+    "Jeff Wilson Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.241,
+      "shotgun_snap_rate": 0.848,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.095,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "floor_boost_pct": 0.063,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.413,
+      "correlation_reduction_qb": -0.094,
+      "yards_created_per_touch": 1.48
+    },
+    "Brian Robinson Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.225,
+      "shotgun_snap_rate": 0.848,
+      "signal": "Yards created/touch 2.2",
+      "correlation_boost_shootout": 0.095,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "floor_boost_pct": 0.077,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.488,
+      "correlation_reduction_qb": -0.115,
+      "yards_created_per_touch": 2.21
+    },
+    "Joe Mixon": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.101,
+      "shotgun_snap_rate": 0.731,
+      "signal": "Yards created/touch 2.2",
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.067,
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.319,
+      "correlation_reduction_qb": -0.1,
+      "yards_created_per_touch": 2.17
+    },
+    "Isaiah Davis": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.231,
+      "shotgun_snap_rate": 0.841,
+      "signal": "Yards created/touch 2.3",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.066,
+      "yards_created_per_touch": 2.3
+    },
+    "Bijan Robinson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.231,
+      "shotgun_snap_rate": 0.84,
+      "signal": "Yards created/touch 2.6",
+      "correlation_boost_shootout": 0.122,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.0,
+      "floor_boost_pct": 0.086,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.358,
+      "correlation_reduction_qb": -0.129,
+      "yards_created_per_touch": 2.62
+    },
+    "DeeJay Dallas": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.217,
+      "shotgun_snap_rate": 0.834,
+      "signal": "Yards created/touch 0.8",
+      "correlation_reduction_qb": -0.072,
+      "floor_boost_pct": 0.048,
+      "yards_created_per_touch": 0.77
+    },
+    "Matt Breida": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.097,
+      "shotgun_snap_rate": 0.732,
+      "signal": "Yards created/touch 1.0",
+      "correlation_reduction_qb": -0.072,
+      "floor_boost_pct": 0.048,
+      "yards_created_per_touch": 0.95
+    },
+    "Roschon Johnson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.216,
+      "shotgun_snap_rate": 0.834,
+      "signal": "Yards created/touch 1.9",
+      "correlation_reduction_qb": -0.097,
+      "floor_boost_pct": 0.064,
+      "yards_created_per_touch": 1.92
+    },
+    "Gus Edwards": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "HEAVY_BOX_BULLY",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.132,
+      "shotgun_snap_rate": 0.774,
+      "signal": "Yards created/touch 1.8",
+      "correlation_boost_dst": 0.027,
+      "correlation_boost_leading_script": 0.045,
+      "avg_box_count": 6.4,
+      "ypc_vs_box": null,
+      "correlation_boost_shootout": 0.088,
+      "light_box_rate": 0.0,
+      "correlation_reduction_qb": -0.107,
+      "floor_boost_pct": 0.071,
+      "yards_created_per_touch": 1.84
+    },
+    "Joshua Kelley": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.187,
+      "shotgun_snap_rate": 0.826,
+      "signal": "Yards created/touch 1.3",
+      "correlation_boost_shootout": 0.12,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "correlation_reduction_qb": -0.091,
+      "floor_boost_pct": 0.061,
+      "yards_created_per_touch": 1.32
+    },
+    "Clyde Edwards-Helaire": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.183,
+      "shotgun_snap_rate": 0.801,
+      "signal": "Yards created/touch 1.2",
+      "correlation_boost_shootout": 0.116,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.055,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.435,
+      "correlation_reduction_qb": -0.083,
+      "yards_created_per_touch": 1.23
+    },
+    "Hassan Haskins": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.2,
+      "shotgun_snap_rate": 0.824,
+      "signal": "Shotgun rate 82.4%"
+    },
+    "JaMycal Hasty": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.211,
+      "shotgun_snap_rate": 0.823,
+      "signal": "Yards created/touch 1.4",
+      "correlation_reduction_qb": -0.095,
+      "floor_boost_pct": 0.063,
+      "yards_created_per_touch": 1.42
+    },
+    "Kenyan Drake": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_trailing_script": 0.189,
+      "shotgun_snap_rate": 0.814,
+      "signal": "3rd down rate 57.7%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.577
+    },
+    "Cordarrelle Patterson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.186,
+      "shotgun_snap_rate": 0.814,
+      "signal": "Yards created/touch 1.7",
+      "correlation_boost_shootout": 0.101,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.065,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.489,
+      "correlation_reduction_qb": -0.098,
+      "yards_created_per_touch": 1.66
+    },
+    "Jonathan Williams": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.197,
+      "shotgun_snap_rate": 0.811,
+      "signal": "Yards created/touch 1.6",
+      "correlation_reduction_qb": -0.102,
+      "floor_boost_pct": 0.068,
+      "yards_created_per_touch": 1.62
+    },
+    "Jerome Ford": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.191,
+      "shotgun_snap_rate": 0.81,
+      "signal": "Yards created/touch 2.5",
+      "correlation_boost_shootout": 0.124,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.0,
+      "floor_boost_pct": 0.075,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.409,
+      "correlation_reduction_qb": -0.112,
+      "yards_created_per_touch": 2.54
+    },
+    "Ty Johnson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.183,
+      "shotgun_snap_rate": 0.806,
+      "signal": "Yards created/touch 1.2",
+      "correlation_reduction_qb": -0.086,
+      "floor_boost_pct": 0.057,
+      "yards_created_per_touch": 1.17
+    },
+    "Cam Skattebo": {
+      "tags": [
+        "SHOTGUN_SATELLITE"
+      ],
+      "correlation_boost_trailing_script": 0.186,
+      "shotgun_snap_rate": 0.803,
+      "signal": "Shotgun rate 80.3%"
+    },
+    "Jonathan Taylor": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.168,
+      "shotgun_snap_rate": 0.801,
+      "signal": "Yards created/touch 1.4",
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.058,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.424,
+      "correlation_reduction_qb": -0.087,
+      "yards_created_per_touch": 1.43
+    },
+    "Devin Neal": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.171,
+      "shotgun_snap_rate": 0.799,
+      "signal": "Yards created/touch 1.4",
+      "correlation_boost_shootout": 0.111,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "correlation_reduction_qb": -0.074,
+      "floor_boost_pct": 0.049,
+      "yards_created_per_touch": 1.36
+    },
+    "Deon Jackson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.191,
+      "shotgun_snap_rate": 0.799,
+      "signal": "Yards created/touch 1.0",
+      "floor_boost_pct": 0.053,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.565,
+      "correlation_reduction_qb": -0.08,
+      "yards_created_per_touch": 1.0
+    },
+    "Chris Rodriguez Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.153,
+      "shotgun_snap_rate": 0.798,
+      "signal": "Yards created/touch 2.9",
+      "correlation_boost_shootout": 0.089,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "correlation_reduction_qb": -0.147,
+      "floor_boost_pct": 0.098,
+      "yards_created_per_touch": 2.92
+    },
+    "Saquon Barkley": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.165,
+      "shotgun_snap_rate": 0.797,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.097,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.059,
+      "ceiling_penalty_pct": -0.037,
+      "third_down_target_rate": 0.31,
+      "correlation_reduction_qb": -0.088,
+      "yards_created_per_touch": 1.52
+    },
+    "Isiah Pacheco": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.161,
+      "shotgun_snap_rate": 0.79,
+      "signal": "Yards created/touch 1.6",
+      "correlation_boost_shootout": 0.101,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.067,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.59,
+      "correlation_reduction_qb": -0.1,
+      "yards_created_per_touch": 1.57
+    },
+    "Dylan Sampson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.187,
+      "shotgun_snap_rate": 0.79,
+      "signal": "Yards created/touch 2.3",
+      "floor_boost_pct": 0.08,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.473,
+      "correlation_reduction_qb": -0.12,
+      "yards_created_per_touch": 2.26
+    },
+    "Keaton Mitchell": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.162,
+      "shotgun_snap_rate": 0.787,
+      "signal": "Yards created/touch 2.9",
+      "correlation_reduction_qb": -0.143,
+      "floor_boost_pct": 0.095,
+      "yards_created_per_touch": 2.95
+    },
+    "De'Von Achane": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.172,
+      "shotgun_snap_rate": 0.787,
+      "signal": "Yards created/touch 2.4",
+      "correlation_boost_shootout": 0.121,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.078,
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.304,
+      "correlation_reduction_qb": -0.118,
+      "yards_created_per_touch": 2.45
+    },
+    "Darrynton Evans": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.176,
+      "shotgun_snap_rate": 0.785,
+      "signal": "Yards created/touch 1.6",
+      "correlation_reduction_qb": -0.097,
+      "floor_boost_pct": 0.065,
+      "yards_created_per_touch": 1.62
+    },
+    "Chase Brown": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.162,
+      "shotgun_snap_rate": 0.783,
+      "signal": "Yards created/touch 2.4",
+      "correlation_boost_shootout": 0.113,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.079,
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.336,
+      "correlation_reduction_qb": -0.118,
+      "yards_created_per_touch": 2.36
+    },
+    "Khalil Herbert": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.153,
+      "shotgun_snap_rate": 0.782,
+      "signal": "Yards created/touch 2.1",
+      "correlation_boost_shootout": 0.086,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "correlation_reduction_qb": -0.108,
+      "floor_boost_pct": 0.072,
+      "yards_created_per_touch": 2.14
+    },
+    "Pierre Strong Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.153,
+      "shotgun_snap_rate": 0.781,
+      "signal": "Yards created/touch 2.6",
+      "correlation_reduction_qb": -0.115,
+      "floor_boost_pct": 0.077,
+      "yards_created_per_touch": 2.59
+    },
+    "Jaylen Warren": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.154,
+      "shotgun_snap_rate": 0.778,
+      "signal": "Yards created/touch 1.7",
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.069,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.449,
+      "correlation_reduction_qb": -0.104,
+      "yards_created_per_touch": 1.68
+    },
+    "Latavius Murray": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.147,
+      "shotgun_snap_rate": 0.777,
+      "signal": "Yards created/touch 2.1",
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.454,
+      "correlation_reduction_qb": -0.091,
+      "yards_created_per_touch": 2.06
+    },
+    "Travis Etienne Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.144,
+      "shotgun_snap_rate": 0.777,
+      "signal": "Yards created/touch 1.7",
+      "correlation_boost_shootout": 0.117,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.06,
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.29,
+      "correlation_reduction_qb": -0.09,
+      "yards_created_per_touch": 1.72
+    },
+    "Aaron Jones": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.147,
+      "shotgun_snap_rate": 0.768,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.087,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "floor_boost_pct": 0.065,
+      "ceiling_penalty_pct": -0.029,
+      "third_down_target_rate": 0.286,
+      "correlation_reduction_qb": -0.097,
+      "yards_created_per_touch": 1.5
+    },
+    "Jaylen Wright": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.129,
+      "shotgun_snap_rate": 0.767,
+      "signal": "Yards created/touch 2.9",
+      "correlation_boost_shootout": 0.109,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "correlation_reduction_qb": -0.141,
+      "floor_boost_pct": 0.094,
+      "yards_created_per_touch": 2.88
+    },
+    "Chase Edmonds": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.135,
+      "shotgun_snap_rate": 0.761,
+      "signal": "Yards created/touch 1.6",
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.045,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.753,
+      "correlation_reduction_qb": -0.068,
+      "yards_created_per_touch": 1.62
+    },
+    "Rachaad White": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.119,
+      "shotgun_snap_rate": 0.751,
+      "signal": "Yards created/touch 0.9",
+      "correlation_boost_shootout": 0.11,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.051,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.43,
+      "correlation_reduction_qb": -0.076,
+      "yards_created_per_touch": 0.9
+    },
+    "Tyrone Tracy Jr.": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.113,
+      "shotgun_snap_rate": 0.747,
+      "signal": "Yards created/touch 2.5",
+      "correlation_boost_shootout": 0.119,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "floor_boost_pct": 0.076,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.472,
+      "correlation_reduction_qb": -0.114,
+      "yards_created_per_touch": 2.45
+    },
+    "Kareem Hunt": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.089,
+      "shotgun_snap_rate": 0.725,
+      "signal": "Yards created/touch 1.0",
+      "correlation_boost_shootout": 0.076,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.6,
+      "floor_boost_pct": 0.054,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.442,
+      "correlation_reduction_qb": -0.081,
+      "yards_created_per_touch": 1.04
+    },
+    "Kyren Williams": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.111,
+      "shotgun_snap_rate": 0.745,
+      "signal": "Yards created/touch 1.4",
+      "correlation_boost_shootout": 0.101,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.062,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.454,
+      "correlation_reduction_qb": -0.093,
+      "yards_created_per_touch": 1.36
+    },
+    "Alexander Mattison": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.103,
+      "shotgun_snap_rate": 0.734,
+      "signal": "Yards created/touch 1.3",
+      "correlation_boost_shootout": 0.09,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.404,
+      "correlation_reduction_qb": -0.092,
+      "yards_created_per_touch": 1.34
+    },
+    "Devin Singletary": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.098,
+      "shotgun_snap_rate": 0.734,
+      "signal": "Yards created/touch 1.4",
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.058,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.4,
+      "correlation_reduction_qb": -0.087,
+      "yards_created_per_touch": 1.4
+    },
+    "Braelon Allen": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.097,
+      "shotgun_snap_rate": 0.733,
+      "signal": "Yards created/touch 2.2",
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "correlation_reduction_qb": -0.102,
+      "floor_boost_pct": 0.068,
+      "yards_created_per_touch": 2.23
+    },
+    "Trey Benson": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.096,
+      "shotgun_snap_rate": 0.732,
+      "signal": "Yards created/touch 3.6",
+      "correlation_boost_shootout": 0.113,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "correlation_reduction_qb": -0.15,
+      "floor_boost_pct": 0.1,
+      "yards_created_per_touch": 3.6
+    },
+    "Ezekiel Elliott": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.091,
+      "shotgun_snap_rate": 0.731,
+      "signal": "Yards created/touch 1.0",
+      "correlation_boost_shootout": 0.079,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.6,
+      "floor_boost_pct": 0.04,
+      "ceiling_penalty_pct": -0.047,
+      "third_down_target_rate": 0.34,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 0.96
+    },
+    "James Cook": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.092,
+      "shotgun_snap_rate": 0.725,
+      "signal": "Yards created/touch 1.5",
+      "correlation_boost_shootout": 0.098,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "floor_boost_pct": 0.064,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.414,
+      "correlation_reduction_qb": -0.096,
+      "yards_created_per_touch": 1.45
+    },
+    "Zach Charbonnet": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.086,
+      "shotgun_snap_rate": 0.724,
+      "signal": "Yards created/touch 2.6",
+      "correlation_boost_shootout": 0.125,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.0,
+      "floor_boost_pct": 0.082,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.572,
+      "correlation_reduction_qb": -0.123,
+      "yards_created_per_touch": 2.59
+    },
+    "Tyler Allgeier": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.076,
+      "shotgun_snap_rate": 0.721,
+      "signal": "Yards created/touch 2.0",
+      "correlation_boost_shootout": 0.089,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "correlation_reduction_qb": -0.117,
+      "floor_boost_pct": 0.078,
+      "yards_created_per_touch": 2.05
+    },
+    "Chuba Hubbard": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.081,
+      "shotgun_snap_rate": 0.72,
+      "signal": "Yards created/touch 1.6",
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.065,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.48,
+      "correlation_reduction_qb": -0.097,
+      "yards_created_per_touch": 1.56
+    },
+    "Omarion Hampton": {
+      "tags": [
+        "SHOTGUN_SATELLITE",
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_trailing_script": 0.077,
+      "shotgun_snap_rate": 0.715,
+      "signal": "Yards created/touch 2.2",
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "floor_boost_pct": 0.076,
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.321,
+      "correlation_reduction_qb": -0.114,
+      "yards_created_per_touch": 2.24
+    },
+    "Jordan Whittington": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_rb1": 0.157,
+      "pa_snap_rate": 0.281,
+      "signal": "1st down rate 56.2%",
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.026,
+      "first_down_rate": 0.562
+    },
+    "Tutu Atwell": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.121,
+      "pa_snap_rate": 0.251,
+      "signal": "3rd down rate 57.5%",
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.667,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.575
+    },
+    "Tyreek Hill": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.09,
+      "pa_snap_rate": 0.225,
+      "signal": "3rd down rate 27.6%",
+      "correlation_boost_qb_volume": 0.047,
+      "floor_boost_pct": 0.05,
+      "first_down_rate": 0.587,
+      "ceiling_penalty_pct": -0.025,
+      "third_down_target_rate": 0.276
+    },
+    "Van Jefferson": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.079,
+      "pa_snap_rate": 0.215,
+      "signal": "3rd down rate 36.7%",
+      "correlation_boost_qb_volume": 0.047,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.588,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.367
+    },
+    "Jaylen Waddle": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.078,
+      "pa_snap_rate": 0.215,
+      "signal": "3rd down rate 31.8%",
+      "correlation_boost_qb_volume": 0.069,
+      "floor_boost_pct": 0.079,
+      "first_down_rate": 0.652,
+      "ceiling_penalty_pct": -0.039,
+      "third_down_target_rate": 0.318
+    },
+    "Sammy Watkins": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.058,
+      "pa_snap_rate": 0.198,
+      "signal": "3rd down rate 40.9%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.409
+    },
+    "Mike Williams": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.056,
+      "pa_snap_rate": 0.196,
+      "signal": "3rd down rate 26.9%",
+      "correlation_boost_qb_volume": 0.053,
+      "floor_boost_pct": 0.046,
+      "first_down_rate": 0.603,
+      "ceiling_penalty_pct": -0.023,
+      "third_down_target_rate": 0.269
+    },
+    "Denzel Mims": {
+      "tags": [
+        "PLAY_ACTION_MERCHANT",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_rb1": 0.056,
+      "pa_snap_rate": 0.196,
+      "signal": "3rd down rate 54.0%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.54
+    },
+    "RJ Harvey": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.125,
+      "light_box_rate": 0.0,
+      "avg_box_count": 5.8,
+      "signal": "Yards created/touch 2.1",
+      "floor_boost_pct": 0.067,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.415,
+      "correlation_reduction_qb": -0.101,
+      "yards_created_per_touch": 2.08
+    },
+    "Rhamondre Stevenson": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 1.6",
+      "floor_boost_pct": 0.067,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.35,
+      "correlation_reduction_qb": -0.1,
+      "yards_created_per_touch": 1.57
+    },
+    "Damien Harris": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.123,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.0,
+      "signal": "Yards created/touch 1.7",
+      "floor_boost_pct": 0.07,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.478,
+      "correlation_reduction_qb": -0.105,
+      "yards_created_per_touch": 1.71
+    },
+    "Darrell Henderson Jr.": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.121,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.0,
+      "signal": "Yards created/touch 1.4",
+      "floor_boost_pct": 0.062,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.455,
+      "correlation_reduction_qb": -0.093,
+      "yards_created_per_touch": 1.37
+    },
+    "Dameon Pierce": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.09,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.076,
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.333,
+      "correlation_reduction_qb": -0.114,
+      "yards_created_per_touch": 2.05
+    },
+    "Christian McCaffrey": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.095,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 1.0",
+      "floor_boost_pct": 0.041,
+      "ceiling_penalty_pct": -0.022,
+      "third_down_target_rate": 0.265,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.0
+    },
+    "Kimani Vidal": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.116,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.1,
+      "signal": "Yards created/touch 2.0",
+      "correlation_reduction_qb": -0.096,
+      "floor_boost_pct": 0.064,
+      "yards_created_per_touch": 1.98
+    },
+    "David Montgomery": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.084,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 1.5",
+      "floor_boost_pct": 0.066,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.522,
+      "correlation_reduction_qb": -0.099,
+      "yards_created_per_touch": 1.53
+    },
+    "Alvin Kamara": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.103,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 1.4",
+      "floor_boost_pct": 0.049,
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.303,
+      "correlation_reduction_qb": -0.074,
+      "yards_created_per_touch": 1.41
+    },
+    "Ashton Jeanty": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.11,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.4",
+      "floor_boost_pct": 0.083,
+      "ceiling_penalty_pct": -0.029,
+      "third_down_target_rate": 0.288,
+      "correlation_reduction_qb": -0.124,
+      "yards_created_per_touch": 2.39
+    },
+    "Kenneth Walker III": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.077,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.397,
+      "correlation_reduction_qb": -0.116,
+      "yards_created_per_touch": 2.03
+    },
+    "Leonard Fournette": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.109,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 0.9",
+      "floor_boost_pct": 0.044,
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.304,
+      "correlation_reduction_qb": -0.065,
+      "yards_created_per_touch": 0.86
+    },
+    "Kyle Monangai": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.109,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.1",
+      "correlation_reduction_qb": -0.103,
+      "floor_boost_pct": 0.069,
+      "yards_created_per_touch": 2.08
+    },
+    "Tony Pollard": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.083,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 1.7",
+      "floor_boost_pct": 0.063,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.349,
+      "correlation_reduction_qb": -0.095,
+      "yards_created_per_touch": 1.66
+    },
+    "Jamaal Williams": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 1.1",
+      "correlation_reduction_qb": -0.063,
+      "floor_boost_pct": 0.042,
+      "yards_created_per_touch": 1.1
+    },
+    "Javonte Williams": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.088,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 2.2",
+      "floor_boost_pct": 0.064,
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.306,
+      "correlation_reduction_qb": -0.096,
+      "yards_created_per_touch": 2.15
+    },
+    "Kendre Miller": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.8",
+      "correlation_reduction_qb": -0.144,
+      "floor_boost_pct": 0.096,
+      "yards_created_per_touch": 2.82
+    },
+    "Jordan Mason": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.3",
+      "correlation_reduction_qb": -0.115,
+      "floor_boost_pct": 0.077,
+      "yards_created_per_touch": 2.32
+    },
+    "Jahmyr Gibbs": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.108,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.4",
+      "floor_boost_pct": 0.081,
+      "ceiling_penalty_pct": -0.049,
+      "third_down_target_rate": 0.348,
+      "correlation_reduction_qb": -0.122,
+      "yards_created_per_touch": 2.38
+    },
+    "Bucky Irving": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.9",
+      "floor_boost_pct": 0.095,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.375,
+      "correlation_reduction_qb": -0.142,
+      "yards_created_per_touch": 2.88
+    },
+    "Rico Dowdle": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.103,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 2.3",
+      "floor_boost_pct": 0.069,
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.333,
+      "correlation_reduction_qb": -0.104,
+      "yards_created_per_touch": 2.31
+    },
+    "Dalvin Cook": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 1.5",
+      "floor_boost_pct": 0.053,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.364,
+      "correlation_reduction_qb": -0.08,
+      "yards_created_per_touch": 1.48
+    },
+    "Woody Marks": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.107,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.065,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.682,
+      "correlation_reduction_qb": -0.098,
+      "yards_created_per_touch": 2.03
+    },
+    "Melvin Gordon III": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_shootout": 0.106,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "3rd down rate 39.1%",
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.391
+    },
+    "Breece Hall": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.3",
+      "floor_boost_pct": 0.074,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.397,
+      "correlation_reduction_qb": -0.111,
+      "yards_created_per_touch": 2.26
+    },
+    "Aaron Jones Sr.": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.105,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.2,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.06,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.418,
+      "correlation_reduction_qb": -0.09,
+      "yards_created_per_touch": 2.04
+    },
+    "Bhayshul Tuten": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.103,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 2.2",
+      "correlation_reduction_qb": -0.114,
+      "floor_boost_pct": 0.076,
+      "yards_created_per_touch": 2.23
+    },
+    "Jaleel McLaughlin": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.102,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 2.2",
+      "correlation_reduction_qb": -0.109,
+      "floor_boost_pct": 0.072,
+      "yards_created_per_touch": 2.2
+    },
+    "Emanuel Wilson": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.101,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 2.5",
+      "correlation_reduction_qb": -0.122,
+      "floor_boost_pct": 0.081,
+      "yards_created_per_touch": 2.48
+    },
+    "Josh Jacobs": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.098,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.06,
+      "ceiling_penalty_pct": -0.021,
+      "third_down_target_rate": 0.262,
+      "correlation_reduction_qb": -0.089,
+      "yards_created_per_touch": 2.01
+    },
+    "AJ Dillon": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.081,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 1.3",
+      "floor_boost_pct": 0.06,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.452,
+      "correlation_reduction_qb": -0.09,
+      "yards_created_per_touch": 1.3
+    },
+    "Malik Davis": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.099,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 1.2",
+      "correlation_reduction_qb": -0.085,
+      "floor_boost_pct": 0.057,
+      "yards_created_per_touch": 1.16
+    },
+    "Nick Chubb": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.08,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 2.1",
+      "correlation_reduction_qb": -0.096,
+      "floor_boost_pct": 0.064,
+      "yards_created_per_touch": 2.06
+    },
+    "Tank Bigsby": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.097,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 3.0",
+      "correlation_reduction_qb": -0.148,
+      "floor_boost_pct": 0.099,
+      "yards_created_per_touch": 2.96
+    },
+    "Bam Knight": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.096,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.3,
+      "signal": "Yards created/touch 1.8",
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.387,
+      "correlation_reduction_qb": -0.091,
+      "yards_created_per_touch": 1.79
+    },
+    "Najee Harris": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.081,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 1.4",
+      "floor_boost_pct": 0.064,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.417,
+      "correlation_reduction_qb": -0.096,
+      "yards_created_per_touch": 1.44
+    },
+    "Mark Ingram II": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.095,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 1.1",
+      "correlation_reduction_qb": -0.079,
+      "floor_boost_pct": 0.052,
+      "yards_created_per_touch": 1.1
+    },
+    "Blake Corum": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.093,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 2.1",
+      "correlation_reduction_qb": -0.115,
+      "floor_boost_pct": 0.077,
+      "yards_created_per_touch": 2.15
+    },
+    "TreVeyon Henderson": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.092,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 2.0",
+      "floor_boost_pct": 0.068,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.508,
+      "correlation_reduction_qb": -0.102,
+      "yards_created_per_touch": 2.05
+    },
+    "Isaac Guerendo": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.091,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 2.5",
+      "correlation_reduction_qb": -0.127,
+      "floor_boost_pct": 0.085,
+      "yards_created_per_touch": 2.49
+    },
+    "Cam Akers": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.09,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 1.7",
+      "correlation_reduction_qb": -0.105,
+      "floor_boost_pct": 0.07,
+      "yards_created_per_touch": 1.73
+    },
+    "Zamir White": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.089,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.4,
+      "signal": "Yards created/touch 1.8",
+      "correlation_reduction_qb": -0.08,
+      "floor_boost_pct": 0.054,
+      "yards_created_per_touch": 1.83
+    },
+    "Audric Estime": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.087,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 3.1",
+      "correlation_reduction_qb": -0.129,
+      "floor_boost_pct": 0.086,
+      "yards_created_per_touch": 3.12
+    },
+    "D'Onta Foreman": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.079,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.6,
+      "signal": "Yards created/touch 1.9",
+      "correlation_reduction_qb": -0.075,
+      "floor_boost_pct": 0.05,
+      "yards_created_per_touch": 1.87
+    },
+    "Caleb Huntley": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.08,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.5,
+      "signal": "Yards created/touch 2.7",
+      "correlation_reduction_qb": -0.14,
+      "floor_boost_pct": 0.093,
+      "yards_created_per_touch": 2.72
+    },
+    "Brian Robinson": {
+      "tags": [
+        "LIGHT_BOX_SLASHER",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_shootout": 0.077,
+      "light_box_rate": 0.0,
+      "avg_box_count": 6.6,
+      "signal": "Yards created/touch 1.6",
+      "correlation_reduction_qb": -0.094,
+      "floor_boost_pct": 0.062,
+      "yards_created_per_touch": 1.58
+    },
+    "Corey Davis": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.867,
+      "signal": "3rd down rate 38.9%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.389
+    },
+    "Khalil Shakir": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.053,
+      "first_down_rate": 0.833,
+      "signal": "Yards created/touch 1.7",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.389,
+      "correlation_reduction_qb": -0.08,
+      "yards_created_per_touch": 1.72
+    },
+    "Zay Jones": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.061,
+      "first_down_rate": 0.833,
+      "signal": "3rd down rate 29.2%",
+      "ceiling_penalty_pct": -0.031,
+      "third_down_target_rate": 0.292
+    },
+    "Donald Parham Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.826,
+      "signal": "3rd down rate 49.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.493
+    },
+    "Equanimeous St. Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.824,
+      "signal": "3rd down rate 72.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.722
+    },
+    "Terrace Marshall Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.821,
+      "signal": "3rd down rate 43.6%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.436
+    },
+    "DeVante Parker": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.04,
+      "floor_boost_pct": 0.097,
+      "first_down_rate": 0.567,
+      "signal": "3rd down rate 34.6%",
+      "ceiling_penalty_pct": -0.049,
+      "third_down_target_rate": 0.346
+    },
+    "Will Mallory": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.08,
+      "first_down_rate": 0.813,
+      "signal": "1st down rate 81.3%"
+    },
+    "Darnell Mooney": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.09,
+      "first_down_rate": 0.529,
+      "signal": "3rd down rate 33.4%",
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.334
+    },
+    "Alex Erickson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.8,
+      "signal": "3rd down rate 47.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.473
+    },
+    "Bo Melton": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.12,
+      "floor_boost_pct": 0.08,
+      "first_down_rate": 0.8,
+      "signal": "1st down rate 80.0%"
+    },
+    "Mack Hollins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.073,
+      "first_down_rate": 0.526,
+      "signal": "3rd down rate 30.9%",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.309
+    },
+    "Tyquan Thornton": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.081,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.688,
+      "signal": "3rd down rate 41.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.413
+    },
+    "Josh Reynolds": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.055,
+      "floor_boost_pct": 0.041,
+      "first_down_rate": 0.611,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.277,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.33
+    },
+    "Ashton Dulin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.115,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.786,
+      "signal": "3rd down rate 75.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.75
+    },
+    "Devaughn Vele": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.031,
+      "floor_boost_pct": 0.081,
+      "first_down_rate": 0.541,
+      "signal": "3rd down rate 32.1%",
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.321
+    },
+    "Brandon Aiyuk": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.046,
+      "floor_boost_pct": 0.077,
+      "first_down_rate": 0.585,
+      "signal": "3rd down rate 31.5%",
+      "ceiling_penalty_pct": -0.038,
+      "third_down_target_rate": 0.315
+    },
+    "Justin Watson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.112,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.778,
+      "signal": "3rd down rate 74.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.743
+    },
+    "Jauan Jennings": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.05,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.595,
+      "signal": "3rd down rate 40.1%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.401
+    },
+    "Alec Pierce": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.071,
+      "floor_boost_pct": 0.099,
+      "first_down_rate": 0.658,
+      "signal": "3rd down rate 34.8%",
+      "ceiling_penalty_pct": -0.049,
+      "third_down_target_rate": 0.348
+    },
+    "Kylen Granson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.083,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.692,
+      "signal": "3rd down rate 51.1%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.511
+    },
+    "Skyy Moore": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.06,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.625,
+      "signal": "3rd down rate 58.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.582
+    },
+    "Tre'Quan Smith": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.108,
+      "floor_boost_pct": 0.072,
+      "first_down_rate": 0.765,
+      "signal": "1st down rate 76.5%"
+    },
+    "Marquez Valdes-Scantling": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.107,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.761,
+      "signal": "3rd down rate 39.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.394
+    },
+    "Odell Beckham Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.105,
+      "floor_boost_pct": 0.092,
+      "first_down_rate": 0.757,
+      "signal": "3rd down rate 33.8%",
+      "ceiling_penalty_pct": -0.046,
+      "third_down_target_rate": 0.338
+    },
+    "KaVontae Turpin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.105,
+      "floor_boost_pct": 0.045,
+      "first_down_rate": 0.755,
+      "signal": "Yards created/touch 1.2",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.636,
+      "correlation_reduction_qb": -0.067,
+      "yards_created_per_touch": 1.19
+    },
+    "Christian Watson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 43.1%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.431
+    },
+    "George Pickens": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.07,
+      "floor_boost_pct": 0.049,
+      "first_down_rate": 0.655,
+      "signal": "Yards created/touch 1.5",
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.279,
+      "correlation_reduction_qb": -0.074,
+      "yards_created_per_touch": 1.46
+    },
+    "Stone Smartt": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.099,
+      "floor_boost_pct": 0.066,
+      "first_down_rate": 0.739,
+      "signal": "1st down rate 73.9%"
+    },
+    "Jalen Nailor": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.099,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.739,
+      "signal": "3rd down rate 62.9%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.629
+    },
+    "Demarcus Robinson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.085,
+      "first_down_rate": 0.524,
+      "signal": "3rd down rate 32.7%",
+      "ceiling_penalty_pct": -0.042,
+      "third_down_target_rate": 0.327
+    },
+    "Xavier Smith": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.097,
+      "floor_boost_pct": 0.065,
+      "first_down_rate": 0.733,
+      "signal": "1st down rate 73.3%"
+    },
+    "Nick Westbrook-Ikhine": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.062,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.63,
+      "signal": "3rd down rate 51.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.51
+    },
+    "Gabe Davis": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.072,
+      "floor_boost_pct": 0.061,
+      "first_down_rate": 0.661,
+      "signal": "3rd down rate 29.1%",
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.291
+    },
+    "Joshua Palmer": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.029,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.535,
+      "signal": "3rd down rate 38.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.382
+    },
+    "Darius Slayton": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.083,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.691,
+      "signal": "3rd down rate 36.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.364
+    },
+    "Dontayvion Wicks": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.093,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.72,
+      "signal": "3rd down rate 45.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.457
+    },
+    "Rome Odunze": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.093,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.72,
+      "signal": "3rd down rate 39.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.397
+    },
+    "Adonai Mitchell": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.093,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.72,
+      "signal": "3rd down rate 50.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.505
+    },
+    "Kyle Pitts": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.038,
+      "floor_boost_pct": 0.081,
+      "first_down_rate": 0.562,
+      "signal": "3rd down rate 32.2%",
+      "ceiling_penalty_pct": -0.041,
+      "third_down_target_rate": 0.322
+    },
+    "Kayshon Boutte": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.092,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.719,
+      "signal": "3rd down rate 42.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.428
+    },
+    "Brandon Powell": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.092,
+      "floor_boost_pct": 0.061,
+      "first_down_rate": 0.719,
+      "signal": "1st down rate 71.9%"
+    },
+    "David Moore": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.091,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.714,
+      "signal": "3rd down rate 54.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.545
+    },
+    "Marquez Callaway": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.091,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.714,
+      "signal": "3rd down rate 58.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.583
+    },
+    "Dyami Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.091,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.714,
+      "signal": "3rd down rate 43.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.433
+    },
+    "Josh Whyle": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.091,
+      "floor_boost_pct": 0.06,
+      "first_down_rate": 0.714,
+      "signal": "1st down rate 71.4%"
+    },
+    "Jameson Williams": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.089,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.71,
+      "signal": "3rd down rate 36.9%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.369
+    },
+    "Foster Moreau": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.053,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.605,
+      "signal": "3rd down rate 44.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.443
+    },
+    "Tetairoa McMillan": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.088,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.708,
+      "signal": "3rd down rate 36.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.368
+    },
+    "Rashod Bateman": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.088,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.707,
+      "signal": "3rd down rate 45.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.452
+    },
+    "Amari Cooper": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.059,
+      "floor_boost_pct": 0.064,
+      "first_down_rate": 0.622,
+      "signal": "3rd down rate 29.6%",
+      "ceiling_penalty_pct": -0.032,
+      "third_down_target_rate": 0.296
+    },
+    "Allen Robinson II": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.087,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.704,
+      "signal": "3rd down rate 46.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.462
+    },
+    "Allen Lazard": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.072,
+      "floor_boost_pct": 0.088,
+      "first_down_rate": 0.661,
+      "signal": "3rd down rate 33.2%",
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.332
+    },
+    "Kendrick Bourne": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.077,
+      "floor_boost_pct": 0.042,
+      "first_down_rate": 0.676,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.353,
+      "correlation_reduction_qb": -0.063,
+      "yards_created_per_touch": 1.33
+    },
+    "DJ Chark": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.086,
+      "floor_boost_pct": 0.044,
+      "first_down_rate": 0.7,
+      "signal": "Yards created/touch 0.6",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.447,
+      "correlation_reduction_qb": -0.067,
+      "yards_created_per_touch": 0.62
+    },
+    "Noah Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.053,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.605,
+      "signal": "3rd down rate 36.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.364
+    },
+    "Drake London": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.035,
+      "first_down_rate": 0.599,
+      "signal": "3rd down rate 25.2%",
+      "ceiling_penalty_pct": -0.017,
+      "third_down_target_rate": 0.252
+    },
+    "Davante Adams": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.042,
+      "first_down_rate": 0.525,
+      "signal": "3rd down rate 26.3%",
+      "ceiling_penalty_pct": -0.021,
+      "third_down_target_rate": 0.263
+    },
+    "Ricky Pearsall": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.084,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.695,
+      "signal": "3rd down rate 41.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.413
+    },
+    "Adam Trautman": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.084,
+      "floor_boost_pct": 0.056,
+      "first_down_rate": 0.694,
+      "signal": "1st down rate 69.4%"
+    },
+    "Jalen Coker": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.084,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.694,
+      "signal": "3rd down rate 58.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.582
+    },
+    "DJ Turner": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.083,
+      "floor_boost_pct": 0.055,
+      "first_down_rate": 0.692,
+      "signal": "1st down rate 69.2%"
+    },
+    "Isaiah Hodgins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.083,
+      "floor_boost_pct": 0.033,
+      "first_down_rate": 0.692,
+      "signal": "3rd down rate 25.0%",
+      "ceiling_penalty_pct": -0.017,
+      "third_down_target_rate": 0.25
+    },
+    "Pat Bryant": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.083,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.692,
+      "signal": "3rd down rate 54.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.545
+    },
+    "Josh Oliver": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.082,
+      "floor_boost_pct": 0.055,
+      "first_down_rate": 0.69,
+      "signal": "1st down rate 69.0%"
+    },
+    "Xavier Gipson": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.081,
+      "floor_boost_pct": 0.054,
+      "first_down_rate": 0.688,
+      "signal": "1st down rate 68.8%"
+    },
+    "Austin Hooper": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.529,
+      "signal": "3rd down rate 42.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.425
+    },
+    "Romeo Doubs": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.08,
+      "floor_boost_pct": 0.055,
+      "first_down_rate": 0.683,
+      "signal": "3rd down rate 28.2%",
+      "ceiling_penalty_pct": -0.027,
+      "third_down_target_rate": 0.282
+    },
+    "Braxton Berrios": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.028,
+      "first_down_rate": 0.571,
+      "signal": "1st down rate 57.1%"
+    },
+    "Will Dissly": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.042,
+      "first_down_rate": 0.667,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.395,
+      "correlation_reduction_qb": -0.063,
+      "yards_created_per_touch": 1.34
+    },
+    "Diontae Johnson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.03,
+      "floor_boost_pct": 0.076,
+      "first_down_rate": 0.537,
+      "signal": "3rd down rate 31.4%",
+      "ceiling_penalty_pct": -0.038,
+      "third_down_target_rate": 0.314
+    },
+    "Brandin Cooks": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.066,
+      "floor_boost_pct": 0.09,
+      "first_down_rate": 0.643,
+      "signal": "3rd down rate 33.5%",
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.335
+    },
+    "Nelson Agholor": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.077,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.675,
+      "signal": "3rd down rate 47.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.47
+    },
+    "Elijah Higgins": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.077,
+      "floor_boost_pct": 0.051,
+      "first_down_rate": 0.674,
+      "signal": "1st down rate 67.4%"
+    },
+    "Darren Waller": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.029,
+      "floor_boost_pct": 0.083,
+      "first_down_rate": 0.536,
+      "signal": "3rd down rate 32.4%",
+      "ceiling_penalty_pct": -0.041,
+      "third_down_target_rate": 0.324
+    },
+    "Dallas Goedert": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.06,
+      "first_down_rate": 0.667,
+      "signal": "3rd down rate 29.0%",
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.29
+    },
+    "Cedrick Wilson Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.667,
+      "signal": "3rd down rate 69.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.694
+    },
+    "Kevin Austin Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.667,
+      "signal": "3rd down rate 57.1%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.571
+    },
+    "Jahan Dotson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.044,
+      "floor_boost_pct": 0.066,
+      "first_down_rate": 0.578,
+      "signal": "3rd down rate 29.9%",
+      "ceiling_penalty_pct": -0.033,
+      "third_down_target_rate": 0.299
+    },
+    "Trent Sherfield": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.074,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.667,
+      "signal": "3rd down rate 48.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.484
+    },
+    "Tyler Boyd": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.043,
+      "first_down_rate": 0.528,
+      "signal": "Yards created/touch 1.4",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.359,
+      "correlation_reduction_qb": -0.064,
+      "yards_created_per_touch": 1.45
+    },
+    "Robert Woods": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.053,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.604,
+      "signal": "3rd down rate 43.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.432
+    },
+    "DK Metcalf": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.061,
+      "floor_boost_pct": 0.064,
+      "first_down_rate": 0.628,
+      "signal": "Yards created/touch 2.3",
+      "ceiling_penalty_pct": -0.024,
+      "third_down_target_rate": 0.272,
+      "correlation_reduction_qb": -0.095,
+      "yards_created_per_touch": 2.26
+    },
+    "Tank Dell": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.072,
+      "floor_boost_pct": 0.094,
+      "first_down_rate": 0.66,
+      "signal": "3rd down rate 34.1%",
+      "ceiling_penalty_pct": -0.047,
+      "third_down_target_rate": 0.341
+    },
+    "Daniel Bellinger": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.038,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.56,
+      "signal": "3rd down rate 40.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.408
+    },
+    "Elic Ayomanor": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.071,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.657,
+      "signal": "3rd down rate 38.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.38
+    },
+    "Keon Coleman": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.071,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.656,
+      "signal": "3rd down rate 39.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.397
+    },
+    "Chris Olave": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.038,
+      "floor_boost_pct": 0.09,
+      "first_down_rate": 0.561,
+      "signal": "3rd down rate 33.5%",
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.335
+    },
+    "Kendall Hinton": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.069,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.652,
+      "signal": "3rd down rate 54.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.545
+    },
+    "Colston Loveland": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.069,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.652,
+      "signal": "3rd down rate 37.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.375
+    },
+    "Ryan Flournoy": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.069,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.65,
+      "signal": "3rd down rate 73.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.738
+    },
+    "Marvin Harrison Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.068,
+      "floor_boost_pct": 0.057,
+      "first_down_rate": 0.649,
+      "signal": "3rd down rate 28.6%",
+      "ceiling_penalty_pct": -0.029,
+      "third_down_target_rate": 0.286
+    },
+    "Terry McLaurin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.086,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 32.9%",
+      "ceiling_penalty_pct": -0.043,
+      "third_down_target_rate": 0.329
+    },
+    "Michael Gallup": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.043,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.576,
+      "signal": "3rd down rate 42.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.424
+    },
+    "Andrei Iosivas": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.068,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.648,
+      "signal": "3rd down rate 48.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.482
+    },
+    "Marvin Jones Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.067,
+      "floor_boost_pct": 0.082,
+      "first_down_rate": 0.646,
+      "signal": "3rd down rate 32.3%",
+      "ceiling_penalty_pct": -0.041,
+      "third_down_target_rate": 0.323
+    },
+    "Courtland Sutton": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.048,
+      "floor_boost_pct": 0.071,
+      "first_down_rate": 0.59,
+      "signal": "3rd down rate 30.7%",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.307
+    },
+    "Treylon Burks": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.067,
+      "floor_boost_pct": 0.078,
+      "first_down_rate": 0.645,
+      "signal": "3rd down rate 31.7%",
+      "ceiling_penalty_pct": -0.039,
+      "third_down_target_rate": 0.317
+    },
+    "Calvin Ridley": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.062,
+      "floor_boost_pct": 0.072,
+      "first_down_rate": 0.63,
+      "signal": "3rd down rate 30.8%",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.308
+    },
+    "DeAndre Carter": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.067,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.644,
+      "signal": "3rd down rate 38.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.387
+    },
+    "Kalif Raymond": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.041,
+      "floor_boost_pct": 0.043,
+      "first_down_rate": 0.568,
+      "signal": "Yards created/touch 0.6",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.509,
+      "correlation_reduction_qb": -0.065,
+      "yards_created_per_touch": 0.56
+    },
+    "Randall Cobb": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.066,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.643,
+      "signal": "3rd down rate 35.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.357
+    },
+    "Tee Higgins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.04,
+      "floor_boost_pct": 0.069,
+      "first_down_rate": 0.566,
+      "signal": "3rd down rate 30.3%",
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.303
+    },
+    "Nico Collins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.065,
+      "floor_boost_pct": 0.047,
+      "first_down_rate": 0.64,
+      "signal": "Yards created/touch 1.5",
+      "ceiling_penalty_pct": -0.045,
+      "third_down_target_rate": 0.335,
+      "correlation_reduction_qb": -0.07,
+      "yards_created_per_touch": 1.52
+    },
+    "Cedric Tillman": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.064,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.638,
+      "signal": "3rd down rate 55.6%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.556
+    },
+    "Matthew Golden": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.064,
+      "floor_boost_pct": 0.05,
+      "first_down_rate": 0.636,
+      "signal": "Yards created/touch 1.2",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.476,
+      "correlation_reduction_qb": -0.075,
+      "yards_created_per_touch": 1.22
+    },
+    "Mike Evans": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.061,
+      "floor_boost_pct": 0.039,
+      "first_down_rate": 0.627,
+      "signal": "3rd down rate 25.9%",
+      "ceiling_penalty_pct": -0.02,
+      "third_down_target_rate": 0.259
+    },
+    "Garrett Wilson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.063,
+      "floor_boost_pct": 0.039,
+      "first_down_rate": 0.634,
+      "signal": "3rd down rate 25.8%",
+      "ceiling_penalty_pct": -0.019,
+      "third_down_target_rate": 0.258
+    },
+    "Jarvis Landry": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.062,
+      "floor_boost_pct": 0.064,
+      "first_down_rate": 0.632,
+      "signal": "3rd down rate 29.7%",
+      "ceiling_penalty_pct": -0.032,
+      "third_down_target_rate": 0.297
+    },
+    "Shi Smith": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.062,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.632,
+      "signal": "3rd down rate 57.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.57
+    },
+    "Hunter Henry": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 37.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.37
+    },
+    "DJ Moore": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.053,
+      "first_down_rate": 0.573,
+      "signal": "3rd down rate 27.9%",
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.279
+    },
+    "A.J. Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.052,
+      "floor_boost_pct": 0.042,
+      "first_down_rate": 0.602,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.022,
+      "third_down_target_rate": 0.266,
+      "correlation_reduction_qb": -0.062,
+      "yards_created_per_touch": 1.27
+    },
+    "Michael Wilson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.06,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.625,
+      "signal": "3rd down rate 37.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.374
+    },
+    "Jack Bech": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.06,
+      "floor_boost_pct": 0.04,
+      "first_down_rate": 0.625,
+      "signal": "1st down rate 62.5%"
+    },
+    "Adam Thielen": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.06,
+      "floor_boost_pct": 0.047,
+      "first_down_rate": 0.625,
+      "signal": "3rd down rate 27.0%",
+      "ceiling_penalty_pct": -0.023,
+      "third_down_target_rate": 0.27
+    },
+    "JuJu Smith-Schuster": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.068,
+      "first_down_rate": 0.522,
+      "signal": "3rd down rate 30.3%",
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.303
+    },
+    "Jayden Higgins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.059,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.622,
+      "signal": "3rd down rate 39.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.392
+    },
+    "Darnell Washington": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.059,
+      "floor_boost_pct": 0.039,
+      "first_down_rate": 0.622,
+      "signal": "1st down rate 62.2%"
+    },
+    "Dawson Knox": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.031,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.542,
+      "signal": "3rd down rate 41.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.414
+    },
+    "Mike Gesicki": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.563,
+      "signal": "3rd down rate 41.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.417
+    },
+    "Jelani Woods": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.058,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.619,
+      "signal": "3rd down rate 52.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.525
+    },
+    "Tim Patrick": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.057,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.615,
+      "signal": "3rd down rate 41.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.418
+    },
+    "Olamide Zaccheaus": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.053,
+      "floor_boost_pct": 0.045,
+      "first_down_rate": 0.605,
+      "signal": "Yards created/touch 1.2",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.431,
+      "correlation_reduction_qb": -0.068,
+      "yards_created_per_touch": 1.2
+    },
+    "Justin Jefferson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.046,
+      "floor_boost_pct": 0.048,
+      "first_down_rate": 0.583,
+      "signal": "3rd down rate 27.2%",
+      "ceiling_penalty_pct": -0.024,
+      "third_down_target_rate": 0.272
+    },
+    "Pat Freiermuth": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.056,
+      "floor_boost_pct": 0.041,
+      "first_down_rate": 0.614,
+      "signal": "Yards created/touch 1.4",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.373,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.44
+    },
+    "DeAndre Hopkins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.571,
+      "signal": "3rd down rate 35.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.358
+    },
+    "Chigoziem Okonkwo": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.056,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.613,
+      "signal": "3rd down rate 43.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.438
+    },
+    "Tyler Lockett": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.055,
+      "floor_boost_pct": 0.061,
+      "first_down_rate": 0.612,
+      "signal": "3rd down rate 29.1%",
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.291
+    },
+    "Malik Heath": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.055,
+      "floor_boost_pct": 0.037,
+      "first_down_rate": 0.611,
+      "signal": "1st down rate 61.1%"
+    },
+    "Tez Johnson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.054,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.609,
+      "signal": "3rd down rate 52.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.523
+    },
+    "Tre' Harris": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.054,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.609,
+      "signal": "3rd down rate 57.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.577
+    },
+    "DJ Chark Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.054,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.606,
+      "signal": "3rd down rate 45.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.455
+    },
+    "Jerry Jeudy": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.047,
+      "first_down_rate": 0.522,
+      "signal": "Yards created/touch 1.4",
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.277,
+      "correlation_reduction_qb": -0.071,
+      "yards_created_per_touch": 1.44
+    },
+    "Parker Washington": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.052,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.602,
+      "signal": "3rd down rate 57.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.574
+    },
+    "Brian Thomas Jr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.052,
+      "floor_boost_pct": 0.073,
+      "first_down_rate": 0.602,
+      "signal": "3rd down rate 30.9%",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.309
+    },
+    "David Njoku": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.045,
+      "first_down_rate": 0.6,
+      "signal": "Yards created/touch 1.6",
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.306,
+      "correlation_reduction_qb": -0.068,
+      "yards_created_per_touch": 1.6
+    },
+    "Mason Taylor": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 37.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.378
+    },
+    "Davis Allen": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.034,
+      "first_down_rate": 0.6,
+      "signal": "1st down rate 60.0%"
+    },
+    "Colby Parkinson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.035,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.552,
+      "signal": "3rd down rate 52.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.525
+    },
+    "Trenton Irwin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 66.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.667
+    },
+    "Cooper Kupp": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.048,
+      "first_down_rate": 0.528,
+      "signal": "Yards created/touch 1.6",
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.301,
+      "correlation_reduction_qb": -0.072,
+      "yards_created_per_touch": 1.6
+    },
+    "Amon-Ra St. Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.045,
+      "floor_boost_pct": 0.069,
+      "first_down_rate": 0.58,
+      "signal": "3rd down rate 30.4%",
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.304
+    },
+    "Elijah Moore": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.051,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.6,
+      "signal": "3rd down rate 36.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.364
+    },
+    "Christian Kirk": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.043,
+      "floor_boost_pct": 0.078,
+      "first_down_rate": 0.574,
+      "signal": "3rd down rate 31.7%",
+      "ceiling_penalty_pct": -0.039,
+      "third_down_target_rate": 0.317
+    },
+    "Emeka Egbuka": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.05,
+      "floor_boost_pct": 0.063,
+      "first_down_rate": 0.596,
+      "signal": "3rd down rate 29.5%",
+      "ceiling_penalty_pct": -0.032,
+      "third_down_target_rate": 0.295
+    },
+    "Stefon Diggs": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.028,
+      "floor_boost_pct": 0.037,
+      "first_down_rate": 0.531,
+      "signal": "3rd down rate 25.5%",
+      "ceiling_penalty_pct": -0.018,
+      "third_down_target_rate": 0.255
+    },
+    "Jordan Akins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.562,
+      "signal": "3rd down rate 48.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.48
+    },
+    "George Kittle": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.049,
+      "floor_boost_pct": 0.046,
+      "first_down_rate": 0.593,
+      "signal": "Yards created/touch 1.5",
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.331,
+      "correlation_reduction_qb": -0.07,
+      "yards_created_per_touch": 1.53
+    },
+    "K.J. Osborn": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.072,
+      "first_down_rate": 0.529,
+      "signal": "3rd down rate 30.7%",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.307
+    },
+    "Mark Andrews": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.03,
+      "floor_boost_pct": 0.04,
+      "first_down_rate": 0.537,
+      "signal": "3rd down rate 26.0%",
+      "ceiling_penalty_pct": -0.02,
+      "third_down_target_rate": 0.26
+    },
+    "Luther Burden III": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.048,
+      "floor_boost_pct": 0.044,
+      "first_down_rate": 0.59,
+      "signal": "Yards created/touch 1.1",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.406,
+      "correlation_reduction_qb": -0.065,
+      "yards_created_per_touch": 1.1
+    },
+    "Jalen Tolbert": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.048,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.589,
+      "signal": "3rd down rate 58.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.583
+    },
+    "Durham Smythe": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.047,
+      "floor_boost_pct": 0.032,
+      "first_down_rate": 0.588,
+      "signal": "1st down rate 58.8%"
+    },
+    "Michael Mayer": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.047,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.587,
+      "signal": "3rd down rate 56.6%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.566
+    },
+    "Sterling Shepard": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.046,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.585,
+      "signal": "3rd down rate 47.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.478
+    },
+    "Tucker Kraft": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.046,
+      "floor_boost_pct": 0.059,
+      "first_down_rate": 0.583,
+      "signal": "Yards created/touch 1.9",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.476,
+      "correlation_reduction_qb": -0.088,
+      "yards_created_per_touch": 1.89
+    },
+    "Brock Wright": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.046,
+      "floor_boost_pct": 0.03,
+      "first_down_rate": 0.583,
+      "signal": "1st down rate 58.3%"
+    },
+    "Noah Fant": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.033,
+      "floor_boost_pct": 0.046,
+      "first_down_rate": 0.548,
+      "signal": "Yards created/touch 1.5",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.36,
+      "correlation_reduction_qb": -0.069,
+      "yards_created_per_touch": 1.5
+    },
+    "Deebo Samuel Sr.": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.045,
+      "floor_boost_pct": 0.047,
+      "first_down_rate": 0.581,
+      "signal": "Yards created/touch 1.4",
+      "ceiling_penalty_pct": -0.047,
+      "third_down_target_rate": 0.34,
+      "correlation_reduction_qb": -0.071,
+      "yards_created_per_touch": 1.37
+    },
+    "Ladd McConkey": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.044,
+      "floor_boost_pct": 0.089,
+      "first_down_rate": 0.58,
+      "signal": "3rd down rate 33.3%",
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.333
+    },
+    "Rashid Shaheed": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.05,
+      "first_down_rate": 0.528,
+      "signal": "Yards created/touch 0.8",
+      "ceiling_penalty_pct": -0.036,
+      "third_down_target_rate": 0.309,
+      "correlation_reduction_qb": -0.074,
+      "yards_created_per_touch": 0.84
+    },
+    "Isaiah McKenzie": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.043,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.575,
+      "signal": "3rd down rate 54.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.548
+    },
+    "Zay Flowers": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.047,
+      "first_down_rate": 0.573,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.037,
+      "third_down_target_rate": 0.312,
+      "correlation_reduction_qb": -0.07,
+      "yards_created_per_touch": 1.35
+    },
+    "Jalin Hyatt": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.028,
+      "first_down_rate": 0.571,
+      "signal": "1st down rate 57.1%"
+    },
+    "Lucas Krull": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.028,
+      "first_down_rate": 0.571,
+      "signal": "1st down rate 57.1%"
+    },
+    "Jaxon Smith-Njigba": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.083,
+      "first_down_rate": 0.571,
+      "signal": "3rd down rate 32.5%",
+      "ceiling_penalty_pct": -0.042,
+      "third_down_target_rate": 0.325
+    },
+    "Isaiah Likely": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.036,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.556,
+      "signal": "3rd down rate 46.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.462
+    },
+    "Oronde Gadsden": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.042,
+      "floor_boost_pct": 0.099,
+      "first_down_rate": 0.571,
+      "signal": "3rd down rate 34.8%",
+      "ceiling_penalty_pct": -0.049,
+      "third_down_target_rate": 0.348
+    },
+    "Noah Gray": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.041,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.57,
+      "signal": "3rd down rate 55.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.552
+    },
+    "Travis Kelce": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.041,
+      "floor_boost_pct": 0.046,
+      "first_down_rate": 0.569,
+      "signal": "3rd down rate 26.9%",
+      "ceiling_penalty_pct": -0.023,
+      "third_down_target_rate": 0.269
+    },
+    "Tyler Higbee": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.041,
+      "floor_boost_pct": 0.077,
+      "first_down_rate": 0.569,
+      "signal": "3rd down rate 31.5%",
+      "ceiling_penalty_pct": -0.038,
+      "third_down_target_rate": 0.315
+    },
+    "Marquise Brown": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.041,
+      "floor_boost_pct": 0.054,
+      "first_down_rate": 0.569,
+      "signal": "3rd down rate 28.0%",
+      "ceiling_penalty_pct": -0.027,
+      "third_down_target_rate": 0.28
+    },
+    "Puka Nacua": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.04,
+      "floor_boost_pct": 0.051,
+      "first_down_rate": 0.567,
+      "signal": "Yards created/touch 1.6",
+      "ceiling_penalty_pct": -0.025,
+      "third_down_target_rate": 0.276,
+      "correlation_reduction_qb": -0.076,
+      "yards_created_per_touch": 1.64
+    },
+    "Chris Godwin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.093,
+      "first_down_rate": 0.565,
+      "signal": "3rd down rate 33.9%",
+      "ceiling_penalty_pct": -0.046,
+      "third_down_target_rate": 0.339
+    },
+    "Jonnu Smith": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.043,
+      "first_down_rate": 0.564,
+      "signal": "Yards created/touch 1.4",
+      "ceiling_penalty_pct": -0.041,
+      "third_down_target_rate": 0.323,
+      "correlation_reduction_qb": -0.065,
+      "yards_created_per_touch": 1.35
+    },
+    "Malik Washington": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.058,
+      "first_down_rate": 0.564,
+      "signal": "Yards created/touch 1.5",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.567,
+      "correlation_reduction_qb": -0.087,
+      "yards_created_per_touch": 1.51
+    },
+    "Ja'Marr Chase": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.035,
+      "floor_boost_pct": 0.041,
+      "first_down_rate": 0.551,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.018,
+      "third_down_target_rate": 0.254,
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.32
+    },
+    "C.J. Uzomah": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.026,
+      "first_down_rate": 0.562,
+      "signal": "1st down rate 56.2%"
+    },
+    "Luke Schoonmaker": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.039,
+      "floor_boost_pct": 0.026,
+      "first_down_rate": 0.562,
+      "signal": "1st down rate 56.2%"
+    },
+    "Marquise Goodwin": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.038,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.56,
+      "signal": "3rd down rate 63.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.634
+    },
+    "Quentin Johnston": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.038,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.56,
+      "signal": "3rd down rate 35.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.354
+    },
+    "Jalen McMillan": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.037,
+      "floor_boost_pct": 0.094,
+      "first_down_rate": 0.558,
+      "signal": "3rd down rate 34.1%",
+      "ceiling_penalty_pct": -0.047,
+      "third_down_target_rate": 0.341
+    },
+    "Tanner Hudson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.037,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.557,
+      "signal": "3rd down rate 57.8%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.578
+    },
+    "Tre Tucker": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.037,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.557,
+      "signal": "3rd down rate 38.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.384
+    },
+    "Phillip Dorsett": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.036,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.556,
+      "signal": "3rd down rate 42.9%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.429
+    },
+    "Trey Palmer": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.036,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.556,
+      "signal": "3rd down rate 55.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.554
+    },
+    "Greg Dortch": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.036,
+      "floor_boost_pct": 0.063,
+      "first_down_rate": 0.556,
+      "signal": "Yards created/touch 1.8",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.611,
+      "correlation_reduction_qb": -0.095,
+      "yards_created_per_touch": 1.78
+    },
+    "Keenan Allen": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.085,
+      "first_down_rate": 0.522,
+      "signal": "3rd down rate 32.8%",
+      "ceiling_penalty_pct": -0.043,
+      "third_down_target_rate": 0.328
+    },
+    "Jakobi Meyers": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.031,
+      "floor_boost_pct": 0.061,
+      "first_down_rate": 0.541,
+      "signal": "3rd down rate 29.1%",
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.291
+    },
+    "Michael Thomas": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.035,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.553,
+      "signal": "3rd down rate 36.5%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.365
+    },
+    "Deebo Samuel": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.035,
+      "floor_boost_pct": 0.05,
+      "first_down_rate": 0.552,
+      "signal": "Yards created/touch 0.9",
+      "ceiling_penalty_pct": -0.032,
+      "third_down_target_rate": 0.296,
+      "correlation_reduction_qb": -0.075,
+      "yards_created_per_touch": 0.85
+    },
+    "Curtis Samuel": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.034,
+      "floor_boost_pct": 0.054,
+      "first_down_rate": 0.55,
+      "signal": "3rd down rate 28.1%",
+      "ceiling_penalty_pct": -0.027,
+      "third_down_target_rate": 0.281
+    },
+    "Quez Watkins": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.034,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.55,
+      "signal": "3rd down rate 44.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.44
+    },
+    "Zach Ertz": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.034,
+      "floor_boost_pct": 0.038,
+      "first_down_rate": 0.55,
+      "signal": "3rd down rate 25.8%",
+      "ceiling_penalty_pct": -0.019,
+      "third_down_target_rate": 0.258
+    },
+    "Juwan Johnson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.029,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.534,
+      "signal": "3rd down rate 44.2%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.442
+    },
+    "Travis Hunter": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.033,
+      "floor_boost_pct": 0.022,
+      "first_down_rate": 0.545,
+      "signal": "1st down rate 54.5%"
+    },
+    "DeVonta Smith": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.068,
+      "first_down_rate": 0.527,
+      "signal": "3rd down rate 30.3%",
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.303
+    },
+    "CeeDee Lamb": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.03,
+      "floor_boost_pct": 0.041,
+      "first_down_rate": 0.537,
+      "signal": "Yards created/touch 1.3",
+      "ceiling_penalty_pct": -0.028,
+      "third_down_target_rate": 0.284,
+      "correlation_reduction_qb": -0.062,
+      "yards_created_per_touch": 1.28
+    },
+    "Lil'Jordan Humphrey": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.03,
+      "floor_boost_pct": 0.02,
+      "first_down_rate": 0.537,
+      "signal": "1st down rate 53.7%"
+    },
+    "Tyler Warren": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.029,
+      "floor_boost_pct": 0.051,
+      "first_down_rate": 0.535,
+      "signal": "3rd down rate 27.7%",
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.277
+    },
+    "Greg Dulcich": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.079,
+      "first_down_rate": 0.522,
+      "signal": "3rd down rate 31.8%",
+      "ceiling_penalty_pct": -0.039,
+      "third_down_target_rate": 0.318
+    },
+    "Evan Engram": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.029,
+      "floor_boost_pct": 0.041,
+      "first_down_rate": 0.533,
+      "signal": "3rd down rate 26.2%",
+      "ceiling_penalty_pct": -0.021,
+      "third_down_target_rate": 0.262
+    },
+    "Drew Sample": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.028,
+      "floor_boost_pct": 0.019,
+      "first_down_rate": 0.531,
+      "signal": "1st down rate 53.1%"
+    },
+    "John Metchie III": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.028,
+      "floor_boost_pct": 0.076,
+      "first_down_rate": 0.531,
+      "signal": "3rd down rate 31.4%",
+      "ceiling_penalty_pct": -0.038,
+      "third_down_target_rate": 0.314
+    },
+    "Russell Gage": {
+      "tags": [
+        "CHAIN_MOVER"
+      ],
+      "correlation_boost_qb_volume": 0.028,
+      "floor_boost_pct": 0.018,
+      "first_down_rate": 0.531,
+      "signal": "1st down rate 53.1%"
+    },
+    "Kadarius Toney": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.053,
+      "first_down_rate": 0.529,
+      "signal": "Yards created/touch 1.0",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.37,
+      "correlation_reduction_qb": -0.08,
+      "yards_created_per_touch": 1.0
+    },
+    "Sam LaPorta": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.027,
+      "floor_boost_pct": 0.08,
+      "first_down_rate": 0.529,
+      "signal": "3rd down rate 31.9%",
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.319
+    },
+    "T.J. Hockenson": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.084,
+      "first_down_rate": 0.527,
+      "signal": "3rd down rate 32.5%",
+      "ceiling_penalty_pct": -0.042,
+      "third_down_target_rate": 0.325
+    },
+    "Donovan Peoples-Jones": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.525,
+      "signal": "3rd down rate 38.4%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.384
+    },
+    "Xavier Worthy": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.089,
+      "first_down_rate": 0.525,
+      "signal": "3rd down rate 33.3%",
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.333
+    },
+    "Josh Downs": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.026,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.525,
+      "signal": "3rd down rate 39.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.39
+    },
+    "Hunter Renfrow": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.524,
+      "signal": "3rd down rate 40.0%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.4
+    },
+    "Chris Moore": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.524,
+      "signal": "3rd down rate 36.3%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.363
+    },
+    "Xavier Legette": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.025,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.522,
+      "signal": "3rd down rate 46.6%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.466
+    },
+    "Jordan Addison": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.024,
+      "floor_boost_pct": 0.067,
+      "first_down_rate": 0.521,
+      "signal": "3rd down rate 30.1%",
+      "ceiling_penalty_pct": -0.034,
+      "third_down_target_rate": 0.301
+    },
+    "Demario Douglas": {
+      "tags": [
+        "CHAIN_MOVER",
+        "THE_BAILOUT_OPTION"
+      ],
+      "correlation_boost_qb_volume": 0.024,
+      "floor_boost_pct": 0.1,
+      "first_down_rate": 0.52,
+      "signal": "3rd down rate 39.7%",
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.397
+    },
+    "Isaiah Williams": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.966,
+      "signal": "3rd down rate 96.6%"
+    },
+    "Irv Smith Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.508,
+      "signal": "3rd down rate 50.8%"
+    },
+    "Mecole Hardman Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.893,
+      "signal": "3rd down rate 89.3%"
+    },
+    "Albert Okwuegbunam": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.889,
+      "signal": "3rd down rate 88.9%"
+    },
+    "Dante Pettis": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.705,
+      "signal": "3rd down rate 70.5%"
+    },
+    "David Sills V": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.784,
+      "signal": "3rd down rate 78.4%"
+    },
+    "Dont'e Thornton Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.772,
+      "signal": "3rd down rate 77.2%"
+    },
+    "Brandon Johnson": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.758,
+      "signal": "3rd down rate 75.8%"
+    },
+    "Stephen Sullivan": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.754,
+      "signal": "3rd down rate 75.4%"
+    },
+    "Isaiah Bond": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.754,
+      "signal": "3rd down rate 75.4%"
+    },
+    "Jaylin Noel": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.739,
+      "signal": "3rd down rate 73.9%"
+    },
+    "Tyler Johnson": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.721,
+      "signal": "3rd down rate 72.1%"
+    },
+    "Scotty Miller": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.72,
+      "signal": "3rd down rate 72.0%"
+    },
+    "Ja'Lynn Polk": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.714,
+      "signal": "3rd down rate 71.4%"
+    },
+    "Jaylin Lane": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.711,
+      "signal": "3rd down rate 71.1%"
+    },
+    "Tommy Tremble": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.686,
+      "signal": "3rd down rate 68.6%"
+    },
+    "Kyle Philips": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.665,
+      "signal": "3rd down rate 66.5%"
+    },
+    "Harrison Bryant": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.648,
+      "signal": "3rd down rate 64.8%"
+    },
+    "Lawrence Cager": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.635,
+      "signal": "3rd down rate 63.5%"
+    },
+    "Luke Musgrave": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.618,
+      "signal": "3rd down rate 61.8%"
+    },
+    "Jalen Reagor": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.611,
+      "signal": "3rd down rate 61.1%"
+    },
+    "Ja'Tavion Sanders": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.611,
+      "signal": "3rd down rate 61.1%"
+    },
+    "Jamal Agnew": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.6,
+      "signal": "3rd down rate 60.0%"
+    },
+    "Derrick Henry": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.066,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.472,
+      "signal": "Yards created/touch 1.8",
+      "correlation_reduction_qb": -0.099,
+      "yards_created_per_touch": 1.81
+    },
+    "Elijah Arroyo": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.583,
+      "signal": "3rd down rate 58.3%"
+    },
+    "Brenton Strange": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.581,
+      "signal": "3rd down rate 58.1%"
+    },
+    "Mecole Hardman": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.568,
+      "signal": "3rd down rate 56.8%"
+    },
+    "A.J. Green": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.559,
+      "signal": "3rd down rate 55.9%"
+    },
+    "Calvin Austin III": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.555,
+      "signal": "3rd down rate 55.5%"
+    },
+    "Marvin Mims Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.047,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.533,
+      "signal": "Yards created/touch 1.6",
+      "correlation_reduction_qb": -0.071,
+      "yards_created_per_touch": 1.57
+    },
+    "Chimere Dike": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.519,
+      "signal": "3rd down rate 51.9%"
+    },
+    "Parris Campbell": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.08,
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.32,
+      "signal": "3rd down rate 32.0%"
+    },
+    "David Bell": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.514,
+      "signal": "3rd down rate 51.4%"
+    },
+    "Cameron Brate": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.511,
+      "signal": "3rd down rate 51.1%"
+    },
+    "Robert Tonyan": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.507,
+      "signal": "3rd down rate 50.7%"
+    },
+    "Rondale Moore": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.073,
+      "ceiling_penalty_pct": -0.037,
+      "third_down_target_rate": 0.31,
+      "signal": "3rd down rate 31.0%"
+    },
+    "Tyler Conklin": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.427,
+      "signal": "3rd down rate 42.7%"
+    },
+    "Tory Horton": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.436,
+      "signal": "3rd down rate 43.6%"
+    },
+    "Gunnar Helm": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.436,
+      "signal": "3rd down rate 43.6%"
+    },
+    "Devin Duvernay": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.429,
+      "signal": "3rd down rate 42.9%"
+    },
+    "Jonathan Mingo": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.425,
+      "signal": "3rd down rate 42.5%"
+    },
+    "Cole Kmet": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.394,
+      "signal": "3rd down rate 39.4%"
+    },
+    "Theo Johnson": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.415,
+      "signal": "3rd down rate 41.5%"
+    },
+    "Richie James": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.414,
+      "signal": "3rd down rate 41.4%"
+    },
+    "Trey McBride": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.032,
+      "ceiling_penalty_pct": -0.016,
+      "third_down_target_rate": 0.248,
+      "signal": "3rd down rate 24.8%"
+    },
+    "Erick All Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.409,
+      "signal": "3rd down rate 40.9%"
+    },
+    "Hayden Hurst": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.352,
+      "signal": "3rd down rate 35.2%"
+    },
+    "Laviska Shenault Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.054,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.406,
+      "signal": "Yards created/touch 1.0",
+      "correlation_reduction_qb": -0.082,
+      "yards_created_per_touch": 1.05
+    },
+    "Logan Thomas": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.075,
+      "ceiling_penalty_pct": -0.038,
+      "third_down_target_rate": 0.313,
+      "signal": "3rd down rate 31.3%"
+    },
+    "DeMario Douglas": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.4,
+      "signal": "3rd down rate 40.0%"
+    },
+    "Dalton Schultz": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.382,
+      "signal": "3rd down rate 38.2%"
+    },
+    "Kyle Pitts Sr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.382,
+      "signal": "3rd down rate 38.2%"
+    },
+    "Jalen Guyton": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.381,
+      "signal": "3rd down rate 38.1%"
+    },
+    "Wan'Dale Robinson": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.379,
+      "signal": "3rd down rate 37.9%"
+    },
+    "Cade Otton": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.351,
+      "signal": "3rd down rate 35.1%"
+    },
+    "Ben Skowronek": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.376,
+      "signal": "3rd down rate 37.6%"
+    },
+    "Jayden Reed": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.04,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.372,
+      "signal": "Yards created/touch 1.3",
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.32
+    },
+    "Brevin Jordan": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.37,
+      "signal": "3rd down rate 37.0%"
+    },
+    "AJ Barner": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.367,
+      "signal": "3rd down rate 36.7%"
+    },
+    "Troy Franklin": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.1,
+      "ceiling_penalty_pct": -0.05,
+      "third_down_target_rate": 0.367,
+      "signal": "3rd down rate 36.7%"
+    },
+    "Gerald Everett": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.069,
+      "ceiling_penalty_pct": -0.048,
+      "third_down_target_rate": 0.343,
+      "signal": "Yards created/touch 2.0",
+      "correlation_reduction_qb": -0.103,
+      "yards_created_per_touch": 2.01
+    },
+    "Michael Pittman Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.089,
+      "ceiling_penalty_pct": -0.044,
+      "third_down_target_rate": 0.333,
+      "signal": "3rd down rate 33.3%"
+    },
+    "Dalton Kincaid": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.084,
+      "ceiling_penalty_pct": -0.042,
+      "third_down_target_rate": 0.325,
+      "signal": "3rd down rate 32.5%"
+    },
+    "Chase Claypool": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.08,
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.32,
+      "signal": "3rd down rate 32.0%"
+    },
+    "Ray-Ray McCloud III": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.041,
+      "ceiling_penalty_pct": -0.04,
+      "third_down_target_rate": 0.319,
+      "signal": "Yards created/touch 1.4",
+      "correlation_reduction_qb": -0.061,
+      "yards_created_per_touch": 1.38
+    },
+    "Chig Okonkwo": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.055,
+      "ceiling_penalty_pct": -0.035,
+      "third_down_target_rate": 0.304,
+      "signal": "Yards created/touch 1.6",
+      "correlation_reduction_qb": -0.082,
+      "yards_created_per_touch": 1.62
+    },
+    "Jake Ferguson": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.041,
+      "ceiling_penalty_pct": -0.031,
+      "third_down_target_rate": 0.292,
+      "signal": "Yards created/touch 1.3",
+      "correlation_reduction_qb": -0.062,
+      "yards_created_per_touch": 1.27
+    },
+    "Brock Bowers": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.061,
+      "ceiling_penalty_pct": -0.03,
+      "third_down_target_rate": 0.291,
+      "signal": "3rd down rate 29.1%"
+    },
+    "Julio Jones": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.052,
+      "ceiling_penalty_pct": -0.026,
+      "third_down_target_rate": 0.278,
+      "signal": "3rd down rate 27.8%"
+    },
+    "Harold Fannin Jr.": {
+      "tags": [
+        "THE_BAILOUT_OPTION",
+        "YARDS_CREATED_GOD"
+      ],
+      "floor_boost_pct": 0.046,
+      "ceiling_penalty_pct": -0.024,
+      "third_down_target_rate": 0.271,
+      "signal": "Yards created/touch 1.4",
+      "correlation_reduction_qb": -0.069,
+      "yards_created_per_touch": 1.39
+    },
+    "Rashee Rice": {
+      "tags": [
+        "THE_BAILOUT_OPTION"
+      ],
+      "floor_boost_pct": 0.037,
+      "ceiling_penalty_pct": -0.018,
+      "third_down_target_rate": 0.255,
+      "signal": "3rd down rate 25.5%"
+    },
+    "Taysom Hill": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.138,
+      "floor_boost_pct": 0.092,
+      "yards_created_per_touch": 2.67,
+      "signal": "Yards created/touch 2.7"
+    },
+    "Royce Freeman": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.138,
+      "floor_boost_pct": 0.092,
+      "yards_created_per_touch": 2.66,
+      "signal": "Yards created/touch 2.7"
+    },
+    "Ray Davis": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.123,
+      "floor_boost_pct": 0.082,
+      "yards_created_per_touch": 2.56,
+      "signal": "Yards created/touch 2.6"
+    },
+    "Elijah Mitchell": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.105,
+      "floor_boost_pct": 0.07,
+      "yards_created_per_touch": 2.38,
+      "signal": "Yards created/touch 2.4"
+    },
+    "Isaiah Spiller": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.092,
+      "floor_boost_pct": 0.061,
+      "yards_created_per_touch": 2.23,
+      "signal": "Yards created/touch 2.2"
+    },
+    "Keaontay Ingram": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.123,
+      "floor_boost_pct": 0.082,
+      "yards_created_per_touch": 2.23,
+      "signal": "Yards created/touch 2.2"
+    },
+    "Sean Tucker": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.118,
+      "floor_boost_pct": 0.079,
+      "yards_created_per_touch": 2.13,
+      "signal": "Yards created/touch 2.1"
+    },
+    "Carson Steele": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.103,
+      "floor_boost_pct": 0.069,
+      "yards_created_per_touch": 2.07,
+      "signal": "Yards created/touch 2.1"
+    },
+    "Quinshon Judkins": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.101,
+      "floor_boost_pct": 0.067,
+      "yards_created_per_touch": 2.05,
+      "signal": "Yards created/touch 2.0"
+    },
+    "Ty Chandler": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.099,
+      "floor_boost_pct": 0.066,
+      "yards_created_per_touch": 2.03,
+      "signal": "Yards created/touch 2.0"
+    },
+    "Brashard Smith": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.071,
+      "floor_boost_pct": 0.048,
+      "yards_created_per_touch": 1.57,
+      "signal": "Yards created/touch 1.6"
+    },
+    "Deuce Vaughn": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.073,
+      "floor_boost_pct": 0.049,
+      "yards_created_per_touch": 1.57,
+      "signal": "Yards created/touch 1.6"
+    },
+    "Ollie Gordon II": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.08,
+      "floor_boost_pct": 0.054,
+      "yards_created_per_touch": 1.57,
+      "signal": "Yards created/touch 1.6"
+    },
+    "Kaleb Johnson": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.066,
+      "floor_boost_pct": 0.044,
+      "yards_created_per_touch": 1.47,
+      "signal": "Yards created/touch 1.5"
+    },
+    "Craig Reynolds": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.093,
+      "floor_boost_pct": 0.062,
+      "yards_created_per_touch": 1.36,
+      "signal": "Yards created/touch 1.4"
+    },
+    "Justin Jackson": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.092,
+      "floor_boost_pct": 0.061,
+      "yards_created_per_touch": 1.34,
+      "signal": "Yards created/touch 1.3"
+    },
+    "La'Mical Perine": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.084,
+      "floor_boost_pct": 0.056,
+      "yards_created_per_touch": 1.11,
+      "signal": "Yards created/touch 1.1"
+    },
+    "Sony Michel": {
+      "tags": [
+        "YARDS_CREATED_GOD"
+      ],
+      "correlation_reduction_qb": -0.061,
+      "floor_boost_pct": 0.041,
+      "yards_created_per_touch": 0.69,
+      "signal": "Yards created/touch 0.7"
+    }
+  }
+}

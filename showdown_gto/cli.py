@@ -100,14 +100,36 @@ from .data import load_projections
 @click.option(
     '--shortlist-size',
     type=int,
-    default=500,
-    help='Number of top candidates to consider for greedy selection (default: 500)'
+    default=2000,
+    help='Number of top candidates to consider for greedy selection (default: 2000)'
 )
 @click.option(
     '--greedy-sims',
     type=int,
     default=None,
     help='Max sims for greedy selection (default: min(n_sims, 10000))'
+)
+@click.option(
+    '--effects-file',
+    type=click.Path(exists=True),
+    help='Path to unified_player_effects.json for pre-processing modifiers'
+)
+@click.option(
+    '--sim-config',
+    type=click.Path(exists=True),
+    help='Path to simulation_config_v3.json for role distribution parameters'
+)
+@click.option(
+    '--spread',
+    type=str,
+    default=None,
+    help='Vegas spread: "TEAM VALUE" (e.g., "LAR -3.5"). Negative=favorite.'
+)
+@click.option(
+    '--game-total',
+    type=float,
+    default=None,
+    help='Vegas game total (e.g., 48.5) for conditional correlation modifiers'
 )
 def main(
     csv_path,
@@ -127,7 +149,11 @@ def main(
     copula_df,
     selection_method,
     shortlist_size,
-    greedy_sims
+    greedy_sims,
+    effects_file,
+    sim_config,
+    spread,
+    game_total
 ):
     """
     Run DFS Showdown GTO Portfolio Builder.
@@ -192,6 +218,14 @@ def main(
     click.echo(f"  Field mode: {field_mode}")
     click.echo(f"  Copula: {copula_type}" + (f" (df={copula_df})" if copula_type == 't' else ''))
     click.echo(f"  Selection: {selection_method}" + (f" (shortlist={shortlist_size})" if selection_method == 'greedy_marginal' else ''))
+    if effects_file:
+        click.echo(f"  Effects file: {effects_file}")
+    if sim_config:
+        click.echo(f"  Sim config: {sim_config}")
+    if spread:
+        click.echo(f"  Spread: {spread}")
+    if game_total:
+        click.echo(f"  Game total: {game_total}")
 
     # Run optimization
     results = run_portfolio_optimization(
@@ -208,7 +242,11 @@ def main(
         copula_df=copula_df,
         selection_method=selection_method,
         shortlist_size=shortlist_size,
-        greedy_n_sims=greedy_sims
+        greedy_n_sims=greedy_sims,
+        effects_path=effects_file,
+        sim_config_path=sim_config,
+        spread_str=spread,
+        game_total=game_total
     )
 
     if 'error' in results:

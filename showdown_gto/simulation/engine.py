@@ -3,12 +3,13 @@ Monte Carlo simulation engine for player outcomes.
 
 Generates correlated player scores using copula models and percentile interpolation.
 Supports Gaussian copula (default) and Student-t copula for tail dependence.
+Includes hierarchical game-environment variance decomposition.
 """
 
 import numpy as np
 from scipy import stats
 from scipy.interpolate import interp1d
-from typing import List, Optional, Callable, Literal
+from typing import List, Dict, Optional, Callable, Literal
 import logging
 
 from ..types import ShowdownPlayer, quantize_score
@@ -25,13 +26,17 @@ def simulate_outcomes(
     correlation_matrix: Optional[np.ndarray] = None,
     seed: Optional[int] = None,
     copula_type: CopulaType = "gaussian",
-    copula_df: int = 5
+    copula_df: int = 5,
+    game_shares: Optional[np.ndarray] = None,
+    team_indices: Optional[Dict[str, List[int]]] = None,
+    cross_team_game_corr: float = 0.45
 ) -> np.ndarray:
     """
     Generate correlated player outcome simulations.
 
     Uses a copula to generate correlated uniform samples,
-    then transforms via inverse CDF built from player percentiles.
+    then optionally applies hierarchical game-environment blending
+    (variance decomposition), then transforms via inverse CDF.
 
     Args:
         players: List of players to simulate
@@ -40,6 +45,12 @@ def simulate_outcomes(
         seed: Random seed for reproducibility
         copula_type: "gaussian" (default) or "t" (Student-t for tail dependence)
         copula_df: Degrees of freedom for t-copula (lower = heavier tails). Default 5.
+        game_shares: Optional [n_players] array of game_share per player (0-1).
+                     From variance_decomposition. Higher = more game-environment driven.
+        team_indices: Optional mapping of team_name -> list of player indices.
+                      Required if game_shares is provided.
+        cross_team_game_corr: Correlation between teams' game factors (0-1).
+                              Models shootout scenarios where both offenses boom. Default 0.45.
 
     Returns:
         outcomes: [n_players, n_sims] int32 quantized scores (points × 10)
@@ -66,6 +77,14 @@ def simulate_outcomes(
     for i, inv_cdf in enumerate(inverse_cdfs):
         outcomes[i, :] = inv_cdf(uniform_samples[i, :])
 
+    # Apply hierarchical game-environment in score space
+    # This shifts player scores based on game state, creating meaningful
+    # marginal distribution changes (QBs boom in shootouts, bust in defensive games)
+    if game_shares is not None and team_indices is not None:
+        outcomes = _apply_game_environment(
+            outcomes, players, game_shares, team_indices, cross_team_game_corr
+        )
+
     # Quantize to int32 (points × 10)
     quantized = np.round(outcomes * 10).astype(np.int32)
 
@@ -75,12 +94,99 @@ def simulate_outcomes(
     return quantized
 
 
+def _apply_game_environment(
+    outcomes: np.ndarray,
+    players: List[ShowdownPlayer],
+    game_shares: np.ndarray,
+    team_indices: Dict[str, List[int]],
+    cross_team_game_corr: float = 0.45
+) -> np.ndarray:
+    """
+    Apply hierarchical game-environment variance decomposition in score space.
+
+    Decomposes each player's score variance into game-level and player-level
+    components. In each simulation, a shared game factor shifts all players on
+    a team up or down, creating game-state-dependent outcomes.
+
+    For a pocket QB (game_share=0.82, std=7.5) in a shootout sim (g=+2):
+      - Compression: score toward projection by sqrt(0.18) = 0.43x
+      - Game boost: sqrt(0.82) * 7.5 * 2 = +13.6 DFS pts
+      - This makes QBs viable CPTs in shootout games
+
+    For an alpha WR (game_share=0.11, std=8.0) in same sim:
+      - Compression: score toward projection by sqrt(0.89) = 0.94x (barely changed)
+      - Game boost: sqrt(0.11) * 8.0 * 2 = +5.3 DFS pts
+      - WR barely affected by game state (individual skill dominates)
+
+    Total variance is preserved: Var = (1-gs)*Var_player + gs*std² = std²
+
+    Args:
+        outcomes: [n_players, n_sims] raw scores from inverse CDF (float64)
+        players: List of players (for projection and std)
+        game_shares: [n_players] game_share per player from variance_decomposition
+        team_indices: team_name -> list of player indices
+        cross_team_game_corr: correlation between teams' game factors.
+                              Models shootout scenarios. Default 0.45.
+
+    Returns:
+        [n_players, n_sims] adjusted scores (float64)
+    """
+    n_players, n_sims = outcomes.shape
+    teams = list(team_indices.keys())
+    n_teams = len(teams)
+
+    if n_teams == 0:
+        return outcomes
+
+    # Generate correlated game factors for each team
+    team_corr = np.eye(n_teams)
+    for i in range(n_teams):
+        for j in range(i + 1, n_teams):
+            team_corr[i, j] = cross_team_game_corr
+            team_corr[j, i] = cross_team_game_corr
+
+    # Sample game factors: [n_teams, n_sims] ~ N(0, team_corr)
+    game_factors = np.random.multivariate_normal(
+        np.zeros(n_teams), team_corr, size=n_sims
+    ).T  # [n_teams, n_sims]
+
+    # Apply score-space decomposition
+    adjusted = outcomes.copy()
+    for team_idx, team_name in enumerate(teams):
+        player_idxs = team_indices[team_name]
+        g = game_factors[team_idx]  # [n_sims]
+        for pidx in player_idxs:
+            gs = game_shares[pidx]
+            if gs <= 0:
+                continue
+            player = players[pidx]
+            proj = player.projection
+            std = player.std if player.std > 0 else 1.0
+
+            # Compress player-level variance toward projection
+            player_component = proj + np.sqrt(1.0 - gs) * (outcomes[pidx] - proj)
+
+            # Add game-level shift (scaled by player's std)
+            game_component = np.sqrt(gs) * std * g
+
+            adjusted[pidx] = player_component + game_component
+
+    n_affected = int(np.sum(game_shares > 0))
+    logger.info(
+        "Game environment applied: %d players, %d teams, cross-team corr=%.2f",
+        n_affected, n_teams, cross_team_game_corr
+    )
+
+    return adjusted
+
+
 def _build_inverse_cdf(player: ShowdownPlayer) -> Callable[[np.ndarray], np.ndarray]:
     """
     Build inverse CDF function from player percentiles.
 
     Uses linear interpolation between percentile points.
-    Extrapolates beyond p99 using the tail slope.
+    Floor: extrapolates below p25 using the p25-p50 slope (mirrors ceiling logic).
+    Ceiling: extrapolates beyond p99 using the p95-p99 slope.
     """
     percentiles = player.percentiles
 
@@ -93,9 +199,20 @@ def _build_inverse_cdf(player: ShowdownPlayer) -> Callable[[np.ndarray], np.ndar
         return lambda u: np.full_like(u, proj)
 
     # Build percentile -> score mapping
-    # Add 0th percentile (assume 0 or small value)
+    # Floor: extrapolate below p25 using p25-p50 slope (smooth, no point mass)
+    p25_score = percentiles.get(25, 0.0)
+    p50_score = percentiles.get(50, p25_score)
+
+    if p50_score > p25_score:
+        # Mirror the ceiling extrapolation: use the p25-p50 slope
+        slope_low = (p50_score - p25_score) / 0.25  # score per percentile unit
+        p0_score = max(0, p25_score - slope_low * 0.25)
+    else:
+        # Flat or inverted — use half of p25 as floor
+        p0_score = max(0, p25_score * 0.5)
+
     pct_points = [0.0]
-    score_points = [0.0]
+    score_points = [p0_score]
 
     for pct in available_pcts:
         pct_points.append(pct / 100.0)

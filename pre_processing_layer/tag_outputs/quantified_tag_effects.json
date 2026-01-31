@@ -1,0 +1,6192 @@
+{
+  "metadata": {
+    "description": "Quantified tag effects for simulation pre-processing",
+    "usage": "Apply these modifiers to projections/correlations BEFORE sim engine",
+    "clusters": {
+      "qb_relationship": "Modifies same_team_correlations with QB",
+      "game_script": "Identifies bring-backs and front-runners",
+      "matchup_specific": "Conditional projection boosts",
+      "efficiency": "Ceiling/floor adjustments"
+    }
+  },
+  "effect_types": {
+    "correlation_boost_qb": "Add to base QB correlation coefficient",
+    "correlation_boost_opp_qb": "Add to opposing QB correlation (game stacks)",
+    "correlation_boost_dst": "Add to DST correlation (front-runner)",
+    "correlation_penalty_glrb": "Subtract from goal-line RB correlation",
+    "correlation_reduction_qb": "Reduce QB dependency (YAC monsters)",
+    "cv_boost": "Add to coefficient of variation (volatility)",
+    "projection_boost_pct": "Multiply projection by (1 + this value)",
+    "projection_penalty_pct": "Multiply projection by (1 + this value) [negative]",
+    "ceiling_penalty_pct": "Reduce ceiling percentile by this factor",
+    "floor_boost_pct": "Increase floor percentile by this factor"
+  },
+  "player_effects": {
+    "Mark Andrews": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.754,
+      "signal": "22 TDs vs 16.4 expected (1.3x luck)",
+      "projection_penalty_pct": -0.028,
+      "td_luck_factor": 1.34,
+      "actual_tds": 22,
+      "expected_tds": 16.4
+    },
+    "Kyle Pitts": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.612,
+      "signal": "Catch rate 61.2%, 4.8 targets/game"
+    },
+    "Travis Kelce": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.751,
+      "signal": "Catch rate 75.1%, 7.7 targets/game"
+    },
+    "Trey McBride": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.744,
+      "signal": "Boom ratio 3.0x, CV 0.85",
+      "correlation_boost_opp_qb": 0.059,
+      "boom_ratio": 3.04,
+      "bring_back_score": 2.59
+    },
+    "Evan Engram": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.653,
+      "signal": "Boom ratio 3.6x, CV 0.83",
+      "correlation_boost_opp_qb": 0.097,
+      "boom_ratio": 3.59,
+      "bring_back_score": 2.97
+    },
+    "Brock Bowers": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.748,
+      "signal": "Catch rate 74.8%, 8.2 targets/game"
+    },
+    "T.J. Hockenson": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.749,
+      "signal": "Catch rate 74.9%, 6.3 targets/game"
+    },
+    "Kyle Pitts Sr.": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.752,
+      "signal": "Boom ratio 3.7x, CV 0.83",
+      "correlation_boost_opp_qb": 0.103,
+      "boom_ratio": 3.67,
+      "bring_back_score": 3.03
+    },
+    "Harold Fannin Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.673,
+      "signal": "Catch rate 67.3%, 6.7 targets/game"
+    },
+    "Christian McCaffrey": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.81,
+      "signal": "YAC/rec 6.0, 3.5 evaded tackles/game",
+      "correlation_boost_dst": 0.072,
+      "workload_score": 0.95,
+      "ypc": 4.94,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tyler Higbee": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.66,
+      "signal": "YPRR 1.43, snap share 89.5%",
+      "ceiling_penalty_pct": -0.061,
+      "yprr": 1.43,
+      "snap_share": 89.5
+    },
+    "Tyler Warren": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.683,
+      "signal": "Catch rate 68.3%, 6.5 targets/game"
+    },
+    "George Kittle": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.722,
+      "signal": "Catch rate 72.2%, 5.4 targets/game"
+    },
+    "Darren Waller": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.651,
+      "signal": "Catch rate 65.1%, 5.4 targets/game"
+    },
+    "Dallas Goedert": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.742,
+      "signal": "Catch rate 74.2%, 5.6 targets/game"
+    },
+    "Pat Freiermuth": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.772,
+      "signal": "Boom ratio 3.5x, CV 0.69",
+      "correlation_boost_opp_qb": 0.037,
+      "boom_ratio": 3.46,
+      "bring_back_score": 2.37
+    },
+    "Sam LaPorta": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.735,
+      "signal": "Catch rate 73.5%, 6.2 targets/game"
+    },
+    "David Njoku": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.725,
+      "signal": "Catch rate 72.5%, 5.7 targets/game"
+    },
+    "Cole Kmet": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.772,
+      "signal": "YPRR 1.35, snap share 78.3%",
+      "correlation_boost_opp_qb": 0.05,
+      "boom_ratio": 3.19,
+      "bring_back_score": 2.5,
+      "ceiling_penalty_pct": -0.045,
+      "yprr": 1.35,
+      "snap_share": 78.3
+    },
+    "Dalton Schultz": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.687,
+      "signal": "Catch rate 68.7%, 5.7 targets/game"
+    },
+    "Jonnu Smith": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.692,
+      "signal": "Catch rate 69.2%, 3.2 targets/game"
+    },
+    "Zach Ertz": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.681,
+      "signal": "YPRR 1.21, snap share 79.2%",
+      "ceiling_penalty_pct": -0.063,
+      "yprr": 1.21,
+      "snap_share": 79.2
+    },
+    "Alvin Kamara": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.819,
+      "signal": "YAC/rec 7.1, 3.3 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Dalton Kincaid": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.722,
+      "signal": "Catch rate 72.2%, 5.3 targets/game"
+    },
+    "Bijan Robinson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.763,
+      "signal": "15.6 carries/game, 4.9 YPC",
+      "correlation_boost_dst": 0.096,
+      "workload_score": 1.04,
+      "ypc": 4.86
+    },
+    "Greg Dulcich": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.793,
+      "signal": "Catch rate 79.3%, 3.6 targets/game"
+    },
+    "Austin Ekeler": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.826,
+      "signal": "YAC/rec 7.5, 5.2 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Hunter Henry": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.695,
+      "signal": "Catch rate 69.5%, 3.7 targets/game"
+    },
+    "Mason Taylor": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.677,
+      "signal": "YPRR 0.97, snap share 81.4%",
+      "ceiling_penalty_pct": -0.071,
+      "yprr": 0.97,
+      "snap_share": 81.4
+    },
+    "Rhamondre Stevenson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.795,
+      "signal": "YAC/rec 6.0, 2.9 evaded tackles/game",
+      "correlation_boost_dst": 0.032,
+      "workload_score": 0.82,
+      "ypc": 4.95,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Jake Ferguson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.74,
+      "signal": "Boom ratio 3.2x, CV 0.86",
+      "correlation_boost_opp_qb": 0.074,
+      "boom_ratio": 3.18,
+      "bring_back_score": 2.74
+    },
+    "Saquon Barkley": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "VULTURE_VICTIM",
+        "THE_FRONT_RUNNER",
+        "TD_REGRESSION_BUY"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.753,
+      "signal": "24 TDs vs 41.1 expected, 0.6 RZ opps/game",
+      "correlation_penalty_glrb": -0.036,
+      "yards_per_td": 154.0,
+      "gl_opps_per_game": 1.03,
+      "correlation_boost_dst": 0.065,
+      "workload_score": 1.18,
+      "ypc": 3.89,
+      "projection_boost_pct": 0.025,
+      "td_unluck_factor": 0.58,
+      "actual_tds": 24,
+      "expected_tds": 41.1,
+      "rz_opps_per_game": 0.6
+    },
+    "Hayden Hurst": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.562,
+      "signal": "Boom ratio 2.8x, CV 0.83",
+      "correlation_boost_opp_qb": 0.036,
+      "boom_ratio": 2.85,
+      "bring_back_score": 2.36
+    },
+    "Chig Okonkwo": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.735,
+      "signal": "Catch rate 73.5%, 5.1 targets/game"
+    },
+    "De'Von Achane": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.814,
+      "signal": "YAC/rec 7.3, 3.7 evaded tackles/game",
+      "correlation_boost_dst": 0.057,
+      "workload_score": 0.82,
+      "ypc": 5.46,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Kenneth Gainwell": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.855,
+      "signal": "Catch rate 85.5%, 4.8 targets/game"
+    },
+    "Cade Otton": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.639,
+      "signal": "YPRR 1.10, snap share 94.2%",
+      "ceiling_penalty_pct": -0.1,
+      "yprr": 1.1,
+      "snap_share": 94.2
+    },
+    "Theo Johnson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.632,
+      "signal": "YPRR 1.16, snap share 85.4%",
+      "ceiling_penalty_pct": -0.085,
+      "yprr": 1.16,
+      "snap_share": 85.4
+    },
+    "Logan Thomas": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.696,
+      "signal": "Catch rate 69.6%, 4.9 targets/game"
+    },
+    "Ashton Jeanty": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.765,
+      "signal": "Catch rate 76.5%, 4.5 targets/game"
+    },
+    "Oronde Gadsden": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.701,
+      "signal": "Boom ratio 3.2x, CV 0.85",
+      "correlation_boost_opp_qb": 0.076,
+      "boom_ratio": 3.24,
+      "bring_back_score": 2.76
+    },
+    "Isaiah Likely": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.731,
+      "signal": "Boom ratio 2.8x, CV 0.87",
+      "correlation_boost_opp_qb": 0.045,
+      "boom_ratio": 2.81,
+      "bring_back_score": 2.45
+    },
+    "D'Andre Swift": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.781,
+      "signal": "YAC/rec 9.6, 2.9 evaded tackles/game",
+      "correlation_boost_dst": 0.038,
+      "workload_score": 0.96,
+      "ypc": 4.35,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Juwan Johnson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.646,
+      "signal": "7 TDs vs 5.1 expected (1.4x luck)",
+      "projection_penalty_pct": -0.036,
+      "td_luck_factor": 1.38,
+      "actual_tds": 7,
+      "expected_tds": 5.1
+    },
+    "David Montgomery": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.85,
+      "signal": "YAC/rec 8.3, 5.2 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tucker Kraft": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.731,
+      "signal": "Catch rate 73.1%, 4.3 targets/game"
+    },
+    "Josh Jacobs": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "VULTURE_VICTIM",
+        "THE_FRONT_RUNNER",
+        "TD_REGRESSION_BUY"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.826,
+      "signal": "12 TDs vs 22.8 expected, 0.2 RZ opps/game",
+      "correlation_penalty_glrb": -0.062,
+      "yards_per_td": 171.1,
+      "gl_opps_per_game": 0.65,
+      "correlation_boost_dst": 0.035,
+      "workload_score": 1.19,
+      "ypc": 3.45,
+      "projection_boost_pct": 0.034,
+      "td_unluck_factor": 0.53,
+      "actual_tds": 12,
+      "expected_tds": 22.8,
+      "rz_opps_per_game": 0.2
+    },
+    "Colston Loveland": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.706,
+      "signal": "Catch rate 70.6%, 4.5 targets/game"
+    },
+    "Tyler Conklin": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.705,
+      "signal": "YPRR 1.27, snap share 77.5%",
+      "correlation_boost_opp_qb": 0.047,
+      "boom_ratio": 3.16,
+      "bring_back_score": 2.47,
+      "ceiling_penalty_pct": -0.052,
+      "yprr": 1.27,
+      "snap_share": 77.5
+    },
+    "Chigoziem Okonkwo": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.696,
+      "signal": "Catch rate 69.6%, 3.1 targets/game"
+    },
+    "Jake Tonges": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.739,
+      "signal": "Catch rate 73.9%, 5.1 targets/game"
+    },
+    "Jahmyr Gibbs": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.793,
+      "signal": "YAC/rec 7.6, 4.6 evaded tackles/game",
+      "correlation_boost_dst": 0.072,
+      "workload_score": 0.88,
+      "ypc": 5.29,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Aaron Jones Sr.": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.683,
+      "signal": "Catch rate 68.3%, 3.4 targets/game"
+    },
+    "Gerald Everett": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.729,
+      "signal": "Catch rate 72.9%, 4.7 targets/game"
+    },
+    "Ezekiel Elliott": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.785,
+      "signal": "Boom ratio 3.4x, CV 1.00",
+      "correlation_boost_opp_qb": 0.138,
+      "boom_ratio": 3.37,
+      "bring_back_score": 3.38
+    },
+    "Breece Hall": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.776,
+      "signal": "Catch rate 77.6%, 4.6 targets/game"
+    },
+    "Joe Mixon": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.812,
+      "signal": "15.1 carries/game, 4.0 YPC",
+      "correlation_boost_opp_qb": 0.065,
+      "boom_ratio": 3.59,
+      "bring_back_score": 2.65,
+      "correlation_boost_dst": 0.03,
+      "workload_score": 1.01,
+      "ypc": 4.02
+    },
+    "Austin Hooper": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.683,
+      "signal": "Boom ratio 3.4x, CV 0.82",
+      "correlation_boost_opp_qb": 0.081,
+      "boom_ratio": 3.42,
+      "bring_back_score": 2.81
+    },
+    "Dawson Knox": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.727,
+      "signal": "YPRR 1.27, snap share 81.3%",
+      "correlation_boost_opp_qb": 0.049,
+      "boom_ratio": 3.46,
+      "bring_back_score": 2.49,
+      "ceiling_penalty_pct": -0.063,
+      "yprr": 1.27,
+      "snap_share": 81.3
+    },
+    "J.D. McKissic": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.675,
+      "signal": "Catch rate 67.5%, 5.0 targets/game"
+    },
+    "Aaron Jones": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.821,
+      "signal": "YAC/rec 6.8, 5.0 evaded tackles/game",
+      "correlation_boost_dst": 0.053,
+      "workload_score": 0.84,
+      "ypc": 5.26,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Javonte Williams": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.686,
+      "signal": "YAC/rec 5.8, 4.1 evaded tackles/game",
+      "correlation_boost_dst": 0.094,
+      "workload_score": 1.05,
+      "ypc": 4.77,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tyjae Spears": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.811,
+      "signal": "Catch rate 81.1%, 3.9 targets/game"
+    },
+    "Jaylen Warren": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.834,
+      "signal": "YAC/rec 8.8, 3.4 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Antonio Gibson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.814,
+      "signal": "YAC/rec 6.3, 2.4 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tony Pollard": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.721,
+      "signal": "11.9 carries/game, 5.2 YPC",
+      "correlation_boost_dst": 0.033,
+      "workload_score": 0.79,
+      "ypc": 5.17
+    },
+    "Justice Hill": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.77,
+      "signal": "Boom ratio 3.7x, CV 0.80",
+      "correlation_boost_opp_qb": 0.097,
+      "boom_ratio": 3.69,
+      "bring_back_score": 2.97
+    },
+    "Irv Smith Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.684,
+      "signal": "Catch rate 68.4%, 4.2 targets/game"
+    },
+    "Rico Dowdle": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.771,
+      "signal": "14.3 carries/game, 4.7 YPC",
+      "correlation_boost_dst": 0.056,
+      "workload_score": 0.95,
+      "ypc": 4.66
+    },
+    "Robert Tonyan": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.791,
+      "signal": "Catch rate 79.1%, 3.9 targets/game"
+    },
+    "Brenton Strange": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.723,
+      "signal": "Catch rate 72.3%, 3.9 targets/game"
+    },
+    "Mike Gesicki": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.586,
+      "signal": "6 TDs vs 3.8 expected (1.6x luck)",
+      "correlation_boost_opp_qb": 0.102,
+      "boom_ratio": 3.48,
+      "bring_back_score": 3.02,
+      "projection_penalty_pct": -0.078,
+      "td_luck_factor": 1.59,
+      "actual_tds": 6,
+      "expected_tds": 3.8
+    },
+    "Omarion Hampton": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.914,
+      "signal": "YAC/rec 7.7, 4.2 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Samaje Perine": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.754,
+      "signal": "Boom ratio 3.3x, CV 0.86",
+      "correlation_boost_opp_qb": 0.081,
+      "boom_ratio": 3.29,
+      "bring_back_score": 2.81
+    },
+    "James Conner": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.845,
+      "signal": "YAC/rec 7.5, 4.9 evaded tackles/game",
+      "correlation_boost_dst": 0.07,
+      "workload_score": 0.99,
+      "ypc": 4.68,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Foster Moreau": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.6,
+      "signal": "YPRR 1.30, snap share 77.7%",
+      "ceiling_penalty_pct": -0.05,
+      "yprr": 1.3,
+      "snap_share": 77.7
+    },
+    "Daniel Bellinger": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.825,
+      "signal": "YPRR 1.03, snap share 75.2%",
+      "correlation_boost_opp_qb": 0.131,
+      "boom_ratio": 3.94,
+      "bring_back_score": 3.31,
+      "ceiling_penalty_pct": -0.051,
+      "yprr": 1.03,
+      "snap_share": 75.2
+    },
+    "Deon Jackson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.882,
+      "signal": "YAC/rec 7.2, 3.0 evaded tackles/game",
+      "correlation_boost_opp_qb": 0.144,
+      "boom_ratio": 3.3,
+      "bring_back_score": 3.44,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "AJ Barner": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.765,
+      "signal": "10 TDs vs 7.3 expected (1.4x luck)",
+      "correlation_boost_opp_qb": 0.066,
+      "boom_ratio": 3.39,
+      "bring_back_score": 2.66,
+      "projection_penalty_pct": -0.034,
+      "td_luck_factor": 1.37,
+      "actual_tds": 10,
+      "expected_tds": 7.3
+    },
+    "Noah Fant": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.825,
+      "signal": "Catch rate 82.5%, 3.3 targets/game"
+    },
+    "Chase Brown": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.821,
+      "signal": "Catch rate 82.1%, 4.2 targets/game"
+    },
+    "Michael Mayer": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.673,
+      "signal": "Boom ratio 3.3x, CV 0.89",
+      "correlation_boost_opp_qb": 0.093,
+      "boom_ratio": 3.3,
+      "bring_back_score": 2.93
+    },
+    "Jerick McKinnon": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.782,
+      "signal": "5 TDs vs 2.7 expected (1.9x luck)",
+      "correlation_boost_opp_qb": 0.087,
+      "boom_ratio": 3.25,
+      "bring_back_score": 2.87,
+      "projection_penalty_pct": -0.1,
+      "td_luck_factor": 1.87,
+      "actual_tds": 5,
+      "expected_tds": 2.7
+    },
+    "Jordan Akins": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.685,
+      "signal": "YAC/rec 2.8, 1.5 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Travis Etienne Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.754,
+      "signal": "YAC/rec 8.6, 3.5 evaded tackles/game",
+      "correlation_boost_dst": 0.063,
+      "workload_score": 0.88,
+      "ypc": 5.18,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Leonard Fournette": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.881,
+      "signal": "Catch rate 88.1%, 4.9 targets/game"
+    },
+    "Colby Parkinson": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.701,
+      "signal": "Catch rate 70.1%, 3.6 targets/game"
+    },
+    "TreVeyon Henderson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.833,
+      "signal": "YAC/rec 6.3, 2.4 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Dameon Pierce": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.769,
+      "signal": "YAC/rec 5.8, 5.5 evaded tackles/game",
+      "correlation_boost_opp_qb": 0.138,
+      "boom_ratio": 3.26,
+      "bring_back_score": 3.38,
+      "correlation_boost_dst": 0.081,
+      "workload_score": 1.13,
+      "ypc": 4.27,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Jeff Wilson Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.464,
+      "signal": "Boom ratio 3.1x, CV 0.80",
+      "correlation_boost_opp_qb": 0.046,
+      "boom_ratio": 3.06,
+      "bring_back_score": 2.46
+    },
+    "Melvin Gordon III": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.781,
+      "signal": "Catch rate 78.1%, 3.6 targets/game"
+    },
+    "Chuba Hubbard": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.815,
+      "signal": "YAC/rec 6.9, 2.8 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Alexander Mattison": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.744,
+      "signal": "6 TDs vs 3.8 expected (1.6x luck)",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.6,
+      "bring_back_score": 3.5,
+      "projection_penalty_pct": -0.079,
+      "td_luck_factor": 1.6,
+      "actual_tds": 6,
+      "expected_tds": 3.8
+    },
+    "Rachaad White": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.844,
+      "signal": "YAC/rec 8.9, 2.6 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Will Dissly": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.786,
+      "signal": "Boom ratio 3.4x, CV 0.93",
+      "correlation_boost_opp_qb": 0.113,
+      "boom_ratio": 3.38,
+      "bring_back_score": 3.13
+    },
+    "Gunnar Helm": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.8,
+      "signal": "Catch rate 80.0%, 3.4 targets/game"
+    },
+    "Jonathan Taylor": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.7,
+      "signal": "19.2 carries/game, 4.5 YPC",
+      "correlation_boost_dst": 0.143,
+      "workload_score": 1.28,
+      "ypc": 4.48
+    },
+    "Najee Harris": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.774,
+      "signal": "YAC/rec 7.9, 3.5 evaded tackles/game",
+      "correlation_boost_dst": 0.031,
+      "workload_score": 1.07,
+      "ypc": 3.82,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Zack Moss": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.73,
+      "signal": "YAC/rec 8.0, 1.9 evaded tackles/game",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.54,
+      "bring_back_score": 4.19,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Rex Burkhead": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.725,
+      "signal": "Boom ratio 2.9x, CV 0.80",
+      "correlation_boost_opp_qb": 0.031,
+      "boom_ratio": 2.89,
+      "bring_back_score": 2.31
+    },
+    "James Cook": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.83,
+      "signal": "YAC/rec 6.9, 3.4 evaded tackles/game",
+      "correlation_boost_dst": 0.102,
+      "workload_score": 1.04,
+      "ypc": 4.95,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tyrone Tracy Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.719,
+      "signal": "YAC/rec 7.8, 2.9 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Bucky Irving": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.925,
+      "signal": "YAC/rec 11.6, 4.8 evaded tackles/game",
+      "correlation_boost_dst": 0.033,
+      "workload_score": 0.89,
+      "ypc": 4.58,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Roschon Johnson": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.818,
+      "signal": "Catch rate 81.8%, 3.2 targets/game"
+    },
+    "Jelani Woods": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.625,
+      "signal": "Catch rate 62.5%, 3.3 targets/game"
+    },
+    "Jerome Ford": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.782,
+      "signal": "YAC/rec 6.4, 1.8 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Harrison Bryant": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.738,
+      "signal": "Boom ratio 3.0x, CV 0.98",
+      "correlation_boost_opp_qb": 0.089,
+      "boom_ratio": 2.96,
+      "bring_back_score": 2.89
+    },
+    "Devin Singletary": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.705,
+      "signal": "YAC/rec 7.0, 3.5 evaded tackles/game",
+      "correlation_boost_opp_qb": 0.076,
+      "boom_ratio": 3.0,
+      "bring_back_score": 2.76,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "RJ Harvey": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.852,
+      "signal": "12 TDs vs 8.6 expected (1.4x luck)",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0,
+      "projection_penalty_pct": -0.038,
+      "td_luck_factor": 1.39,
+      "actual_tds": 12,
+      "expected_tds": 8.6
+    },
+    "Kenneth Walker III": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.836,
+      "signal": "15.2 carries/game, 4.6 YPC",
+      "correlation_boost_dst": 0.069,
+      "workload_score": 1.01,
+      "ypc": 4.58
+    },
+    "Dylan Sampson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.838,
+      "signal": "YAC/rec 10.1, 1.8 evaded tackles/game",
+      "correlation_boost_opp_qb": 0.055,
+      "boom_ratio": 2.76,
+      "bring_back_score": 2.55,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Kyren Williams": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.746,
+      "signal": "YAC/rec 5.7, 3.9 evaded tackles/game",
+      "correlation_boost_dst": 0.125,
+      "workload_score": 1.19,
+      "ypc": 4.6,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Dalvin Cook": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.714,
+      "signal": "15.5 carries/game, 4.4 YPC",
+      "correlation_boost_opp_qb": 0.044,
+      "boom_ratio": 3.1,
+      "bring_back_score": 2.44,
+      "correlation_boost_dst": 0.064,
+      "workload_score": 1.03,
+      "ypc": 4.42
+    },
+    "Michael Carter": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.759,
+      "signal": "YAC/rec 5.0, 1.7 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Isiah Pacheco": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.845,
+      "signal": "YAC/rec 7.6, 2.0 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Cameron Brate": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.525,
+      "signal": "Catch rate 52.5%, 4.0 targets/game"
+    },
+    "AJ Dillon": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.651,
+      "signal": "YAC/rec 6.4, 4.1 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Eno Benjamin": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.727,
+      "signal": "YAC/rec 8.2, 3.8 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Miles Sanders": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.716,
+      "signal": "14.7 carries/game, 4.8 YPC",
+      "correlation_boost_opp_qb": 0.032,
+      "boom_ratio": 3.11,
+      "bring_back_score": 2.32,
+      "correlation_boost_dst": 0.075,
+      "workload_score": 0.98,
+      "ypc": 4.82
+    },
+    "Brevin Jordan": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.519,
+      "signal": "Catch rate 51.9%, 3.0 targets/game"
+    },
+    "Tanner Hudson": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.792,
+      "signal": "Catch rate 79.2%, 3.2 targets/game"
+    },
+    "Kylen Granson": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.775,
+      "signal": "Catch rate 77.5%, 3.1 targets/game"
+    },
+    "Donald Parham Jr.": {
+      "tags": [
+        "THE_PANIC_BUTTON"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.659,
+      "signal": "Catch rate 65.9%, 3.2 targets/game"
+    },
+    "Bam Knight": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.71,
+      "signal": "YAC/rec 5.6, 2.0 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Ty Johnson": {
+      "tags": [
+        "THE_PANIC_BUTTON",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.3,
+      "floor_protection": 0.5,
+      "signal": "Boom ratio 3.2x, CV 0.81",
+      "correlation_boost_opp_qb": 0.059,
+      "boom_ratio": 3.19,
+      "bring_back_score": 2.59
+    },
+    "Tyquan Thornton": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.105,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.671,
+      "adot": 12.6,
+      "signal": "Boom ratio 3.9x, CV 1.13",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.185,
+      "consistency": 0.347,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.86,
+      "bring_back_score": 4.35
+    },
+    "Marquise Goodwin": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.487,
+      "adot": 28.2,
+      "signal": "Zone yds/tgt: 14.7 vs Man: 0.0",
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.52,
+      "consistency": 0.661,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 14.7
+    },
+    "Jalin Hyatt": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.339,
+      "adot": 22.1,
+      "signal": "Zone yds/tgt: 14.8 vs Man: 11.7",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.664,
+      "consistency": 0.406,
+      "correlation_boost_opp_qb": 0.037,
+      "boom_ratio": 3.07,
+      "bring_back_score": 2.37,
+      "projection_boost_vs_zone": 0.087,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 14.8
+    },
+    "Tutu Atwell": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.787,
+      "adot": 14.3,
+      "signal": "Target share 1179.4%, consistency 0.24",
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.794,
+      "consistency": 0.244
+    },
+    "Chris Moore": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.896,
+      "adot": 15.2,
+      "signal": "Man yds/tgt: 9.3 vs Zone: 5.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.7,
+      "consistency": 0.447,
+      "projection_boost_vs_man": 0.104,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 9.3
+    },
+    "A.T. Perry": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.838,
+      "adot": 19.2,
+      "signal": "Target share 725.0%, consistency 0.54",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.25,
+      "consistency": 0.54
+    },
+    "Alec Pierce": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.054,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.839,
+      "adot": 11.1,
+      "signal": "YPRR 1.51, snap share 88.6%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.607,
+      "consistency": 0.456,
+      "projection_boost_vs_man": 0.098,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 16.2,
+      "ceiling_penalty_pct": -0.046,
+      "yprr": 1.51,
+      "snap_share": 88.6
+    },
+    "Dyami Brown": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.984,
+      "adot": 18.9,
+      "signal": "Boom ratio 3.1x, CV 0.82",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.342,
+      "consistency": 0.441,
+      "correlation_boost_opp_qb": 0.054,
+      "boom_ratio": 3.11,
+      "bring_back_score": 2.54
+    },
+    "Van Jefferson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.085,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.831,
+      "adot": 11.7,
+      "signal": "YPRR 1.36, snap share 78.5%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.645,
+      "consistency": 0.473,
+      "ceiling_penalty_pct": -0.045,
+      "yprr": 1.36,
+      "snap_share": 78.5
+    },
+    "Treylon Burks": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.134,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.639,
+      "adot": 13.5,
+      "signal": "Zone yds/tgt: 12.8 vs Man: 6.1",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.027,
+      "consistency": 0.511,
+      "projection_boost_vs_zone": 0.129,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.8
+    },
+    "Justin Watson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.805,
+      "adot": 16.9,
+      "signal": "Man yds/tgt: 11.7 vs Zone: 6.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.952,
+      "consistency": 0.278,
+      "projection_boost_vs_man": 0.124,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.7
+    },
+    "Christian Watson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.719,
+      "adot": 18.0,
+      "signal": "9 TDs vs 6.9 expected (1.3x luck)",
+      "correlation_boost_qb": 0.2,
+      "target_share": 16.553,
+      "consistency": 0.496,
+      "correlation_boost_opp_qb": 0.035,
+      "boom_ratio": 2.79,
+      "bring_back_score": 2.35,
+      "projection_boost_vs_zone": 0.089,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 14.0,
+      "projection_penalty_pct": -0.02,
+      "td_luck_factor": 1.3,
+      "actual_tds": 9,
+      "expected_tds": 6.9
+    },
+    "Kyle Williams": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.211,
+      "adot": 17.9,
+      "signal": "Target share 643.7%, consistency 0.32",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.437,
+      "consistency": 0.319
+    },
+    "Chris Conley": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.489,
+      "adot": 17.9,
+      "signal": "Zone yds/tgt: 18.2 vs Man: 0.0",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.568,
+      "consistency": 0.077,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 18.2
+    },
+    "Damiere Byrd": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.31,
+      "adot": 17.8,
+      "signal": "Zone yds/tgt: 17.6 vs Man: 3.9",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.925,
+      "consistency": 0.184,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 17.6
+    },
+    "Isaiah Bond": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.887,
+      "adot": 17.4,
+      "signal": "Target share 1006.8%, consistency 0.39",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.068,
+      "consistency": 0.392
+    },
+    "Marquez Valdes-Scantling": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.797,
+      "adot": 15.5,
+      "signal": "Boom ratio 3.6x, CV 0.85",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.163,
+      "consistency": 0.501,
+      "correlation_boost_opp_qb": 0.103,
+      "boom_ratio": 3.55,
+      "bring_back_score": 3.03
+    },
+    "Samori Toure": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.781,
+      "adot": 16.8,
+      "signal": "Man yds/tgt: 12.7 vs Zone: 2.6",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.055,
+      "consistency": 0.54,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 12.7
+    },
+    "Rashid Shaheed": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.562,
+      "adot": 15.2,
+      "signal": "Zone yds/tgt: 16.9 vs Man: 11.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.862,
+      "consistency": 0.266,
+      "correlation_boost_opp_qb": 0.035,
+      "boom_ratio": 2.62,
+      "bring_back_score": 2.35,
+      "projection_boost_vs_zone": 0.111,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 16.9
+    },
+    "Jonathan Mingo": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.712,
+      "adot": 16.6,
+      "signal": "YPRR 0.78, snap share 77.0%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.799,
+      "consistency": 0.268,
+      "ceiling_penalty_pct": -0.057,
+      "yprr": 0.78,
+      "snap_share": 77.0
+    },
+    "Byron Pringle": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.021,
+      "adot": 14.1,
+      "signal": "Zone yds/tgt: 9.9 vs Man: 5.7",
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.629,
+      "consistency": 0.489,
+      "projection_boost_vs_zone": 0.1,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.9
+    },
+    "Bo Melton": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.121,
+      "adot": 16.3,
+      "signal": "Boom ratio 4.3x, CV 1.10",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.746,
+      "consistency": 0.18,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.32,
+      "bring_back_score": 4.76
+    },
+    "DeAndre Hopkins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.049,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.606,
+      "adot": 11.3,
+      "signal": "Boom ratio 3.2x, CV 0.78",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.521,
+      "consistency": 0.426,
+      "correlation_boost_opp_qb": 0.047,
+      "boom_ratio": 3.16,
+      "bring_back_score": 2.47
+    },
+    "Keelan Cole": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.18,
+      "adot": 16.0,
+      "signal": "Target share 642.0%, consistency 0.51",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.42,
+      "consistency": 0.508
+    },
+    "DJ Chark": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.78,
+      "adot": 15.9,
+      "signal": "Target share 1344.9%, consistency 0.57",
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.449,
+      "consistency": 0.566
+    },
+    "Gabe Davis": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.074,
+      "adot": 13.6,
+      "signal": "YPRR 1.28, snap share 77.2%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.636,
+      "consistency": 0.273,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.59,
+      "bring_back_score": 3.86,
+      "projection_boost_vs_zone": 0.099,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.8,
+      "ceiling_penalty_pct": -0.05,
+      "yprr": 1.28,
+      "snap_share": 77.2
+    },
+    "Kayshon Boutte": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.879,
+      "adot": 15.9,
+      "signal": "Man yds/tgt: 9.4 vs Zone: 6.4",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.452,
+      "consistency": 0.444,
+      "correlation_boost_opp_qb": 0.07,
+      "boom_ratio": 3.34,
+      "bring_back_score": 2.7,
+      "projection_boost_vs_man": 0.095,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 9.4
+    },
+    "George Pickens": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.051,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.502,
+      "adot": 11.7,
+      "signal": "Target share 1624.6%, consistency 0.63",
+      "correlation_boost_qb": 0.2,
+      "target_share": 16.246,
+      "consistency": 0.633
+    },
+    "Jaylin Lane": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.685,
+      "adot": 15.7,
+      "signal": "Target share 952.6%, consistency 0.34",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.526,
+      "consistency": 0.345
+    },
+    "Scotty Miller": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.105,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.792,
+      "adot": 12.2,
+      "signal": "Zone yds/tgt: 6.4 vs Man: 1.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.71,
+      "consistency": 0.213,
+      "projection_boost_vs_zone": 0.105,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 6.4
+    },
+    "Adonai Mitchell": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.18,
+      "adot": 15.2,
+      "signal": "Zone yds/tgt: 13.6 vs Man: 7.0",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.981,
+      "consistency": 0.411,
+      "correlation_boost_opp_qb": 0.032,
+      "boom_ratio": 2.91,
+      "bring_back_score": 2.32,
+      "projection_boost_vs_zone": 0.13,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 13.6
+    },
+    "Ashton Dulin": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.26,
+      "adot": 15.1,
+      "signal": "Zone yds/tgt: 26.8 vs Man: 0.0",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.751,
+      "consistency": 0.209,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.8,
+      "bring_back_score": 4.17,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 26.8
+    },
+    "Jalen Reagor": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.126,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.149,
+      "adot": 11.8,
+      "signal": "Man yds/tgt: 13.7 vs Zone: 3.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.726,
+      "consistency": 0.25,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 13.7
+    },
+    "KhaDarel Hodge": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.204,
+      "adot": 12.2,
+      "signal": "Zone yds/tgt: 13.3 vs Man: 5.9",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.779,
+      "consistency": 0.13,
+      "correlation_boost_opp_qb": 0.064,
+      "boom_ratio": 3.12,
+      "bring_back_score": 2.64,
+      "projection_boost_vs_zone": 0.139,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 13.3
+    },
+    "Demarcus Robinson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.764,
+      "adot": 14.6,
+      "signal": "Target share 744.1%, consistency 0.30",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.441,
+      "consistency": 0.304
+    },
+    "DJ Chark Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.871,
+      "adot": 14.8,
+      "signal": "YPRR 1.14, snap share 76.2%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.809,
+      "consistency": 0.458,
+      "correlation_boost_opp_qb": 0.094,
+      "boom_ratio": 3.37,
+      "bring_back_score": 2.94,
+      "projection_boost_vs_man": 0.105,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.8,
+      "ceiling_penalty_pct": -0.054,
+      "yprr": 1.14,
+      "snap_share": 76.2
+    },
+    "Julio Jones": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.696,
+      "adot": 14.8,
+      "signal": "Boom ratio 3.8x, CV 1.14",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.214,
+      "consistency": 0.538,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.76,
+      "bring_back_score": 4.3
+    },
+    "Chase Claypool": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.671,
+      "adot": 14.8,
+      "signal": "YPRR 1.16, snap share 86.7%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 17.489,
+      "consistency": 0.672,
+      "ceiling_penalty_pct": -0.089,
+      "yprr": 1.16,
+      "snap_share": 86.7
+    },
+    "Calvin Ridley": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.14,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.662,
+      "adot": 13.5,
+      "signal": "Target share 2190.3%, consistency 0.50",
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.903,
+      "consistency": 0.499
+    },
+    "Arian Smith": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.961,
+      "adot": 14.7,
+      "signal": "Target share 555.9%, consistency 0.53",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.559,
+      "consistency": 0.533
+    },
+    "Mitchell Tinsley": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.979,
+      "adot": 14.5,
+      "signal": "Target share 832.4%, consistency 0.02",
+      "correlation_boost_qb": 0.101,
+      "target_share": 8.324,
+      "consistency": 0.024
+    },
+    "Dont'e Thornton Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.924,
+      "adot": 14.2,
+      "signal": "Target share 1053.7%, consistency 0.66",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.537,
+      "consistency": 0.657
+    },
+    "Corey Davis": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.801,
+      "adot": 14.2,
+      "signal": "Zone yds/tgt: 10.6 vs Man: 5.4",
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.85,
+      "consistency": 0.435,
+      "projection_boost_vs_zone": 0.112,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.6
+    },
+    "Nick Westbrook-Ikhine": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "cv_boost": 0.115,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.65,
+      "adot": 12.9,
+      "signal": "12 TDs vs 8.2 expected (1.5x luck)",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.643,
+      "consistency": 0.414,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.84,
+      "bring_back_score": 4.05,
+      "projection_boost_vs_zone": 0.093,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.0,
+      "ceiling_penalty_pct": -0.047,
+      "yprr": 1.06,
+      "snap_share": 74.2,
+      "projection_penalty_pct": -0.054,
+      "td_luck_factor": 1.47,
+      "actual_tds": 12,
+      "expected_tds": 8.2
+    },
+    "Isaac TeSlaa": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.028,
+      "adot": 14.1,
+      "signal": "Target share 595.3%, consistency 0.11",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.953,
+      "consistency": 0.11
+    },
+    "Xavier Smith": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.735,
+      "adot": 14.1,
+      "signal": "Volume-based",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.23,
+      "consistency": 0.373,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.0
+    },
+    "Rashod Bateman": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.831,
+      "adot": 14.0,
+      "signal": "Boom ratio 3.3x, CV 0.76",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.109,
+      "consistency": 0.546,
+      "correlation_boost_opp_qb": 0.048,
+      "boom_ratio": 3.26,
+      "bring_back_score": 2.48
+    },
+    "Jerry Jeudy": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.11,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.795,
+      "adot": 12.3,
+      "signal": "YPRR 1.44, snap share 87.8%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 20.963,
+      "consistency": 0.47,
+      "correlation_boost_opp_qb": 0.077,
+      "boom_ratio": 3.64,
+      "bring_back_score": 2.77,
+      "ceiling_penalty_pct": -0.056,
+      "yprr": 1.44,
+      "snap_share": 87.8
+    },
+    "Amari Cooper": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.121,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.605,
+      "adot": 13.3,
+      "signal": "Boom ratio 3.8x, CV 0.81",
+      "correlation_boost_qb": 0.2,
+      "target_share": 26.642,
+      "consistency": 0.557,
+      "correlation_boost_opp_qb": 0.108,
+      "boom_ratio": 3.79,
+      "bring_back_score": 3.08
+    },
+    "Rome Odunze": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.749,
+      "adot": 13.8,
+      "signal": "Target share 2126.8%, consistency 0.63",
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.268,
+      "consistency": 0.629
+    },
+    "Jameson Williams": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.713,
+      "adot": 13.8,
+      "signal": "Man yds/tgt: 15.5 vs Zone: 10.2",
+      "correlation_boost_qb": 0.2,
+      "target_share": 15.324,
+      "consistency": 0.454,
+      "projection_boost_vs_man": 0.131,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 15.5
+    },
+    "Odell Beckham Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.766,
+      "adot": 13.6,
+      "signal": "Target share 749.1%, consistency 0.61",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.491,
+      "consistency": 0.614
+    },
+    "Keon Coleman": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.141,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.655,
+      "adot": 13.6,
+      "signal": "Target share 1489.9%, consistency 0.43",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.899,
+      "consistency": 0.432
+    },
+    "Marvin Jones Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.143,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.663,
+      "adot": 13.6,
+      "signal": "Target share 1417.4%, consistency 0.50",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.174,
+      "consistency": 0.496
+    },
+    "Mike Evans": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.135,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.729,
+      "adot": 13.1,
+      "signal": "Zone yds/tgt: 10.3 vs Man: 7.2",
+      "correlation_boost_qb": 0.2,
+      "target_share": 19.745,
+      "consistency": 0.639,
+      "correlation_boost_opp_qb": 0.036,
+      "boom_ratio": 3.24,
+      "bring_back_score": 2.36,
+      "projection_boost_vs_zone": 0.087,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.3
+    },
+    "DeVante Parker": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.062,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.68,
+      "adot": 11.5,
+      "signal": "Man yds/tgt: 8.9 vs Zone: 5.1",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.473,
+      "consistency": 0.316,
+      "projection_boost_vs_man": 0.107,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 8.9
+    },
+    "Jahan Dotson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER",
+        "EMPTY_CALORIES",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.024,
+      "adot": 12.7,
+      "signal": "7 TDs vs 5.2 expected (1.4x luck)",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.387,
+      "consistency": 0.492,
+      "correlation_boost_opp_qb": 0.043,
+      "boom_ratio": 3.2,
+      "bring_back_score": 2.43,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 23.3,
+      "ceiling_penalty_pct": -0.076,
+      "yprr": 0.83,
+      "snap_share": 82.9,
+      "projection_penalty_pct": -0.031,
+      "td_luck_factor": 1.36,
+      "actual_tds": 7,
+      "expected_tds": 5.2
+    },
+    "Darnell Mooney": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.077,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.802,
+      "adot": 11.6,
+      "signal": "YPRR 0.94, snap share 76.2%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.682,
+      "consistency": 0.512,
+      "correlation_boost_opp_qb": 0.062,
+      "boom_ratio": 3.38,
+      "bring_back_score": 2.62,
+      "projection_boost_vs_man": 0.16,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 15.3,
+      "ceiling_penalty_pct": -0.054,
+      "yprr": 0.94,
+      "snap_share": 76.2
+    },
+    "Brandon Aiyuk": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.034,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.553,
+      "adot": 11.0,
+      "signal": "Target share 2171.1%, consistency 0.50",
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.711,
+      "consistency": 0.499
+    },
+    "Denzel Mims": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.984,
+      "adot": 13.4,
+      "signal": "Zone yds/tgt: 9.9 vs Man: 5.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.853,
+      "consistency": 0.332,
+      "projection_boost_vs_zone": 0.099,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.9
+    },
+    "DJ Moore": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.148,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.722,
+      "adot": 13.4,
+      "signal": "Man yds/tgt: 11.6 vs Zone: 8.4",
+      "correlation_boost_qb": 0.2,
+      "target_share": 24.284,
+      "consistency": 0.618,
+      "correlation_boost_opp_qb": 0.034,
+      "boom_ratio": 3.51,
+      "bring_back_score": 2.34,
+      "projection_boost_vs_man": 0.098,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.6
+    },
+    "Matthew Golden": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.833,
+      "adot": 13.3,
+      "signal": "Target share 1109.1%, consistency 0.54",
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.091,
+      "consistency": 0.536
+    },
+    "Marvin Harrison Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.136,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.695,
+      "adot": 13.3,
+      "signal": "Target share 2077.7%, consistency 0.55",
+      "correlation_boost_qb": 0.2,
+      "target_share": 20.777,
+      "consistency": 0.552
+    },
+    "Cam Sims": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.846,
+      "adot": 13.2,
+      "signal": "Zone yds/tgt: 7.0 vs Man: 3.2",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.06,
+      "consistency": 0.652,
+      "projection_boost_vs_zone": 0.095,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.0
+    },
+    "Zay Jones": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.114,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.607,
+      "adot": 13.1,
+      "signal": "YPRR 1.06, snap share 73.6%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.244,
+      "consistency": 0.043,
+      "correlation_boost_opp_qb": 0.088,
+      "boom_ratio": 3.05,
+      "bring_back_score": 2.88,
+      "projection_boost_vs_zone": 0.11,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 8.0,
+      "ceiling_penalty_pct": -0.045,
+      "yprr": 1.06,
+      "snap_share": 73.6
+    },
+    "Darius Slayton": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.125,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.746,
+      "adot": 12.8,
+      "signal": "YPRR 1.30, snap share 81.5%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.968,
+      "consistency": 0.456,
+      "projection_boost_vs_zone": 0.095,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.6,
+      "ceiling_penalty_pct": -0.06,
+      "yprr": 1.3,
+      "snap_share": 81.5
+    },
+    "DK Metcalf": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.069,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.594,
+      "adot": 11.9,
+      "signal": "Target share 2188.5%, consistency 0.59",
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.885,
+      "consistency": 0.595
+    },
+    "Tre Tucker": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.926,
+      "adot": 13.0,
+      "signal": "Boom ratio 4.8x, CV 0.85",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.147,
+      "consistency": 0.439,
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.76,
+      "bring_back_score": 4.05
+    },
+    "Breshad Perriman": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.607,
+      "adot": 13.0,
+      "signal": "Man yds/tgt: 7.0 vs Zone: 3.7",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.678,
+      "consistency": 0.366,
+      "projection_boost_vs_man": 0.099,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 7.0
+    },
+    "Tank Dell": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.121,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.665,
+      "adot": 13.0,
+      "signal": "Man yds/tgt: 12.0 vs Zone: 8.9",
+      "correlation_boost_qb": 0.2,
+      "target_share": 19.614,
+      "consistency": 0.537,
+      "projection_boost_vs_man": 0.097,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 12.0
+    },
+    "Konata Mumpfield": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.931,
+      "adot": 13.0,
+      "signal": "Target share 736.3%, consistency 0.09",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.363,
+      "consistency": 0.094
+    },
+    "Romeo Doubs": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.111,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.624,
+      "adot": 13.0,
+      "signal": "Target share 1566.4%, consistency 0.53",
+      "correlation_boost_qb": 0.2,
+      "target_share": 15.664,
+      "consistency": 0.532
+    },
+    "Mack Hollins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.084,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.81,
+      "adot": 11.7,
+      "signal": "YPRR 1.20, snap share 92.7%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.161,
+      "consistency": 0.39,
+      "projection_boost_vs_zone": 0.117,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.2,
+      "ceiling_penalty_pct": -0.099,
+      "yprr": 1.2,
+      "snap_share": 92.7
+    },
+    "Terry McLaurin": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.09,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.517,
+      "adot": 12.9,
+      "signal": "Target share 2263.0%, consistency 0.60",
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.63,
+      "consistency": 0.604
+    },
+    "Emeka Egbuka": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.115,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.685,
+      "adot": 12.8,
+      "signal": "Target share 2432.4%, consistency 0.64",
+      "correlation_boost_qb": 0.2,
+      "target_share": 24.324,
+      "consistency": 0.643
+    },
+    "Tee Higgins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.112,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.667,
+      "adot": 12.8,
+      "signal": "Zone yds/tgt: 12.0 vs Man: 8.5",
+      "correlation_boost_qb": 0.2,
+      "target_share": 20.668,
+      "consistency": 0.563,
+      "projection_boost_vs_zone": 0.092,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.0
+    },
+    "Michael Gallup": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.072,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.936,
+      "adot": 11.3,
+      "signal": "YPRR 1.03, snap share 76.7%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.436,
+      "consistency": 0.314,
+      "ceiling_penalty_pct": -0.056,
+      "yprr": 1.03,
+      "snap_share": 76.7
+    },
+    "Brian Thomas Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.094,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.564,
+      "adot": 12.8,
+      "signal": "Zone yds/tgt: 11.9 vs Man: 8.5",
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.463,
+      "consistency": 0.57,
+      "projection_boost_vs_zone": 0.091,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.9
+    },
+    "Jordan Addison": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.107,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.654,
+      "adot": 12.7,
+      "signal": "Target share 1951.9%, consistency 0.55",
+      "correlation_boost_qb": 0.2,
+      "target_share": 19.519,
+      "consistency": 0.546
+    },
+    "Jalen Brooks": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.124,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.77,
+      "adot": 12.7,
+      "signal": "Man yds/tgt: 11.5 vs Zone: 8.4",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.272,
+      "consistency": 0.282,
+      "projection_boost_vs_man": 0.096,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.5
+    },
+    "Christian Kirk": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.091,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.568,
+      "adot": 12.7,
+      "signal": "Man yds/tgt: 12.9 vs Zone: 8.3",
+      "correlation_boost_qb": 0.2,
+      "target_share": 20.324,
+      "consistency": 0.465,
+      "correlation_boost_opp_qb": 0.039,
+      "boom_ratio": 2.87,
+      "bring_back_score": 2.39,
+      "projection_boost_vs_man": 0.12,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 12.9
+    },
+    "Joshua Palmer": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.062,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.649,
+      "adot": 11.6,
+      "signal": "YPRR 1.28, snap share 82.4%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.234,
+      "consistency": 0.256,
+      "ceiling_penalty_pct": -0.065,
+      "yprr": 1.28,
+      "snap_share": 82.4
+    },
+    "Terrace Marshall Jr.": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.104,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.663,
+      "adot": 12.6,
+      "signal": "Zone yds/tgt: 7.0 vs Man: 3.6",
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.816,
+      "consistency": 0.156,
+      "projection_boost_vs_zone": 0.091,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.0
+    },
+    "Noah Brown": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.139,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.118,
+      "adot": 12.1,
+      "signal": "Zone yds/tgt: 13.7 vs Man: 5.6",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.301,
+      "consistency": 0.442,
+      "correlation_boost_opp_qb": 0.091,
+      "boom_ratio": 3.18,
+      "bring_back_score": 2.91,
+      "projection_boost_vs_zone": 0.147,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 13.7
+    },
+    "Kendrick Bourne": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.973,
+      "adot": 12.6,
+      "signal": "Zone yds/tgt: 12.0 vs Man: 6.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.79,
+      "consistency": 0.25,
+      "correlation_boost_opp_qb": 0.081,
+      "boom_ratio": 3.15,
+      "bring_back_score": 2.81,
+      "projection_boost_vs_zone": 0.112,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.0
+    },
+    "Phillip Dorsett": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.053,
+      "adot": 12.6,
+      "signal": "Man yds/tgt: 8.1 vs Zone: 4.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.421,
+      "consistency": 0.42,
+      "projection_boost_vs_man": 0.1,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 8.1
+    },
+    "Elic Ayomanor": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.094,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.606,
+      "adot": 12.6,
+      "signal": "YPRR 1.08, snap share 80.1%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 17.696,
+      "consistency": 0.66,
+      "ceiling_penalty_pct": -0.067,
+      "yprr": 1.08,
+      "snap_share": 80.1
+    },
+    "Alex Erickson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.135,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.878,
+      "adot": 12.6,
+      "signal": "Boom ratio 3.0x, CV 0.88",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.423,
+      "consistency": 0.249,
+      "correlation_boost_opp_qb": 0.061,
+      "boom_ratio": 2.97,
+      "bring_back_score": 2.61
+    },
+    "Davante Adams": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "cv_boost": 0.092,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.611,
+      "adot": 12.5,
+      "signal": "14 TDs vs 7.9 expected (1.8x luck)",
+      "correlation_boost_qb": 0.2,
+      "target_share": 31.309,
+      "consistency": 0.556,
+      "projection_boost_vs_zone": 0.089,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.1,
+      "projection_penalty_pct": -0.1,
+      "td_luck_factor": 1.77,
+      "actual_tds": 14,
+      "expected_tds": 7.9
+    },
+    "Nelson Agholor": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.321,
+      "adot": 12.5,
+      "signal": "Man yds/tgt: 16.7 vs Zone: 9.7",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.531,
+      "consistency": 0.237,
+      "correlation_boost_opp_qb": 0.101,
+      "boom_ratio": 3.06,
+      "bring_back_score": 3.01,
+      "projection_boost_vs_man": 0.154,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 16.7
+    },
+    "Olamide Zaccheaus": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.09,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.605,
+      "adot": 12.5,
+      "signal": "Boom ratio 3.1x, CV 0.99",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.634,
+      "consistency": 0.448,
+      "correlation_boost_opp_qb": 0.109,
+      "boom_ratio": 3.13,
+      "bring_back_score": 3.09
+    },
+    "Roman Wilson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.424,
+      "adot": 12.4,
+      "signal": "Target share 740.3%, consistency 0.46",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.403,
+      "consistency": 0.459
+    },
+    "Brandin Cooks": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.104,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.717,
+      "adot": 12.4,
+      "signal": "YPRR 1.16, snap share 73.7%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.292,
+      "consistency": 0.437,
+      "correlation_boost_opp_qb": 0.041,
+      "boom_ratio": 3.36,
+      "bring_back_score": 2.41,
+      "projection_boost_vs_zone": 0.095,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.8,
+      "ceiling_penalty_pct": -0.046,
+      "yprr": 1.16,
+      "snap_share": 73.7
+    },
+    "Jaylen Waddle": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.046,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.578,
+      "adot": 11.3,
+      "signal": "Zone yds/tgt: 14.2 vs Man: 9.6",
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.085,
+      "consistency": 0.473,
+      "projection_boost_vs_zone": 0.105,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 14.2
+    },
+    "Tez Johnson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.052,
+      "adot": 12.4,
+      "signal": "Target share 952.3%, consistency 0.23",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.523,
+      "consistency": 0.229
+    },
+    "Ricky Pearsall": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.125,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.882,
+      "adot": 12.4,
+      "signal": "Target share 1676.1%, consistency 0.47",
+      "correlation_boost_qb": 0.2,
+      "target_share": 16.761,
+      "consistency": 0.468
+    },
+    "Quez Watkins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.136,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.001,
+      "adot": 12.3,
+      "signal": "Zone yds/tgt: 8.8 vs Man: 4.4",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.724,
+      "consistency": 0.357,
+      "projection_boost_vs_zone": 0.102,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 8.8
+    },
+    "Chris Olave": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.071,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.522,
+      "adot": 12.3,
+      "signal": "Man yds/tgt: 11.3 vs Zone: 7.2",
+      "correlation_boost_qb": 0.2,
+      "target_share": 25.654,
+      "consistency": 0.548,
+      "projection_boost_vs_man": 0.112,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.3
+    },
+    "Tyrell Shavers": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.199,
+      "adot": 12.2,
+      "signal": "Boom ratio 3.3x, CV 0.98",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.511,
+      "consistency": 0.319,
+      "correlation_boost_opp_qb": 0.126,
+      "boom_ratio": 3.34,
+      "bring_back_score": 3.26
+    },
+    "Jalen Tolbert": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.109,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.827,
+      "adot": 12.2,
+      "signal": "Man yds/tgt: 10.4 vs Zone: 7.3",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.572,
+      "consistency": 0.378,
+      "projection_boost_vs_man": 0.096,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 10.4
+    },
+    "Andrei Iosivas": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.108,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.82,
+      "adot": 12.2,
+      "signal": "Target share 979.4%, consistency 0.40",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.794,
+      "consistency": 0.403
+    },
+    "Troy Franklin": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.112,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.86,
+      "adot": 12.2,
+      "signal": "Boom ratio 3.3x, CV 0.83",
+      "correlation_boost_qb": 0.2,
+      "target_share": 15.307,
+      "consistency": 0.488,
+      "correlation_boost_opp_qb": 0.077,
+      "boom_ratio": 3.35,
+      "bring_back_score": 2.77
+    },
+    "Ray-Ray McCloud III": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.147,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.148,
+      "adot": 12.1,
+      "signal": "YPRR 1.23, snap share 78.1%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.434,
+      "consistency": 0.454,
+      "correlation_boost_opp_qb": 0.139,
+      "boom_ratio": 3.41,
+      "bring_back_score": 3.39,
+      "projection_boost_vs_zone": 0.103,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.9,
+      "ceiling_penalty_pct": -0.057,
+      "yprr": 1.23,
+      "snap_share": 78.1
+    },
+    "Michael Wilson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.105,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.827,
+      "adot": 12.1,
+      "signal": "YPRR 1.38, snap share 80.8%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 15.721,
+      "consistency": 0.331,
+      "correlation_boost_opp_qb": 0.069,
+      "boom_ratio": 3.56,
+      "bring_back_score": 2.69,
+      "projection_boost_vs_man": 0.126,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 15.4,
+      "ceiling_penalty_pct": -0.048,
+      "yprr": 1.38,
+      "snap_share": 80.8
+    },
+    "Mike Williams": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.077,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.619,
+      "adot": 12.1,
+      "signal": "Target share 1868.4%, consistency 0.53",
+      "correlation_boost_qb": 0.2,
+      "target_share": 18.684,
+      "consistency": 0.53
+    },
+    "Equanimeous St. Brown": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.096,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.77,
+      "adot": 12.1,
+      "signal": "Zone yds/tgt: 11.4 vs Man: 5.1",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.298,
+      "consistency": 0.432,
+      "projection_boost_vs_zone": 0.126,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.4
+    },
+    "A.J. Brown": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.067,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.562,
+      "adot": 12.0,
+      "signal": "Target share 3046.9%, consistency 0.57",
+      "correlation_boost_qb": 0.2,
+      "target_share": 30.469,
+      "consistency": 0.571
+    },
+    "Courtland Sutton": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.066,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.537,
+      "adot": 12.0,
+      "signal": "Man yds/tgt: 12.5 vs Zone: 7.9",
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.932,
+      "consistency": 0.592,
+      "projection_boost_vs_man": 0.118,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 12.5
+    },
+    "Tetairoa McMillan": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.07,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.581,
+      "adot": 12.0,
+      "signal": "Target share 2603.9%, consistency 0.62",
+      "correlation_boost_qb": 0.2,
+      "target_share": 26.039,
+      "consistency": 0.625
+    },
+    "Quentin Johnston": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.089,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.737,
+      "adot": 12.0,
+      "signal": "Zone yds/tgt: 11.2 vs Man: 5.7",
+      "correlation_boost_qb": 0.2,
+      "target_share": 15.333,
+      "consistency": 0.514,
+      "projection_boost_vs_zone": 0.116,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.2
+    },
+    "Jalen McMillan": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.099,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.827,
+      "adot": 12.0,
+      "signal": "Man yds/tgt: 18.9 vs Zone: 8.5",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.907,
+      "consistency": 0.382,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 18.9
+    },
+    "Tre'Quan Smith": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.111,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.95,
+      "adot": 12.0,
+      "signal": "Zone yds/tgt: 11.8 vs Man: 8.6",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.293,
+      "consistency": 0.376,
+      "projection_boost_vs_zone": 0.089,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.8
+    },
+    "David Sills V": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.131,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.138,
+      "adot": 11.9,
+      "signal": "Target share 1071.2%, consistency 0.19",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.712,
+      "consistency": 0.195
+    },
+    "Jalen Nailor": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.111,
+      "distribution_type": "LogNormal",
+      "base_cv": 1.006,
+      "adot": 11.8,
+      "signal": "Boom ratio 3.1x, CV 0.80",
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.724,
+      "consistency": 0.462,
+      "correlation_boost_opp_qb": 0.048,
+      "boom_ratio": 3.11,
+      "bring_back_score": 2.48
+    },
+    "Nico Collins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.055,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.505,
+      "adot": 11.8,
+      "signal": "Target share 1929.5%, consistency 0.58",
+      "correlation_boost_qb": 0.2,
+      "target_share": 19.295,
+      "consistency": 0.576
+    },
+    "Elijah Moore": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.072,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.666,
+      "adot": 11.8,
+      "signal": "YPRR 1.01, snap share 75.1%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.653,
+      "consistency": 0.47,
+      "projection_boost_vs_man": 0.1,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 9.5,
+      "ceiling_penalty_pct": -0.05,
+      "yprr": 1.01,
+      "snap_share": 75.1
+    },
+    "Rakim Jarrett": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.086,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.841,
+      "adot": 11.7,
+      "signal": "Zone yds/tgt: 12.2 vs Man: 4.0",
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.091,
+      "consistency": 0.407,
+      "projection_boost_vs_zone": 0.149,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.2
+    },
+    "Donovan Peoples-Jones": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.057,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.569,
+      "adot": 11.7,
+      "signal": "Target share 1888.7%, consistency 0.46",
+      "correlation_boost_qb": 0.2,
+      "target_share": 18.887,
+      "consistency": 0.462
+    },
+    "Calvin Austin III": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.089,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.917,
+      "adot": 11.6,
+      "signal": "Boom ratio 3.3x, CV 0.90",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.013,
+      "consistency": 0.422,
+      "correlation_boost_opp_qb": 0.098,
+      "boom_ratio": 3.31,
+      "bring_back_score": 2.98
+    },
+    "Jayden Higgins": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.07,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.738,
+      "adot": 11.6,
+      "signal": "Target share 1203.7%, consistency 0.32",
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.037,
+      "consistency": 0.316
+    },
+    "Marquise Brown": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "cv_boost": 0.055,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.588,
+      "adot": 11.5,
+      "signal": "YPRR 1.27, snap share 85.7%",
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.417,
+      "consistency": 0.265,
+      "ceiling_penalty_pct": -0.075,
+      "yprr": 1.27,
+      "snap_share": 85.7
+    },
+    "Kalif Raymond": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.056,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.609,
+      "adot": 11.5,
+      "signal": "Target share 828.3%, consistency 0.43",
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.283,
+      "consistency": 0.431
+    },
+    "Trey Palmer": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.07,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.771,
+      "adot": 11.5,
+      "signal": "Target share 957.0%, consistency 0.42",
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.57,
+      "consistency": 0.425
+    },
+    "Josh Reynolds": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "cv_boost": 0.073,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.803,
+      "adot": 11.5,
+      "signal": "Zone yds/tgt: 9.9 vs Man: 6.8",
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.894,
+      "consistency": 0.372,
+      "projection_boost_vs_zone": 0.087,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.9
+    },
+    "Tyreek Hill": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.046,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.526,
+      "adot": 11.5,
+      "signal": "Target share 2778.3%, consistency 0.63",
+      "correlation_boost_qb": 0.2,
+      "target_share": 27.783,
+      "consistency": 0.629
+    },
+    "Johnny Wilson": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.15,
+      "distribution_type": "LogNormal",
+      "base_cv": 2.247,
+      "adot": 11.4,
+      "signal": "Target share 476.3%, consistency 0.63",
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.763,
+      "consistency": 0.63
+    },
+    "Xavier Worthy": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.052,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.645,
+      "adot": 11.3,
+      "signal": "Target share 1705.9%, consistency 0.56",
+      "correlation_boost_qb": 0.2,
+      "target_share": 17.059,
+      "consistency": 0.555
+    },
+    "Stefon Diggs": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "cv_boost": 0.043,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.557,
+      "adot": 11.3,
+      "signal": "Man yds/tgt: 11.0 vs Zone: 6.9",
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.355,
+      "consistency": 0.535,
+      "projection_boost_vs_man": 0.112,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.0
+    },
+    "DeVonta Smith": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ"
+      ],
+      "cv_boost": 0.042,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.559,
+      "adot": 11.3,
+      "signal": "Target share 2506.9%, consistency 0.60",
+      "correlation_boost_qb": 0.2,
+      "target_share": 25.069,
+      "consistency": 0.599
+    },
+    "Xavier Legette": {
+      "tags": [
+        "DEEP_BALL_DEPENDENT",
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "cv_boost": 0.061,
+      "distribution_type": "LogNormal",
+      "base_cv": 0.843,
+      "adot": 11.2,
+      "signal": "Boom ratio 3.2x, CV 0.81",
+      "correlation_boost_qb": 0.2,
+      "target_share": 16.596,
+      "consistency": 0.416,
+      "correlation_boost_opp_qb": 0.059,
+      "boom_ratio": 3.22,
+      "bring_back_score": 2.59
+    },
+    "Malik Nabers": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 34.08,
+      "consistency": 0.674,
+      "signal": "Target share 3408.0%, consistency 0.67"
+    },
+    "Ja'Marr Chase": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 28.485,
+      "consistency": 0.562,
+      "signal": "Target share 2848.5%, consistency 0.56"
+    },
+    "Justin Jefferson": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 28.435,
+      "consistency": 0.637,
+      "signal": "Target share 2843.5%, consistency 0.64"
+    },
+    "Deebo Samuel": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.972,
+      "consistency": 0.447,
+      "signal": "YAC/rec 4.0, 3.8 evaded tackles/game",
+      "projection_boost_vs_zone": 0.093,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.0,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "CeeDee Lamb": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 28.324,
+      "consistency": 0.673,
+      "signal": "Target share 2832.4%, consistency 0.67"
+    },
+    "Diontae Johnson": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 23.193,
+      "consistency": 0.615,
+      "signal": "Man yds/tgt: 12.6 vs Zone: 8.7",
+      "projection_boost_vs_man": 0.109,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 12.6
+    },
+    "Puka Nacua": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 30.092,
+      "consistency": 0.643,
+      "signal": "Target share 3009.2%, consistency 0.64"
+    },
+    "Amon-Ra St. Brown": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 29.527,
+      "consistency": 0.603,
+      "signal": "Target share 2952.7%, consistency 0.60"
+    },
+    "Garrett Wilson": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 25.485,
+      "consistency": 0.552,
+      "signal": "Target share 2548.5%, consistency 0.55"
+    },
+    "Cooper Kupp": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 16.329,
+      "consistency": 0.452,
+      "signal": "Target share 1632.9%, consistency 0.45"
+    },
+    "Michael Pittman Jr.": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 25.624,
+      "consistency": 0.576,
+      "signal": "Target share 2562.4%, consistency 0.58"
+    },
+    "Deebo Samuel Sr.": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.545,
+      "consistency": 0.555,
+      "signal": "Target share 2154.5%, consistency 0.55"
+    },
+    "Drake London": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 26.223,
+      "consistency": 0.534,
+      "signal": "Target share 2622.3%, consistency 0.53"
+    },
+    "Jakobi Meyers": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 22.335,
+      "consistency": 0.557,
+      "signal": "Target share 2233.5%, consistency 0.56"
+    },
+    "Keenan Allen": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 24.076,
+      "consistency": 0.54,
+      "signal": "Target share 2407.6%, consistency 0.54"
+    },
+    "Chris Godwin": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.924,
+      "consistency": 0.704,
+      "signal": "Target share 2192.4%, consistency 0.70"
+    },
+    "Zay Flowers": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 26.77,
+      "consistency": 0.572,
+      "signal": "Target share 2677.0%, consistency 0.57"
+    },
+    "Tyler Lockett": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.207,
+      "consistency": 0.467,
+      "signal": "Target share 1120.7%, consistency 0.47"
+    },
+    "Jaxon Smith-Njigba": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 26.093,
+      "consistency": 0.54,
+      "signal": "Target share 2609.3%, consistency 0.54"
+    },
+    "Rashee Rice": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 23.22,
+      "consistency": 0.603,
+      "signal": "Target share 2322.0%, consistency 0.60"
+    },
+    "Wan'Dale Robinson": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 24.386,
+      "consistency": 0.55,
+      "signal": "Target share 2438.6%, consistency 0.55"
+    },
+    "Adam Thielen": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.033,
+      "consistency": 0.646,
+      "signal": "YPRR 1.16, snap share 88.3%",
+      "projection_boost_vs_zone": 0.099,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.4,
+      "ceiling_penalty_pct": -0.094,
+      "yprr": 1.16,
+      "snap_share": 88.3
+    },
+    "Ladd McConkey": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 21.132,
+      "consistency": 0.603,
+      "signal": "Target share 2113.2%, consistency 0.60"
+    },
+    "Robert Woods": {
+      "tags": [
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.385,
+      "consistency": 0.377,
+      "signal": "YPRR 1.27, snap share 78.6%",
+      "ceiling_penalty_pct": -0.054,
+      "yprr": 1.27,
+      "snap_share": 78.6
+    },
+    "Allen Robinson II": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.773,
+      "consistency": 0.285,
+      "signal": "YPRR 1.08, snap share 91.2%",
+      "projection_boost_vs_zone": 0.101,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 8.8,
+      "ceiling_penalty_pct": -0.1,
+      "yprr": 1.08,
+      "snap_share": 91.2
+    },
+    "Allen Lazard": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.49,
+      "consistency": 0.371,
+      "signal": "Boom ratio 3.9x, CV 0.95",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.9,
+      "bring_back_score": 3.71
+    },
+    "Michael Thomas": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 18.471,
+      "consistency": 0.569,
+      "signal": "Target share 1847.1%, consistency 0.57"
+    },
+    "Josh Downs": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 19.781,
+      "consistency": 0.518,
+      "signal": "Zone yds/tgt: 9.9 vs Man: 6.3",
+      "projection_boost_vs_zone": 0.093,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.9
+    },
+    "Jayden Reed": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 17.033,
+      "consistency": 0.598,
+      "signal": "Target share 1703.3%, consistency 0.60"
+    },
+    "Demario Douglas": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 18.328,
+      "consistency": 0.53,
+      "signal": "Target share 1832.8%, consistency 0.53"
+    },
+    "Tyler Boyd": {
+      "tags": [
+        "THE_FIRST_READ",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.377,
+      "consistency": 0.514,
+      "signal": "YPRR 1.23, snap share 77.5%",
+      "ceiling_penalty_pct": -0.056,
+      "yprr": 1.23,
+      "snap_share": 77.5
+    },
+    "Curtis Samuel": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.39,
+      "consistency": 0.317,
+      "signal": "Man yds/tgt: 9.8 vs Zone: 5.5",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.7,
+      "bring_back_score": 3.5,
+      "projection_boost_vs_man": 0.114,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 9.8
+    },
+    "Jauan Jennings": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.646,
+      "consistency": 0.57,
+      "signal": "Boom ratio 4.2x, CV 0.78",
+      "correlation_boost_opp_qb": 0.123,
+      "boom_ratio": 4.16,
+      "bring_back_score": 3.23
+    },
+    "Chimere Dike": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.99,
+      "consistency": 0.59,
+      "signal": "Target share 1499.0%, consistency 0.59"
+    },
+    "Richie James": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.677,
+      "consistency": 0.588,
+      "signal": "Zone yds/tgt: 12.6 vs Man: 4.0",
+      "correlation_boost_opp_qb": 0.038,
+      "boom_ratio": 2.92,
+      "bring_back_score": 2.38,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.6
+    },
+    "John Metchie III": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.123,
+      "consistency": 0.382,
+      "signal": "YPRR 1.08, snap share 76.4%",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.42,
+      "bring_back_score": 4.16,
+      "projection_boost_vs_zone": 0.099,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 9.6,
+      "ceiling_penalty_pct": -0.055,
+      "yprr": 1.08,
+      "snap_share": 76.4
+    },
+    "Hunter Renfrow": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.496,
+      "consistency": 0.486,
+      "signal": "Man yds/tgt: 11.9 vs Zone: 7.7",
+      "projection_boost_vs_man": 0.113,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.9
+    },
+    "Khalil Shakir": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.649,
+      "consistency": 0.397,
+      "signal": "Zone yds/tgt: 12.2 vs Man: 8.1",
+      "correlation_boost_opp_qb": 0.068,
+      "boom_ratio": 3.08,
+      "bring_back_score": 2.68,
+      "projection_boost_vs_zone": 0.099,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.2
+    },
+    "Isaiah Hodgins": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.296,
+      "consistency": 0.354,
+      "signal": "Target share 829.6%, consistency 0.35"
+    },
+    "JuJu Smith-Schuster": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.313,
+      "consistency": 0.356,
+      "signal": "Zone yds/tgt: 13.9 vs Man: 0.0",
+      "correlation_boost_opp_qb": 0.088,
+      "boom_ratio": 3.45,
+      "bring_back_score": 2.88,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 13.9
+    },
+    "Jalen Coker": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.4,
+      "consistency": 0.489,
+      "signal": "Zone yds/tgt: 16.2 vs Man: 9.4",
+      "projection_boost_vs_zone": 0.131,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 16.2
+    },
+    "Ben Skowronek": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.467,
+      "consistency": 0.497,
+      "signal": "YPRR 1.02, snap share 82.2%",
+      "projection_boost_vs_man": 0.122,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 8.7,
+      "ceiling_penalty_pct": -0.074,
+      "yprr": 1.02,
+      "snap_share": 82.2
+    },
+    "Parris Campbell": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.924,
+      "consistency": 0.368,
+      "signal": "YPRR 1.11, snap share 85.2%",
+      "projection_boost_vs_zone": 0.115,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 6.6,
+      "ceiling_penalty_pct": -0.084,
+      "yprr": 1.11,
+      "snap_share": 85.2
+    },
+    "K.J. Osborn": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT",
+        "EMPTY_CALORIES"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.731,
+      "consistency": 0.303,
+      "signal": "YPRR 1.02, snap share 79.6%",
+      "correlation_boost_opp_qb": 0.067,
+      "boom_ratio": 3.25,
+      "bring_back_score": 2.67,
+      "projection_boost_vs_zone": 0.111,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.2,
+      "ceiling_penalty_pct": -0.065,
+      "yprr": 1.02,
+      "snap_share": 79.6
+    },
+    "Sterling Shepard": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.751,
+      "consistency": 0.329,
+      "signal": "Target share 775.1%, consistency 0.33"
+    },
+    "Malik Washington": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.777,
+      "consistency": 0.506,
+      "signal": "Man yds/tgt: 8.0 vs Zone: 5.0",
+      "projection_boost_vs_man": 0.095,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 8.0
+    },
+    "Jarvis Landry": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.084,
+      "consistency": 0.459,
+      "signal": "Target share 1408.4%, consistency 0.46"
+    },
+    "Kevin Austin Jr.": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.525,
+      "consistency": 0.56,
+      "signal": "Boom ratio 3.0x, CV 0.81",
+      "correlation_boost_opp_qb": 0.046,
+      "boom_ratio": 3.04,
+      "bring_back_score": 2.46
+    },
+    "Devin Duvernay": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.179,
+      "consistency": 0.442,
+      "signal": "Boom ratio 3.4x, CV 1.10",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.38,
+      "bring_back_score": 3.7
+    },
+    "DeMario Douglas": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.112,
+      "consistency": 0.444,
+      "signal": "Target share 1311.2%, consistency 0.44"
+    },
+    "Devaughn Vele": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.742,
+      "consistency": 0.44,
+      "signal": "Boom ratio 3.2x, CV 0.92",
+      "correlation_boost_opp_qb": 0.092,
+      "boom_ratio": 3.16,
+      "bring_back_score": 2.92
+    },
+    "Isaiah Williams": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.706,
+      "consistency": 0.45,
+      "signal": "Target share 1270.6%, consistency 0.45"
+    },
+    "Rondale Moore": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.962,
+      "consistency": 0.452,
+      "signal": "Target share 1196.2%, consistency 0.45"
+    },
+    "Steven Sims": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.853,
+      "consistency": 0.603,
+      "signal": "Target share 885.3%, consistency 0.60"
+    },
+    "Luther Burden III": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.997,
+      "consistency": 0.396,
+      "signal": "Boom ratio 3.2x, CV 0.91",
+      "correlation_boost_opp_qb": 0.094,
+      "boom_ratio": 3.23,
+      "bring_back_score": 2.94
+    },
+    "Parker Washington": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 14.554,
+      "consistency": 0.352,
+      "signal": "Zone yds/tgt: 10.2 vs Man: 6.2",
+      "projection_boost_vs_zone": 0.098,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.2
+    },
+    "Pat Bryant": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.217,
+      "consistency": 0.452,
+      "signal": "Target share 1121.7%, consistency 0.45"
+    },
+    "Dontayvion Wicks": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.414,
+      "consistency": 0.373,
+      "signal": "Boom ratio 3.6x, CV 0.81",
+      "correlation_boost_opp_qb": 0.09,
+      "boom_ratio": 3.56,
+      "bring_back_score": 2.9
+    },
+    "Trent Sherfield": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.458,
+      "consistency": 0.611,
+      "signal": "Boom ratio 2.9x, CV 0.83",
+      "correlation_boost_opp_qb": 0.043,
+      "boom_ratio": 2.92,
+      "bring_back_score": 2.43
+    },
+    "Russell Gage": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 13.166,
+      "consistency": 0.368,
+      "signal": "Boom ratio 2.9x, CV 0.82",
+      "correlation_boost_opp_qb": 0.036,
+      "boom_ratio": 2.86,
+      "bring_back_score": 2.36
+    },
+    "Tyler Scott": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.63,
+      "consistency": 0.501,
+      "signal": "Zone yds/tgt: 8.4 vs Man: 2.0",
+      "projection_boost_vs_zone": 0.126,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 8.4
+    },
+    "Laviska Shenault Jr.": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.757,
+      "consistency": 0.395,
+      "signal": "Man yds/tgt: 11.5 vs Zone: 6.3",
+      "projection_boost_vs_man": 0.129,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.5
+    },
+    "DeAndre Carter": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.77,
+      "consistency": 0.47,
+      "signal": "Boom ratio 3.0x, CV 0.83",
+      "correlation_boost_opp_qb": 0.048,
+      "boom_ratio": 2.98,
+      "bring_back_score": 2.48
+    },
+    "Isaiah McKenzie": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 12.728,
+      "consistency": 0.357,
+      "signal": "Boom ratio 3.4x, CV 1.08",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.44,
+      "bring_back_score": 3.71
+    },
+    "Shi Smith": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.618,
+      "consistency": 0.422,
+      "signal": "Boom ratio 3.0x, CV 0.87",
+      "correlation_boost_opp_qb": 0.064,
+      "boom_ratio": 3.04,
+      "bring_back_score": 2.64
+    },
+    "Jimmy Horn Jr.": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.494,
+      "consistency": 0.596,
+      "signal": "Target share 749.4%, consistency 0.60"
+    },
+    "Cedrick Wilson Jr.": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.401,
+      "consistency": 0.154,
+      "signal": "Man yds/tgt: 13.2 vs Zone: 8.9",
+      "correlation_boost_opp_qb": 0.121,
+      "boom_ratio": 3.41,
+      "bring_back_score": 3.21,
+      "projection_boost_vs_man": 0.114,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 13.2
+    },
+    "Luke McCaffrey": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.586,
+      "consistency": 0.556,
+      "signal": "Zone yds/tgt: 10.7 vs Man: 5.8",
+      "projection_boost_vs_zone": 0.109,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.7
+    },
+    "Skyy Moore": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.697,
+      "consistency": 0.234,
+      "signal": "Man yds/tgt: 19.8 vs Zone: 7.1",
+      "correlation_boost_opp_qb": 0.143,
+      "boom_ratio": 3.58,
+      "bring_back_score": 3.43,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 19.8
+    },
+    "Greg Dortch": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.299,
+      "consistency": 0.285,
+      "signal": "Zone yds/tgt: 7.7 vs Man: 4.3",
+      "correlation_boost_opp_qb": 0.06,
+      "boom_ratio": 3.12,
+      "bring_back_score": 2.6,
+      "projection_boost_vs_zone": 0.09,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.7
+    },
+    "Brandon Powell": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.134,
+      "consistency": 0.422,
+      "signal": "Zone yds/tgt: 6.5 vs Man: 1.0",
+      "correlation_boost_opp_qb": 0.142,
+      "boom_ratio": 3.57,
+      "bring_back_score": 3.42,
+      "projection_boost_vs_zone": 0.117,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 6.5
+    },
+    "Kyle Philips": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.49,
+      "consistency": 0.425,
+      "signal": "Zone yds/tgt: 12.1 vs Man: 7.3",
+      "projection_boost_vs_zone": 0.108,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 12.1
+    },
+    "Mecole Hardman": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.109,
+      "consistency": 0.399,
+      "signal": "Target share 1010.9%, consistency 0.40"
+    },
+    "David Moore": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.305,
+      "consistency": 0.459,
+      "signal": "Zone yds/tgt: 18.4 vs Man: 11.0",
+      "correlation_boost_opp_qb": 0.116,
+      "boom_ratio": 3.52,
+      "bring_back_score": 3.16,
+      "projection_boost_vs_zone": 0.139,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 18.4
+    },
+    "Brandon Johnson": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.922,
+      "consistency": 0.391,
+      "signal": "Target share 992.2%, consistency 0.39"
+    },
+    "Marvin Mims Jr.": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.327,
+      "consistency": 0.402,
+      "signal": "Boom ratio 4.4x, CV 0.98",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.36,
+      "bring_back_score": 4.27
+    },
+    "Trenton Irwin": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.565,
+      "consistency": 0.133,
+      "signal": "Man yds/tgt: 13.1 vs Zone: 6.7",
+      "correlation_boost_opp_qb": 0.13,
+      "boom_ratio": 3.2,
+      "bring_back_score": 3.3,
+      "projection_boost_vs_man": 0.147,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 13.1
+    },
+    "Dante Pettis": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.43,
+      "consistency": 0.251,
+      "signal": "Boom ratio 3.1x, CV 0.88",
+      "correlation_boost_opp_qb": 0.075,
+      "boom_ratio": 3.1,
+      "bring_back_score": 2.75
+    },
+    "Cedric Tillman": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 11.978,
+      "consistency": 0.295,
+      "signal": "Boom ratio 4.5x, CV 1.04",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.45,
+      "bring_back_score": 4.65
+    },
+    "Xavier Hutchinson": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.942,
+      "consistency": 0.444,
+      "signal": "Zone yds/tgt: 11.5 vs Man: 3.8",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.56,
+      "bring_back_score": 4.4,
+      "projection_boost_vs_zone": 0.142,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.5
+    },
+    "A.J. Green": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.628,
+      "consistency": 0.346,
+      "signal": "Boom ratio 2.9x, CV 0.83",
+      "correlation_boost_opp_qb": 0.044,
+      "boom_ratio": 2.94,
+      "bring_back_score": 2.44
+    },
+    "David Bell": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.807,
+      "consistency": 0.321,
+      "signal": "Volume-based",
+      "correlation_boost_opp_qb": 0.084,
+      "boom_ratio": 2.94,
+      "bring_back_score": 2.84,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.7
+    },
+    "DJ Turner": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.509,
+      "consistency": 0.384,
+      "signal": "Target share 850.9%, consistency 0.38"
+    },
+    "Tre' Harris": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.761,
+      "consistency": 0.371,
+      "signal": "Target share 876.1%, consistency 0.37"
+    },
+    "Tyler Johnson": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.967,
+      "consistency": 0.293,
+      "signal": "YAC/rec 2.9, 0.3 evaded tackles/game",
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 22.4,
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Tylan Wallace": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.507,
+      "consistency": 0.566,
+      "signal": "Zone yds/tgt: 20.2 vs Man: 12.5",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.18,
+      "bring_back_score": 4.74,
+      "projection_boost_vs_zone": 0.143,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 20.2
+    },
+    "Kadarius Toney": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.76,
+      "consistency": 0.258,
+      "signal": "Target share 776.0%, consistency 0.26"
+    },
+    "Dee Eskridge": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.564,
+      "consistency": 0.542,
+      "signal": "Target share 556.4%, consistency 0.54"
+    },
+    "Deven Thompkins": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.039,
+      "consistency": 0.428,
+      "signal": "Zone yds/tgt: 8.3 vs Man: 1.9",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 5.01,
+      "bring_back_score": 6.4,
+      "projection_boost_vs_zone": 0.127,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 8.3
+    },
+    "Tim Patrick": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.27,
+      "consistency": 0.092,
+      "signal": "Boom ratio 3.0x, CV 0.78",
+      "correlation_boost_opp_qb": 0.036,
+      "boom_ratio": 3.01,
+      "bring_back_score": 2.36
+    },
+    "KaVontae Turpin": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.073,
+      "consistency": 0.414,
+      "signal": "Man yds/tgt: 13.9 vs Zone: 9.1",
+      "projection_boost_vs_man": 0.122,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 13.9
+    },
+    "Trent Sherfield Sr.": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.019,
+      "consistency": 0.686,
+      "signal": "Target share 401.9%, consistency 0.69"
+    },
+    "Jack Bech": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.473,
+      "consistency": 0.286,
+      "signal": "Target share 947.3%, consistency 0.29"
+    },
+    "Malik Heath": {
+      "tags": [
+        "THE_FIRST_READ",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.885,
+      "consistency": 0.454,
+      "signal": "Man yds/tgt: 11.7 vs Zone: 8.2",
+      "projection_boost_vs_man": 0.103,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 11.7
+    },
+    "Zach Pascal": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.893,
+      "consistency": 0.206,
+      "signal": "Man yds/tgt: 4.3 vs Zone: 0.0",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.06,
+      "bring_back_score": 4.11,
+      "projection_boost_vs_man": 0.114,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 4.3
+    },
+    "Braxton Berrios": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.775,
+      "consistency": 0.187,
+      "signal": "Zone yds/tgt: 6.8 vs Man: 3.8",
+      "correlation_boost_opp_qb": 0.116,
+      "boom_ratio": 3.61,
+      "bring_back_score": 3.16,
+      "projection_boost_vs_zone": 0.086,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 6.8
+    },
+    "Randall Cobb": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.377,
+      "consistency": 0.382,
+      "signal": "Target share 637.7%, consistency 0.38"
+    },
+    "Lil'Jordan Humphrey": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.361,
+      "consistency": 0.293,
+      "signal": "Target share 836.1%, consistency 0.29"
+    },
+    "Derius Davis": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.463,
+      "consistency": 0.539,
+      "signal": "Boom ratio 3.6x, CV 1.01",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.63,
+      "bring_back_score": 3.67
+    },
+    "Jaylin Noel": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.258,
+      "consistency": 0.281,
+      "signal": "Target share 825.8%, consistency 0.28"
+    },
+    "Marquez Callaway": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.408,
+      "consistency": 0.209,
+      "signal": "Target share 1040.8%, consistency 0.21"
+    },
+    "Jamari Thrash": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.687,
+      "consistency": 0.462,
+      "signal": "Zone yds/tgt: 7.3 vs Man: 0.0",
+      "projection_boost_vs_zone": 0.138,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.3
+    },
+    "Tim Jones": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.544,
+      "consistency": 0.381,
+      "signal": "Zone yds/tgt: 16.1 vs Man: 8.4",
+      "projection_boost_vs_zone": 0.142,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 16.1
+    },
+    "Jamison Crowder": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 7.692,
+      "consistency": 0.27,
+      "signal": "Zone yds/tgt: 13.2 vs Man: 3.4",
+      "correlation_boost_opp_qb": 0.093,
+      "boom_ratio": 3.06,
+      "bring_back_score": 2.93,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 13.2
+    },
+    "River Cracraft": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.284,
+      "consistency": 0.334,
+      "signal": "Zone yds/tgt: 11.1 vs Man: 2.2",
+      "correlation_boost_opp_qb": 0.058,
+      "boom_ratio": 3.06,
+      "bring_back_score": 2.58,
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 11.1
+    },
+    "Mason Tipton": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.287,
+      "consistency": 0.244,
+      "signal": "Zone yds/tgt: 4.8 vs Man: 0.0",
+      "projection_boost_vs_zone": 0.107,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 4.8
+    },
+    "Xavier Gipson": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.108,
+      "consistency": 0.239,
+      "signal": "Target share 810.8%, consistency 0.24"
+    },
+    "Deonte Harty": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.012,
+      "consistency": 0.386,
+      "signal": "Target share 501.2%, consistency 0.39"
+    },
+    "Brycen Tremayne": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.663,
+      "consistency": 0.269,
+      "signal": "Target share 666.3%, consistency 0.27"
+    },
+    "Jake Bobo": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 4.884,
+      "consistency": 0.361,
+      "signal": "Boom ratio 4.5x, CV 1.00",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.45,
+      "bring_back_score": 4.45
+    },
+    "Ja'Lynn Polk": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.68,
+      "consistency": 0.202,
+      "signal": "Target share 868.0%, consistency 0.20"
+    },
+    "Ronnie Bell": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.562,
+      "consistency": 0.264,
+      "signal": "Zone yds/tgt: 14.1 vs Man: 4.7",
+      "projection_boost_vs_zone": 0.15,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 14.1
+    },
+    "Ryan Miller": {
+      "tags": [
+        "THE_FIRST_READ",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 5.807,
+      "consistency": 0.293,
+      "signal": "Zone yds/tgt: 7.8 vs Man: 1.0",
+      "projection_boost_vs_zone": 0.131,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.8
+    },
+    "Jamal Agnew": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 6.449,
+      "consistency": 0.215,
+      "signal": "Zone yds/tgt: 7.4 vs Man: 2.6",
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.65,
+      "bring_back_score": 5.99,
+      "projection_boost_vs_zone": 0.108,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 7.4
+    },
+    "Mecole Hardman Jr.": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "MAN_BEATER"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 10.926,
+      "consistency": 0.109,
+      "signal": "Man yds/tgt: 10.7 vs Zone: 1.9",
+      "correlation_boost_opp_qb": 0.123,
+      "boom_ratio": 2.88,
+      "bring_back_score": 3.23,
+      "projection_boost_vs_man": 0.17,
+      "projection_penalty_vs_zone": -0.03,
+      "man_yards_per_target": 10.7
+    },
+    "Kendall Hinton": {
+      "tags": [
+        "THE_FIRST_READ"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.168,
+      "consistency": 0.118,
+      "signal": "Target share 916.8%, consistency 0.12"
+    },
+    "Jordan Whittington": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO",
+        "ZONE_MERCHANT"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 8.816,
+      "consistency": 0.108,
+      "signal": "Zone yds/tgt: 10.8 vs Man: 6.0",
+      "correlation_boost_opp_qb": 0.087,
+      "boom_ratio": 3.35,
+      "bring_back_score": 2.87,
+      "projection_boost_vs_zone": 0.107,
+      "projection_penalty_vs_man": -0.05,
+      "zone_yards_per_target": 10.8
+    },
+    "Ryan Flournoy": {
+      "tags": [
+        "THE_FIRST_READ",
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_qb": 0.2,
+      "target_share": 9.271,
+      "consistency": 0.072,
+      "signal": "Boom ratio 3.6x, CV 0.92",
+      "correlation_boost_opp_qb": 0.133,
+      "boom_ratio": 3.62,
+      "bring_back_score": 3.33
+    },
+    "Keaontay Ingram": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 5.82,
+      "bring_back_score": 10.75,
+      "signal": "Boom ratio 5.8x, CV 1.85"
+    },
+    "JaMycal Hasty": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.81,
+      "bring_back_score": 4.6,
+      "signal": "Boom ratio 3.8x, CV 1.21"
+    },
+    "Sean Tucker": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 5.21,
+      "bring_back_score": 6.97,
+      "signal": "11 TDs vs 7.9 expected (1.4x luck)",
+      "projection_penalty_pct": -0.038,
+      "td_luck_factor": 1.39,
+      "actual_tds": 11,
+      "expected_tds": 7.9
+    },
+    "Mo Alie-Cox": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.88,
+      "bring_back_score": 6.85,
+      "signal": "Boom ratio 4.9x, CV 1.40"
+    },
+    "Clyde Edwards-Helaire": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.88,
+      "bring_back_score": 5.83,
+      "signal": "6 TDs vs 4.5 expected (1.3x luck)",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0,
+      "projection_penalty_pct": -0.025,
+      "td_luck_factor": 1.32,
+      "actual_tds": 6,
+      "expected_tds": 4.5
+    },
+    "Emanuel Wilson": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 5.27,
+      "bring_back_score": 5.82,
+      "signal": "Boom ratio 5.3x, CV 1.11"
+    },
+    "Tank Bigsby": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.065,
+      "boom_ratio": 2.67,
+      "bring_back_score": 2.65,
+      "signal": "Boom ratio 2.7x, CV 0.99"
+    },
+    "Jaylen Wright": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.68,
+      "bring_back_score": 5.65,
+      "signal": "Boom ratio 4.7x, CV 1.21"
+    },
+    "Trey Sermon": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.79,
+      "bring_back_score": 5.32,
+      "signal": "Boom ratio 4.8x, CV 1.11"
+    },
+    "Dare Ogunbowale": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.57,
+      "bring_back_score": 5.28,
+      "signal": "Boom ratio 4.6x, CV 1.16"
+    },
+    "Carson Steele": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.29,
+      "bring_back_score": 5.23,
+      "signal": "Boom ratio 4.3x, CV 1.22"
+    },
+    "Blake Corum": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.86,
+      "bring_back_score": 5.06,
+      "signal": "Boom ratio 4.9x, CV 1.04"
+    },
+    "Hassan Haskins": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.06,
+      "bring_back_score": 4.78,
+      "signal": "Boom ratio 4.1x, CV 1.18"
+    },
+    "Ty Chandler": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.5,
+      "bring_back_score": 4.69,
+      "signal": "YAC/rec 9.1, 1.5 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "D'Onta Foreman": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.04,
+      "boom_ratio": 2.88,
+      "bring_back_score": 2.4,
+      "signal": "Boom ratio 2.9x, CV 0.83"
+    },
+    "Gunner Olszewski": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.81,
+      "bring_back_score": 4.5,
+      "signal": "Boom ratio 3.8x, CV 1.18"
+    },
+    "Joshua Kelley": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.9,
+      "bring_back_score": 4.45,
+      "signal": "Boom ratio 3.9x, CV 1.14"
+    },
+    "Matt Breida": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.045,
+      "boom_ratio": 2.79,
+      "bring_back_score": 2.45,
+      "signal": "Boom ratio 2.8x, CV 0.88"
+    },
+    "Geoff Swaim": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.66,
+      "bring_back_score": 4.24,
+      "signal": "Boom ratio 3.7x, CV 1.16"
+    },
+    "Braelon Allen": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.07,
+      "bring_back_score": 4.13,
+      "signal": "Boom ratio 4.1x, CV 1.01"
+    },
+    "Rasheen Ali": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.65,
+      "bring_back_score": 3.86,
+      "signal": "Boom ratio 3.7x, CV 1.06"
+    },
+    "Jeremy McNichols": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 4.1,
+      "bring_back_score": 3.79,
+      "signal": "Boom ratio 4.1x, CV 0.92"
+    },
+    "Avery Williams": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.93,
+      "bring_back_score": 3.75,
+      "signal": "Boom ratio 3.9x, CV 0.95"
+    },
+    "Raheem Blackshear": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.17,
+      "bring_back_score": 3.74,
+      "signal": "Boom ratio 3.2x, CV 1.18"
+    },
+    "Nyheim Hines": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.39,
+      "bring_back_score": 3.68,
+      "signal": "Boom ratio 3.4x, CV 1.09"
+    },
+    "C.J. Uzomah": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.86,
+      "bring_back_score": 3.65,
+      "signal": "Boom ratio 3.9x, CV 0.94"
+    },
+    "Zamir White": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.095,
+      "boom_ratio": 2.84,
+      "bring_back_score": 2.95,
+      "signal": "Boom ratio 2.8x, CV 1.04"
+    },
+    "Josh Oliver": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.042,
+      "boom_ratio": 2.94,
+      "bring_back_score": 2.42,
+      "signal": "9 TDs vs 5.9 expected (1.5x luck)",
+      "projection_penalty_pct": -0.067,
+      "td_luck_factor": 1.54,
+      "actual_tds": 9,
+      "expected_tds": 5.9
+    },
+    "Isaiah Davis": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.48,
+      "bring_back_score": 3.57,
+      "signal": "Boom ratio 3.5x, CV 1.02"
+    },
+    "Ray Davis": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.15,
+      "boom_ratio": 3.5,
+      "bring_back_score": 3.51,
+      "signal": "Boom ratio 3.5x, CV 1.00"
+    },
+    "Adam Trautman": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.141,
+      "boom_ratio": 3.95,
+      "bring_back_score": 3.41,
+      "signal": "Boom ratio 4.0x, CV 0.86"
+    },
+    "Elijah Higgins": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.139,
+      "boom_ratio": 3.97,
+      "bring_back_score": 3.39,
+      "signal": "Boom ratio 4.0x, CV 0.85"
+    },
+    "Tyler Goodson": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.138,
+      "boom_ratio": 3.03,
+      "bring_back_score": 3.38,
+      "signal": "Boom ratio 3.0x, CV 1.12"
+    },
+    "Taysom Hill": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.136,
+      "boom_ratio": 3.74,
+      "bring_back_score": 3.36,
+      "signal": "9 TDs vs 6.5 expected (1.4x luck)",
+      "projection_penalty_pct": -0.036,
+      "td_luck_factor": 1.38,
+      "actual_tds": 9,
+      "expected_tds": 6.5
+    },
+    "Brashard Smith": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_opp_qb": 0.136,
+      "boom_ratio": 3.3,
+      "bring_back_score": 3.36,
+      "signal": "YAC/rec 9.1, 0.5 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Noah Gray": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.135,
+      "boom_ratio": 4.21,
+      "bring_back_score": 3.35,
+      "signal": "Boom ratio 4.2x, CV 0.80"
+    },
+    "Mitchell Wilcox": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.132,
+      "boom_ratio": 3.34,
+      "bring_back_score": 3.32,
+      "signal": "Boom ratio 3.3x, CV 0.99"
+    },
+    "Zach Gentry": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.127,
+      "boom_ratio": 3.47,
+      "bring_back_score": 3.27,
+      "signal": "Boom ratio 3.5x, CV 0.94"
+    },
+    "Luke Schoonmaker": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.126,
+      "boom_ratio": 3.53,
+      "bring_back_score": 3.26,
+      "signal": "Boom ratio 3.5x, CV 0.92"
+    },
+    "Charlie Kolar": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.126,
+      "boom_ratio": 3.74,
+      "bring_back_score": 3.26,
+      "signal": "Boom ratio 3.7x, CV 0.87"
+    },
+    "Velus Jones Jr.": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.126,
+      "boom_ratio": 3.05,
+      "bring_back_score": 3.26,
+      "signal": "Boom ratio 3.1x, CV 1.07"
+    },
+    "Gus Edwards": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.032,
+      "boom_ratio": 2.84,
+      "bring_back_score": 2.32,
+      "signal": "Boom ratio 2.8x, CV 0.82"
+    },
+    "Zach Charbonnet": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_opp_qb": 0.115,
+      "boom_ratio": 4.03,
+      "bring_back_score": 3.15,
+      "signal": "YAC/rec 7.6, 2.2 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Josh Whyle": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.113,
+      "boom_ratio": 3.51,
+      "bring_back_score": 3.13,
+      "signal": "Boom ratio 3.5x, CV 0.89"
+    },
+    "Ameer Abdullah": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.064,
+      "boom_ratio": 3.22,
+      "bring_back_score": 2.64,
+      "signal": "Boom ratio 3.2x, CV 0.82"
+    },
+    "Cam Akers": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.111,
+      "boom_ratio": 3.44,
+      "bring_back_score": 3.11,
+      "signal": "Boom ratio 3.4x, CV 0.91"
+    },
+    "Pharaoh Brown": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.11,
+      "boom_ratio": 3.15,
+      "bring_back_score": 3.1,
+      "signal": "Boom ratio 3.2x, CV 0.98"
+    },
+    "Khalil Herbert": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.06,
+      "boom_ratio": 2.85,
+      "bring_back_score": 2.6,
+      "signal": "Boom ratio 2.8x, CV 0.91"
+    },
+    "Kimani Vidal": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.103,
+      "boom_ratio": 3.07,
+      "bring_back_score": 3.03,
+      "signal": "Boom ratio 3.1x, CV 0.99"
+    },
+    "Chris Rodriguez Jr.": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.102,
+      "boom_ratio": 3.34,
+      "bring_back_score": 3.02,
+      "signal": "Boom ratio 3.3x, CV 0.90"
+    },
+    "Elijah Mitchell": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.1,
+      "boom_ratio": 2.92,
+      "bring_back_score": 3.0,
+      "signal": "Boom ratio 2.9x, CV 1.03"
+    },
+    "Audric Estime": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.099,
+      "boom_ratio": 3.3,
+      "bring_back_score": 2.99,
+      "signal": "Boom ratio 3.3x, CV 0.91"
+    },
+    "Jamaal Williams": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.095,
+      "boom_ratio": 3.27,
+      "bring_back_score": 2.95,
+      "signal": "17 TDs vs 11.4 expected (1.5x luck)",
+      "correlation_boost_dst": 0.039,
+      "workload_score": 1.03,
+      "ypc": 4.07,
+      "projection_penalty_pct": -0.059,
+      "td_luck_factor": 1.49,
+      "actual_tds": 17,
+      "expected_tds": 11.4
+    },
+    "Chase Edmonds": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.089,
+      "boom_ratio": 3.29,
+      "bring_back_score": 2.89,
+      "signal": "3 TDs vs 2.2 expected (1.4x luck)",
+      "projection_penalty_pct": -0.038,
+      "td_luck_factor": 1.39,
+      "actual_tds": 3,
+      "expected_tds": 2.2
+    },
+    "Jordan Mason": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.089,
+      "boom_ratio": 3.16,
+      "bring_back_score": 2.89,
+      "signal": "Boom ratio 3.2x, CV 0.92"
+    },
+    "Caleb Huntley": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.088,
+      "boom_ratio": 3.1,
+      "bring_back_score": 2.88,
+      "signal": "Boom ratio 3.1x, CV 0.93"
+    },
+    "Drew Sample": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.087,
+      "boom_ratio": 3.31,
+      "bring_back_score": 2.87,
+      "signal": "Boom ratio 3.3x, CV 0.87"
+    },
+    "Raheem Mostert": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.051,
+      "boom_ratio": 3.06,
+      "bring_back_score": 2.51,
+      "signal": "23 TDs vs 16.6 expected (1.4x luck)",
+      "projection_penalty_pct": -0.038,
+      "td_luck_factor": 1.39,
+      "actual_tds": 23,
+      "expected_tds": 16.6
+    },
+    "John FitzPatrick": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.083,
+      "boom_ratio": 3.14,
+      "bring_back_score": 2.83,
+      "signal": "Boom ratio 3.1x, CV 0.90"
+    },
+    "Kenyan Drake": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.079,
+      "boom_ratio": 2.87,
+      "bring_back_score": 2.79,
+      "signal": "Boom ratio 2.9x, CV 0.97"
+    },
+    "Ollie Gordon II": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "correlation_boost_opp_qb": 0.078,
+      "boom_ratio": 2.84,
+      "bring_back_score": 2.78,
+      "signal": "4 TDs vs 2.2 expected (1.8x luck)",
+      "projection_penalty_pct": -0.1,
+      "td_luck_factor": 1.82,
+      "actual_tds": 4,
+      "expected_tds": 2.2
+    },
+    "Jacory Croskey-Merritt": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.078,
+      "boom_ratio": 3.14,
+      "bring_back_score": 2.78,
+      "signal": "Boom ratio 3.1x, CV 0.88"
+    },
+    "Dontrell Hilliard": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.075,
+      "boom_ratio": 3.12,
+      "bring_back_score": 2.75,
+      "signal": "Boom ratio 3.1x, CV 0.88"
+    },
+    "Johnny Mundt": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.07,
+      "boom_ratio": 3.26,
+      "bring_back_score": 2.7,
+      "signal": "Boom ratio 3.3x, CV 0.83"
+    },
+    "Drew Ogletree": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.063,
+      "boom_ratio": 3.1,
+      "bring_back_score": 2.63,
+      "signal": "Boom ratio 3.1x, CV 0.85"
+    },
+    "Connor Heyward": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.056,
+      "boom_ratio": 3.07,
+      "bring_back_score": 2.56,
+      "signal": "Boom ratio 3.1x, CV 0.83"
+    },
+    "Jaleel McLaughlin": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.054,
+      "boom_ratio": 3.34,
+      "bring_back_score": 2.54,
+      "signal": "Boom ratio 3.3x, CV 0.76"
+    },
+    "Ronnie Rivers": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.054,
+      "boom_ratio": 2.82,
+      "bring_back_score": 2.54,
+      "signal": "Boom ratio 2.8x, CV 0.90"
+    },
+    "DeeJay Dallas": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.053,
+      "boom_ratio": 2.84,
+      "bring_back_score": 2.53,
+      "signal": "Boom ratio 2.8x, CV 0.89"
+    },
+    "D'Ernest Johnson": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.053,
+      "boom_ratio": 3.1,
+      "bring_back_score": 2.53,
+      "signal": "Boom ratio 3.1x, CV 0.82"
+    },
+    "Tyler Allgeier": {
+      "tags": [
+        "GARBAGE_TIME_HERO",
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_opp_qb": 0.051,
+      "boom_ratio": 3.37,
+      "bring_back_score": 2.51,
+      "signal": "13.1 carries/game, 4.9 YPC",
+      "correlation_boost_dst": 0.048,
+      "workload_score": 0.88,
+      "ypc": 4.93
+    },
+    "Chris Brooks": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.051,
+      "boom_ratio": 3.19,
+      "bring_back_score": 2.51,
+      "signal": "Boom ratio 3.2x, CV 0.79"
+    },
+    "Luke Farrell": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.051,
+      "boom_ratio": 2.58,
+      "bring_back_score": 2.51,
+      "signal": "Boom ratio 2.6x, CV 0.98"
+    },
+    "Craig Reynolds": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.049,
+      "boom_ratio": 2.85,
+      "bring_back_score": 2.49,
+      "signal": "Boom ratio 2.8x, CV 0.88"
+    },
+    "Will Shipley": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.047,
+      "boom_ratio": 2.94,
+      "bring_back_score": 2.47,
+      "signal": "Boom ratio 2.9x, CV 0.84"
+    },
+    "Savion Williams": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.045,
+      "boom_ratio": 2.78,
+      "bring_back_score": 2.45,
+      "signal": "Boom ratio 2.8x, CV 0.88"
+    },
+    "Tommy Tremble": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.043,
+      "boom_ratio": 3.29,
+      "bring_back_score": 2.43,
+      "signal": "Boom ratio 3.3x, CV 0.74"
+    },
+    "Emari Demercado": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.038,
+      "boom_ratio": 2.85,
+      "bring_back_score": 2.38,
+      "signal": "Boom ratio 2.9x, CV 0.84"
+    },
+    "Pierre Strong Jr.": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.037,
+      "boom_ratio": 2.89,
+      "bring_back_score": 2.37,
+      "signal": "Boom ratio 2.9x, CV 0.82"
+    },
+    "Julius Chestnut": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.033,
+      "boom_ratio": 2.52,
+      "bring_back_score": 2.33,
+      "signal": "Boom ratio 2.5x, CV 0.93"
+    },
+    "Sony Michel": {
+      "tags": [
+        "GARBAGE_TIME_HERO"
+      ],
+      "correlation_boost_opp_qb": 0.033,
+      "boom_ratio": 2.6,
+      "bring_back_score": 2.33,
+      "signal": "Boom ratio 2.6x, CV 0.89"
+    },
+    "Derrick Henry": {
+      "tags": [
+        "THE_FRONT_RUNNER",
+        "YAC_MONSTER"
+      ],
+      "correlation_boost_dst": 0.065,
+      "workload_score": 1.1,
+      "ypc": 4.17,
+      "signal": "YAC/rec 11.8, 5.9 evaded tackles/game",
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0
+    },
+    "Nick Chubb": {
+      "tags": [
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_dst": 0.15,
+      "workload_score": 1.18,
+      "ypc": 5.05,
+      "signal": "17.8 carries/game, 5.0 YPC"
+    },
+    "J.K. Dobbins": {
+      "tags": [
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_dst": 0.047,
+      "workload_score": 0.78,
+      "ypc": 5.54,
+      "signal": "11.7 carries/game, 5.5 YPC"
+    },
+    "Brian Robinson": {
+      "tags": [
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_dst": 0.038,
+      "workload_score": 1.09,
+      "ypc": 3.83,
+      "signal": "16.3 carries/game, 3.8 YPC"
+    },
+    "Quinshon Judkins": {
+      "tags": [
+        "THE_FRONT_RUNNER"
+      ],
+      "correlation_boost_dst": 0.035,
+      "workload_score": 1.14,
+      "ypc": 3.63,
+      "signal": "17.1 carries/game, 3.6 YPC"
+    },
+    "Brian Robinson Jr.": {
+      "tags": [
+        "YAC_MONSTER"
+      ],
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0,
+      "signal": "YAC/rec 10.8, 2.8 evaded tackles/game"
+    },
+    "Trey Benson": {
+      "tags": [
+        "YAC_MONSTER"
+      ],
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0,
+      "signal": "YAC/rec 8.6, 2.9 evaded tackles/game"
+    },
+    "Darrell Henderson Jr.": {
+      "tags": [
+        "YAC_MONSTER"
+      ],
+      "correlation_reduction_qb": -0.1,
+      "floor_boost_pct": 0.08,
+      "yac_score": 1.0,
+      "signal": "YAC/rec 4.5, 3.8 evaded tackles/game"
+    },
+    "Kareem Hunt": {
+      "tags": [
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "projection_penalty_pct": -0.1,
+      "td_luck_factor": 2.08,
+      "actual_tds": 11,
+      "expected_tds": 5.3,
+      "signal": "11 TDs vs 5.3 expected (2.1x luck)"
+    },
+    "Boston Scott": {
+      "tags": [
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "projection_penalty_pct": -0.091,
+      "td_luck_factor": 1.66,
+      "actual_tds": 5,
+      "expected_tds": 3.0,
+      "signal": "5 TDs vs 3.0 expected (1.7x luck)"
+    },
+    "Bhayshul Tuten": {
+      "tags": [
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "projection_penalty_pct": -0.091,
+      "td_luck_factor": 1.65,
+      "actual_tds": 6,
+      "expected_tds": 3.6,
+      "signal": "6 TDs vs 3.6 expected (1.7x luck)"
+    },
+    "Brock Wright": {
+      "tags": [
+        "TD_REGRESSION_CANDIDATE"
+      ],
+      "projection_penalty_pct": -0.065,
+      "td_luck_factor": 1.52,
+      "actual_tds": 5,
+      "expected_tds": 3.3,
+      "signal": "5 TDs vs 3.3 expected (1.5x luck)"
+    }
+  }
+}
