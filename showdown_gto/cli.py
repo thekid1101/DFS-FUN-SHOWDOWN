@@ -131,6 +131,12 @@ from .data import load_projections
     default=None,
     help='Vegas game total (e.g., 48.5) for conditional correlation modifiers'
 )
+@click.option(
+    '--min-projection',
+    type=float,
+    default=0.0,
+    help='Minimum median projection to include a player (filters low-projection players)'
+)
 def main(
     csv_path,
     contest_file,
@@ -153,7 +159,8 @@ def main(
     effects_file,
     sim_config,
     spread,
-    game_total
+    game_total,
+    min_projection
 ):
     """
     Run DFS Showdown GTO Portfolio Builder.
@@ -246,7 +253,8 @@ def main(
         effects_path=effects_file,
         sim_config_path=sim_config,
         spread_str=spread,
-        game_total=game_total
+        game_total=game_total,
+        min_projection=min_projection
     )
 
     if 'error' in results:
