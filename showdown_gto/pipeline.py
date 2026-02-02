@@ -57,7 +57,8 @@ def run_portfolio_optimization(
     effects_path: Optional[str] = None,
     sim_config_path: Optional[str] = None,
     spread_str: Optional[str] = None,
-    game_total: Optional[float] = None
+    game_total: Optional[float] = None,
+    min_projection: float = 0.0
 ) -> Dict:
     """
     Full portfolio optimization pipeline.
@@ -97,7 +98,7 @@ def run_portfolio_optimization(
 
     # === LOAD DATA ===
     logger.info(f"Loading projections from {csv_path}...")
-    data = load_projections(csv_path)
+    data = load_projections(csv_path, min_projection=min_projection)
     logger.info(f"Loaded {data.n_cpt} CPT players, {data.n_flex} FLEX players")
 
     # === VALIDATE CONTEST ===

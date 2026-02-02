@@ -4,10 +4,13 @@ CSV loader for DraftKings Showdown projections.
 Parses projections CSV and produces separate CPT/FLEX player pools.
 """
 
+import logging
 import pandas as pd
 import numpy as np
 from typing import List, Dict, Tuple, Optional
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 from ..types import ShowdownPlayer, ProjectionsData
 
@@ -36,7 +39,8 @@ def load_projections(
 
     Args:
         csv_path: Path to the projections CSV
-        min_projection: Minimum projection to include player (filters low-owned players)
+        min_projection: Minimum median projection (dk_50_percentile) to include a player.
+            Players below this threshold are removed from both CPT and FLEX pools.
         salary_cap: Salary cap for reference (default DK Showdown $50k)
 
     Returns:
@@ -46,6 +50,10 @@ def load_projections(
 
     # Filter out rows without percentile data
     df = _filter_valid_players(df)
+
+    # Filter by minimum projection threshold (applies to both CPT and FLEX rows)
+    if min_projection > 0.0:
+        df = _filter_by_min_projection(df, min_projection)
 
     # Separate CPT and FLEX entries
     cpt_rows, flex_rows = _separate_cpt_flex(df)
@@ -90,6 +98,36 @@ def _filter_valid_players(df: pd.DataFrame) -> pd.DataFrame:
 
     if len(filtered) == 0:
         raise ValueError("No valid players found in CSV (all percentiles empty)")
+
+    return filtered
+
+
+def _filter_by_min_projection(df: pd.DataFrame, min_projection: float) -> pd.DataFrame:
+    """
+    Filter out players whose median projection is below the threshold.
+
+    Removes all rows (CPT and FLEX) for players below the threshold,
+    so both entries for the same player are dropped together.
+    """
+    # Find names of players meeting the threshold (any row for that name qualifies)
+    qualified_names = set(
+        df.loc[df['dk_50_percentile'] >= min_projection, 'Name'].unique()
+    )
+
+    filtered = df[df['Name'].isin(qualified_names)].copy()
+
+    n_removed = len(df['Name'].unique()) - len(qualified_names)
+    if n_removed > 0:
+        logger.info(
+            "min_projection=%.1f: removed %d players, kept %d",
+            min_projection, n_removed, len(qualified_names)
+        )
+
+    if len(filtered) == 0:
+        raise ValueError(
+            f"No players remain after min_projection filter ({min_projection}). "
+            f"Lower the threshold or check your projections."
+        )
 
     return filtered
 
