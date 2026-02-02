@@ -347,6 +347,16 @@ def main(
         if param_source('field_quality_sims') != click.core.ParameterSource.COMMANDLINE:
             field_quality_sims = profile_kwargs.get('field_quality_sims', field_quality_sims)
 
+    # Validate critical numeric parameters
+    if n_sims <= 0:
+        raise click.BadParameter("n-sims must be a positive integer", param_hint="'--n-sims'")
+    if n_select <= 0:
+        raise click.BadParameter("n-select must be a positive integer", param_hint="'--n-select'")
+    if shortlist_size <= 0:
+        raise click.BadParameter("shortlist-size must be a positive integer", param_hint="'--shortlist-size'")
+    if copula_type == 't' and copula_df <= 0:
+        raise click.BadParameter("copula-df must be a positive integer for t-copula", param_hint="'--copula-df'")
+
     # Load contest configuration
     if contest_file:
         contest = load_contest_from_json(contest_file)
@@ -428,6 +438,11 @@ def main(
 
     # Multi-contest mode
     if multi_contest:
+        if dro_perturbations > 0:
+            click.echo(
+                "Warning: DRO is not yet supported in multi-contest mode. "
+                "DRO perturbations will be ignored.", err=True
+            )
         contests = [contest]
         for mc_path in multi_contest:
             mc_contest = load_contest_from_json(mc_path)
@@ -453,6 +468,7 @@ def main(
             sim_config_path=sim_config,
             spread_str=spread,
             game_total=game_total,
+            min_projection=min_projection,
             field_method=field_method,
             field_sharpness=field_sharpness,
             ownership_power=ownership_power,
