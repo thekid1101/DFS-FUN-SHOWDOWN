@@ -159,6 +159,13 @@ class FieldGenConfig:
     quality_sims: int = 1000
     field_method: str = "simulated"
 
+    def __post_init__(self) -> None:
+        if self.temperature <= 0:
+            raise ValueError(
+                "FieldGenConfig.temperature must be positive to avoid "
+                "division by zero in ownership weighting."
+            )
+
 
 @dataclass
 class ProjectionsData:
