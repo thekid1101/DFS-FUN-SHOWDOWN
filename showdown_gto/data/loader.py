@@ -76,6 +76,12 @@ def _filter_valid_players(df: pd.DataFrame) -> pd.DataFrame:
     """Filter to players with valid percentile projections."""
     # Check if primary percentile columns exist and have values
     required_cols = list(PERCENTILE_COLUMNS.values())
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        raise ValueError(
+            "Missing required percentile columns in CSV: "
+            + ", ".join(missing_cols)
+        )
 
     # Keep rows where at least the median projection exists
     mask = df['dk_50_percentile'].notna() & (df['dk_50_percentile'] > 0)
