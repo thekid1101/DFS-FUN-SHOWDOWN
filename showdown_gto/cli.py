@@ -204,6 +204,12 @@ def main(
         payout_tiers=contest.payout_tiers
     )
 
+    if contest.total_entries < contest.your_entries:
+        raise click.BadParameter(
+            f"n-select ({contest.your_entries}) cannot exceed total entries ({contest.total_entries}). "
+            "Increase --field-size/contest total entries or reduce --n-select."
+        )
+
     click.echo(f"Running optimization...")
     if correlation_config:
         click.echo(f"  Correlation config: {correlation_config}")
