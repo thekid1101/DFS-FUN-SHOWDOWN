@@ -168,6 +168,20 @@ def _sample_lineup(
         cpt_team = cpt.team
         opp_team = [t for t in teams if t != cpt_team][0] if len(teams) == 2 else None
 
+        # Ensure required team split is possible given available flex players
+        if len(teams) == 2:
+            available_cpt_team = sum(
+                1 for i, p in enumerate(flex_players)
+                if i != excluded_flex and p.team == cpt_team
+            )
+            available_opp_team = sum(
+                1 for i, p in enumerate(flex_players)
+                if i != excluded_flex and p.team == opp_team
+            )
+            if (cpt_team_count > available_cpt_team or
+                    opp_team_count > available_opp_team):
+                continue
+
         # Apply QB pairing if CPT is QB
         if cpt.position == 'QB' and np.random.random() < config.qb_pair_rate:
             # Boost same-team pass catchers
@@ -219,13 +233,24 @@ def _sample_lineup(
             remaining_cap -= flex_players[flex_idx].salary
 
         if len(flex_selected) == 5:
-            # Verify both teams represented
+            # Verify both teams represented + enforce team split when possible
             lineup_teams = {cpt.team}
+            cpt_team_flex = 0
+            opp_team_flex = 0
             for i in flex_selected:
-                lineup_teams.add(flex_players[i].team)
+                team = flex_players[i].team
+                lineup_teams.add(team)
+                if team == cpt_team:
+                    cpt_team_flex += 1
+                elif team == opp_team:
+                    opp_team_flex += 1
 
             if len(lineup_teams) < 2 and len(teams) >= 2:
                 continue  # Invalid - need both teams
+
+            if len(teams) == 2:
+                if cpt_team_flex != cpt_team_count or opp_team_flex != opp_team_count:
+                    continue
 
             flex_salary = sum(flex_players[i].salary for i in flex_selected)
             return ShowdownLineup(
