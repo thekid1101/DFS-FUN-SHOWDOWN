@@ -26,6 +26,20 @@ PERCENTILE_COLUMNS = {
 }
 
 
+def _player_key(name: str, team: str) -> str:
+    """Build a stable key for identifying the same player across CPT/FLEX rows."""
+    return f"{name}||{team}"
+
+
+def _player_key_series(df: pd.DataFrame) -> pd.Series:
+    """Vectorized player key series for a projections dataframe."""
+    if 'Team' in df.columns:
+        team = df['Team'].fillna('').astype(str)
+    else:
+        team = pd.Series([''] * len(df), index=df.index)
+    return df['Name'].astype(str) + "||" + team
+
+
 def load_projections(
     csv_path: str,
     min_projection: float = 0.0,
@@ -62,7 +76,7 @@ def load_projections(
     cpt_players = _build_players(cpt_rows, is_cpt=True)
     flex_players = _build_players(flex_rows, is_cpt=False)
 
-    # Link CPT to FLEX by player name
+    # Link CPT to FLEX by player key (name + team)
     cpt_to_flex_map = _link_cpt_to_flex(cpt_players, flex_players)
 
     # Update CPT players with their FLEX links
@@ -109,18 +123,19 @@ def _filter_by_min_projection(df: pd.DataFrame, min_projection: float) -> pd.Dat
     Removes all rows (CPT and FLEX) for players below the threshold,
     so both entries for the same player are dropped together.
     """
-    # Find names of players meeting the threshold (any row for that name qualifies)
-    qualified_names = set(
-        df.loc[df['dk_50_percentile'] >= min_projection, 'Name'].unique()
+    # Find keys of players meeting the threshold (any row for that player qualifies)
+    player_keys = _player_key_series(df)
+    qualified_keys = set(
+        player_keys[df['dk_50_percentile'] >= min_projection].unique()
     )
 
-    filtered = df[df['Name'].isin(qualified_names)].copy()
+    filtered = df[player_keys.isin(qualified_keys)].copy()
 
-    n_removed = len(df['Name'].unique()) - len(qualified_names)
+    n_removed = len(player_keys.unique()) - len(qualified_keys)
     if n_removed > 0:
         logger.info(
             "min_projection=%.1f: removed %d players, kept %d",
-            min_projection, n_removed, len(qualified_names)
+            min_projection, n_removed, len(qualified_keys)
         )
 
     if len(filtered) == 0:
@@ -137,15 +152,15 @@ def _separate_cpt_flex(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     Separate CPT and FLEX entries.
 
     In DK Showdown, CPT entries have 1.5x salary of FLEX entries.
-    We identify by grouping by player name and checking salary ratios.
+    We identify by grouping by player key (name + team) and checking salary ratios.
     """
-    # Group by player name to find pairs
-    grouped = df.groupby('Name')
+    # Group by player key (name + team) to find pairs
+    grouped = df.groupby(_player_key_series(df))
 
     cpt_indices = []
     flex_indices = []
 
-    for name, group in grouped:
+    for _, group in grouped:
         if len(group) == 1:
             # Only one entry - determine by salary threshold
             # High salary (>= typical CPT threshold) = CPT
@@ -236,21 +251,22 @@ def _link_cpt_to_flex(
     """
     Link CPT players to their corresponding FLEX entries.
 
-    Matches by player name.
+    Matches by player key (name + team).
 
     Returns:
         Dict mapping cpt_idx -> flex_idx
     """
-    # Build name -> flex_idx lookup
-    flex_by_name: Dict[str, int] = {}
+    # Build player key -> flex_idx lookup
+    flex_by_key: Dict[str, int] = {}
     for idx, player in enumerate(flex_players):
-        flex_by_name[player.name] = idx
+        flex_by_key[_player_key(player.name, player.team)] = idx
 
     # Link CPT to FLEX
     cpt_to_flex: Dict[int, int] = {}
     for cpt_idx, cpt_player in enumerate(cpt_players):
-        if cpt_player.name in flex_by_name:
-            cpt_to_flex[cpt_idx] = flex_by_name[cpt_player.name]
+        key = _player_key(cpt_player.name, cpt_player.team)
+        if key in flex_by_key:
+            cpt_to_flex[cpt_idx] = flex_by_key[key]
 
     return cpt_to_flex
 
