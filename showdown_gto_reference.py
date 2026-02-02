@@ -745,16 +745,110 @@ def test_bounds_covers_all_sims():
 
 def test_true_ev_invariant():
     """Test that combined histogram total = field + selected."""
-    # This is checked via assertion inside compute_true_portfolio_ev
-    # If it fails, the assertion will raise
-    pass  # Covered by integration test
+    np.random.seed(42)
+    n_players = 12
+    n_sims = 50
+    outcomes = np.random.randint(50, 300, (n_players, n_sims), dtype=np.int32)
+
+    # Create field lineups (CPT 0..2)
+    field_lineups = []
+    for cpt in range(3):
+        flex = [i for i in range(6) if i != cpt]
+        field_lineups.append(ShowdownLineup(
+            cpt_player_idx=cpt, flex_player_idxs=sorted(flex), salary=45000
+        ))
+    field_arrays = LineupArrays.from_lineups(field_lineups)
+    field_counts = np.array([50, 50, 50], dtype=np.int32)
+    field_size = int(field_counts.sum())  # 150
+
+    # Create selected lineups (CPT 3..5)
+    selected_lineups = []
+    for cpt in range(3, 6):
+        flex = [i for i in range(6) if i != cpt]
+        selected_lineups.append(ShowdownLineup(
+            cpt_player_idx=cpt, flex_player_idxs=sorted(flex), salary=45000
+        ))
+    selected_arrays = LineupArrays.from_lineups(selected_lineups)
+    n_selected = len(selected_lineups)
+
+    score_bounds = compute_guaranteed_score_bounds(outcomes)
+
+    # Verify invariant for every simulation
+    for sim in range(n_sims):
+        sim_outcomes = outcomes[:, sim]
+
+        # Build field histogram
+        field_scores = score_lineups_vectorized(field_arrays, sim_outcomes)
+        field_histogram = ArrayHistogram.from_scores_and_counts(
+            field_scores, field_counts, score_bounds
+        )
+
+        # Add selected lineups to get combined histogram
+        selected_scores = score_lineups_vectorized(selected_arrays, sim_outcomes)
+        selected_counts = np.ones(n_selected, dtype=np.int32)
+        combined = add_entries_to_histogram(
+            field_histogram, selected_scores, selected_counts
+        )
+
+        assert combined.total_entries == field_size + n_selected, \
+            f"Sim {sim}: combined {combined.total_entries} != " \
+            f"field {field_size} + selected {n_selected}"
 
 
 def test_self_competition_reduces_ev():
     """Test that true EV <= approx EV sum (self-competition cost >= 0)."""
-    # When you have multiple lineups, they compete with each other
-    # This should never INCREASE total EV
-    pass  # Covered by integration test
+    np.random.seed(42)
+    n_players = 12
+    n_sims = 200
+    outcomes = np.random.randint(50, 300, (n_players, n_sims), dtype=np.int32)
+
+    # Create lineups (CPT 0..5, each with remaining 5 as FLEX)
+    lineups = []
+    for cpt in range(6):
+        flex = [i for i in range(6) if i != cpt]
+        lineups.append(ShowdownLineup(
+            cpt_player_idx=cpt, flex_player_idxs=sorted(flex), salary=45000
+        ))
+
+    # Field: first 3 lineups
+    field_arrays = LineupArrays.from_lineups(lineups[:3])
+    field_counts = np.array([100, 100, 100], dtype=np.int32)
+
+    # Select last 3 lineups as our portfolio
+    n_select = 3
+    selected_lineups = lineups[3:]
+    selected_arrays = LineupArrays.from_lineups(selected_lineups)
+
+    contest = ContestStructure(
+        name="Test",
+        entry_fee=5.0,
+        total_entries=300 + n_select,
+        your_entries=n_select,
+        payout_tiers=[
+            PayoutTier(1, 1, 100.0),
+            PayoutTier(2, 10, 20.0),
+            PayoutTier(11, 50, 10.0),
+        ]
+    )
+
+    score_bounds = compute_guaranteed_score_bounds(outcomes)
+
+    # Approx EVs: each lineup scored against field only (no self-competition)
+    approx_evs = compute_approx_lineup_evs(
+        selected_arrays, field_arrays, field_counts,
+        outcomes, contest, score_bounds
+    )
+    approx_sum = float(approx_evs.sum())
+
+    # True EV: lineups compete against field AND each other
+    true_ev, _ = compute_true_portfolio_ev(
+        selected_arrays, field_arrays, field_counts,
+        outcomes, contest, score_bounds
+    )
+
+    assert true_ev <= approx_sum + 1e-6, \
+        f"True EV {true_ev:.4f} > approx sum {approx_sum:.4f} " \
+        f"(self-competition should reduce EV)"
 
 
 # =============================================================================
@@ -834,7 +928,13 @@ if __name__ == "__main__":
     
     test_bounds_covers_all_sims()
     print("✓ test_bounds_covers_all_sims")
-    
+
+    test_true_ev_invariant()
+    print("✓ test_true_ev_invariant")
+
+    test_self_competition_reduces_ev()
+    print("✓ test_self_competition_reduces_ev")
+
     test_full_pipeline()
     print("✓ test_full_pipeline")
     
