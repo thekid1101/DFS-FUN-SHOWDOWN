@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m showdown_gto.cli:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: DFS Showdown GTO Portfolio Builder\n\nFull modular implementation of GTO portfolio optimization for DraftKings\nShowdown \\(1 CPT + 5 FLEX\\). Includes Monte Carlo simulation with Gaussian\ncopula correlations, archetype-based player correlation system, lineup\nenumeration, ownership-weighted field generation, and true portfolio EV\ncomputation with self-competition modeling.\n\nKey feature: resample_per_sim field mode that samples a new opponent field\nhistogram each simulation via multinomial sampling, providing more stable\nand accurate EV estimates without the cost of regenerating full lineups.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(findstr:*)",
+      "Bash(head:*)",
+      "Bash(python3:*)",
+      "WebSearch",
+      "WebFetch(domain:global-uploads.webflow.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:careers.draftkings.com)",
+      "WebFetch(domain:thesolver.com)",
+      "WebFetch(domain:www.columbia.edu)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd hierarchical game-environment simulation and player effects layer\n\nImplements variance decomposition from correlation_config_v2.json to create\ngame-state-dependent player outcomes. QBs \\(game_share=0.82\\) now swing\ndramatically with game environment while skill players \\(game_share=0.11\\)\nremain individually driven. This produces realistic CPT diversity matching\nprofessional simulators.\n\nChanges:\n- engine.py: Score-space game environment decomposition that shifts player\n  scores based on per-team game factors, smooth p25 floor extrapolation\n- pipeline.py: Wire variance_decomposition through to simulation, build\n  game_shares and team_indices from archetype mapping\n- cli.py: Add --effects-file, --sim-config, --spread, --game-total options,\n  increase default shortlist from 500 to 2000\n- data/effects.py: New pre-processing layer for per-player correlation and\n  distribution modifiers from unified_player_effects.json\n- pre_processing_layer/: Effect configs and simulation parameters\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(grep:*)",
+      "WebFetch(domain:www.fantasypoints.com)",
+      "WebFetch(domain:rotogrinders.com)",
+      "WebFetch(domain:fffaceoff.com)",
+      "WebFetch(domain:advancedsportslogic.com)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:spiral.imperial.ac.uk)",
+      "WebFetch(domain:www.theoryofdfs.com)",
+      "WebFetch(domain:www.fantasylabs.com)",
+      "Bash(wc:*)",
+      "WebFetch(domain:juan-pablo-vielma.github.io)",
+      "WebFetch(domain:onlinelibrary.wiley.com)",
+      "WebFetch(domain:www.advancedsportsanalytics.com)",
+      "Bash(pip install:*)",
+      "Bash(git commit:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
+    ]
+  }
+}

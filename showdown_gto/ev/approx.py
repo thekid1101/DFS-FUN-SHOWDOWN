@@ -320,3 +320,5 @@ def compute_approx_lineup_evs_resampled(
             logger.info(f"Approx EV (resampled): {sim + 1}/{n_sims} sims")
 
     return ev_sum / n_sims
+
+

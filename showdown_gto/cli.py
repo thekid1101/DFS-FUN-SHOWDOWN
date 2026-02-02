@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 
 from .types import ContestStructure, PayoutTier, FieldGenConfig
-from .pipeline import run_portfolio_optimization
+from .pipeline import run_portfolio_optimization, run_multi_contest_optimization
 from .config import load_contest_from_json, CONTEST_PRESETS
 from .data import load_projections
 
@@ -95,7 +95,7 @@ from .data import load_projections
     '--selection-method',
     type=click.Choice(['top_n', 'greedy_marginal']),
     default='top_n',
-    help='Selection method: top_n (fast, default) or greedy_marginal (self-competition aware)'
+    help='Selection method: top_n (fast, default) or greedy_marginal (accounts for self-competition)'
 )
 @click.option(
     '--shortlist-size',
@@ -137,6 +137,71 @@ from .data import load_projections
     default=0.0,
     help='Minimum median projection to include a player (filters low-projection players)'
 )
+@click.option(
+    '--field-method',
+    type=click.Choice(['simulated', 'ownership']),
+    default='simulated',
+    help='Field generation method: simulated (quality x ownership from candidates, default) or ownership (legacy)'
+)
+@click.option(
+    '--field-sharpness',
+    type=float,
+    default=5.0,
+    help='How projection-aware the field is: 0=pure ownership, 5.0=realistic (default), 8+=optimizer-heavy'
+)
+@click.option(
+    '--ownership-power',
+    type=float,
+    default=0.5,
+    help='Ownership influence on field duplication: 0=none, 0.5=balanced (default), 1.0=full'
+)
+@click.option(
+    '--field-quality-sims',
+    type=int,
+    default=1000,
+    help='Number of sims used for field quality scoring (default: 1000)'
+)
+@click.option(
+    '--multi-contest',
+    type=click.Path(exists=True),
+    multiple=True,
+    help='Additional contest JSON files for multi-contest optimization (repeatable)'
+)
+@click.option(
+    '--dro-perturbations',
+    type=int,
+    default=0,
+    help='Number of DRO field perturbations (0=disabled, 50=recommended)'
+)
+@click.option(
+    '--dro-scale',
+    type=float,
+    default=0.10,
+    help='DRO ownership perturbation scale (default: 0.10)'
+)
+@click.option(
+    '--dro-hhi-scale',
+    type=float,
+    default=0.15,
+    help='DRO HHI-space condensation perturbation scale (default: 0.15)'
+)
+@click.option(
+    '--dro-aggregation',
+    type=click.Choice(['mean', 'cvar', 'mean_minus_std']),
+    default='mean',
+    help='DRO aggregation method (default: mean)'
+)
+@click.option(
+    '--dro-calibration',
+    type=click.Path(exists=True),
+    help='Path to sharpness_hhi_calibration.json for DRO layer 2'
+)
+@click.option(
+    '--covariance-gamma',
+    type=float,
+    default=0.05,
+    help='Profit covariance penalty for greedy: 0=disabled, 0.05=default'
+)
 def main(
     csv_path,
     contest_file,
@@ -160,7 +225,18 @@ def main(
     sim_config,
     spread,
     game_total,
-    min_projection
+    min_projection,
+    field_method,
+    field_sharpness,
+    ownership_power,
+    field_quality_sims,
+    multi_contest,
+    dro_perturbations,
+    dro_scale,
+    dro_hhi_scale,
+    dro_aggregation,
+    dro_calibration,
+    covariance_gamma
 ):
     """
     Run DFS Showdown GTO Portfolio Builder.
@@ -229,8 +305,16 @@ def main(
     click.echo(f"  Your entries: {n_select}")
     click.echo(f"  Simulations: {n_sims}")
     click.echo(f"  Field mode: {field_mode}")
+    click.echo(f"  Field method: {field_method}")
+    if field_method == 'simulated':
+        click.echo(f"  Field sharpness: {field_sharpness}")
+        click.echo(f"  Ownership power: {ownership_power}")
+        click.echo(f"  Field quality sims: {field_quality_sims}")
     click.echo(f"  Copula: {copula_type}" + (f" (df={copula_df})" if copula_type == 't' else ''))
-    click.echo(f"  Selection: {selection_method}" + (f" (shortlist={shortlist_size})" if selection_method == 'greedy_marginal' else ''))
+    sel_extra = ''
+    if selection_method == 'greedy_marginal':
+        sel_extra = f" (shortlist={shortlist_size})"
+    click.echo(f"  Selection: {selection_method}{sel_extra}")
     if effects_file:
         click.echo(f"  Effects file: {effects_file}")
     if sim_config:
@@ -240,7 +324,128 @@ def main(
     if game_total:
         click.echo(f"  Game total: {game_total}")
 
-    # Run optimization
+    # Multi-contest mode
+    if multi_contest:
+        contests = [contest]
+        for mc_path in multi_contest:
+            mc_contest = load_contest_from_json(mc_path)
+            contests.append(mc_contest)
+        click.echo(f"\n  Multi-contest mode: {len(contests)} contests")
+        for i, c in enumerate(contests):
+            click.echo(f"    {i+1}. {c.name} (${c.entry_fee}, {c.total_entries} entries, {c.your_entries} yours)")
+
+        mc_results = run_multi_contest_optimization(
+            csv_path=csv_path,
+            contests=contests,
+            n_sims=n_sims,
+            correlation_config_path=correlation_config,
+            archetype_map_path=archetype_map,
+            seed=seed,
+            verbose=verbose,
+            copula_type=copula_type,
+            copula_df=copula_df,
+            selection_method=selection_method,
+            shortlist_size=shortlist_size,
+            greedy_n_sims=greedy_sims,
+            effects_path=effects_file,
+            sim_config_path=sim_config,
+            spread_str=spread,
+            game_total=game_total,
+            field_method=field_method,
+            field_sharpness=field_sharpness,
+            ownership_power=ownership_power,
+            field_quality_sims=field_quality_sims,
+            covariance_gamma=covariance_gamma,
+        )
+
+        if 'error' in mc_results:
+            click.echo(f"Error: {mc_results['error']}", err=True)
+            return
+
+        # Display multi-contest results
+        click.echo("\n" + "=" * 60)
+        click.echo("MULTI-CONTEST RESULTS")
+        click.echo("=" * 60)
+
+        for cname, cresults in mc_results['per_contest'].items():
+            diag = cresults['diagnostics']
+            click.echo(f"\n  {cname}:")
+            click.echo(f"    EV: ${diag['true_portfolio_ev']:.2f} | "
+                        f"ROI: {diag['roi_pct']:.2f}% | "
+                        f"P(Profit): {diag['p_profit']:.1%} | "
+                        f"Self-comp: ${diag['self_competition_cost']:.2f}")
+
+        if mc_results.get('overlap_matrix'):
+            click.echo("\n  Overlap Matrix:")
+            for key, ov in mc_results['overlap_matrix'].items():
+                click.echo(f"    {key}: {ov['shared_lineups']} shared lineups "
+                            f"({ov['pct_of_i']:.1f}% / {ov['pct_of_j']:.1f}%)")
+
+        # Export per-contest CSVs
+        proj_data = load_projections(csv_path)
+        for cname, cresults in mc_results['per_contest'].items():
+            safe_name = cname.replace(' ', '_').replace('$', '').replace('/', '-')
+            n_lu = len(cresults['selected_lineups'])
+            csv_path_out = f"portfolio_{safe_name}_{n_lu}.csv"
+
+            csv_rows = []
+            for lineup, players in zip(cresults['selected_lineups'], cresults['selected_players']):
+                cpt_idx = lineup.cpt_player_idx
+                flex_idxs = lineup.flex_player_idxs
+                cpt_id = proj_data.cpt_players[cpt_idx].id
+                flex_ids = [proj_data.flex_players[idx].id for idx in flex_idxs]
+                cpt_name = players[0].replace(' (CPT)', '')
+                flex_names = players[1:]
+
+                csv_rows.append({
+                    'CPT_ID': cpt_id,
+                    'FLEX1_ID': flex_ids[0], 'FLEX2_ID': flex_ids[1],
+                    'FLEX3_ID': flex_ids[2], 'FLEX4_ID': flex_ids[3],
+                    'FLEX5_ID': flex_ids[4],
+                    'CPT_Name': cpt_name,
+                    'FLEX1_Name': flex_names[0], 'FLEX2_Name': flex_names[1],
+                    'FLEX3_Name': flex_names[2], 'FLEX4_Name': flex_names[3],
+                    'FLEX5_Name': flex_names[4],
+                })
+
+            fieldnames = [
+                'CPT_ID', 'FLEX1_ID', 'FLEX2_ID', 'FLEX3_ID', 'FLEX4_ID', 'FLEX5_ID',
+                'CPT_Name', 'FLEX1_Name', 'FLEX2_Name', 'FLEX3_Name', 'FLEX4_Name', 'FLEX5_Name'
+            ]
+            with open(csv_path_out, 'w', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(csv_rows)
+            click.echo(f"  {cname}: {csv_path_out}")
+
+        # Save JSON summary
+        summary_path = output if output and output.endswith('.json') else 'portfolio_summary.json'
+        summary = {
+            'per_contest': {
+                name: {
+                    'diagnostics': r['diagnostics'],
+                    'selected_players': r['selected_players'],
+                    'approx_evs': r['approx_evs'],
+                }
+                for name, r in mc_results['per_contest'].items()
+            },
+            'overlap_matrix': mc_results['overlap_matrix'],
+            'metadata': mc_results['metadata'],
+        }
+        with open(summary_path, 'w') as f:
+            json.dump(summary, f, indent=2, default=str)
+        click.echo(f"\nSummary saved to {summary_path}")
+        return
+
+    # Display DRO settings
+    if dro_perturbations > 0:
+        click.echo(f"  DRO: {dro_perturbations} perturbations, "
+                    f"scale={dro_scale}, hhi_scale={dro_hhi_scale}, "
+                    f"agg={dro_aggregation}")
+    if covariance_gamma > 0:
+        click.echo(f"  Covariance gamma: {covariance_gamma}")
+
+    # Run single-portfolio optimization
     results = run_portfolio_optimization(
         csv_path=csv_path,
         contest=contest,
@@ -260,7 +465,17 @@ def main(
         sim_config_path=sim_config,
         spread_str=spread,
         game_total=game_total,
-        min_projection=min_projection
+        min_projection=min_projection,
+        field_method=field_method,
+        field_sharpness=field_sharpness,
+        ownership_power=ownership_power,
+        field_quality_sims=field_quality_sims,
+        dro_perturbations=dro_perturbations,
+        dro_scale=dro_scale,
+        dro_hhi_scale=dro_hhi_scale,
+        dro_aggregation=dro_aggregation,
+        dro_calibration_path=dro_calibration,
+        covariance_gamma=covariance_gamma,
     )
 
     if 'error' in results:
@@ -279,6 +494,10 @@ def main(
     click.echo(f"ROI: {diag['roi_pct']:.2f}%")
     click.echo(f"P(Profit): {diag['p_profit']:.1%}")
     click.echo(f"Self-competition Cost: ${diag['self_competition_cost']:.2f}")
+
+    if 'robust_ev_sum' in diag:
+        click.echo(f"Robust EV Sum: ${diag['robust_ev_sum']:.2f}")
+        click.echo(f"DRO Regret: ${diag['dro_regret']:.2f}")
 
     click.echo(f"\nSelected {len(results['selected_lineups'])} lineups")
 

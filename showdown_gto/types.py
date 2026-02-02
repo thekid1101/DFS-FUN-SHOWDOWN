@@ -108,17 +108,31 @@ class ContestStructure:
         total_entries: Total entries in contest (including yours)
         your_entries: Number of entries you're submitting
         payout_tiers: List of payout tiers
+        tier: Optional contest tier for cross-contest diversity (1=flagship, 2=grinder, 3=filler)
+        field_sharpness_override: Optional per-contest field sharpness
     """
     name: str
     entry_fee: float
     total_entries: int
     your_entries: int
     payout_tiers: List[PayoutTier]
+    tier: Optional[int] = None
+    field_sharpness_override: Optional[float] = None
 
     @property
     def field_size(self) -> int:
         """Number of opponent entries (total - yours)."""
         return self.total_entries - self.your_entries
+
+    @property
+    def dollars_at_risk(self) -> float:
+        """Total dollars at risk in this contest."""
+        return self.entry_fee * self.your_entries
+
+    @property
+    def field_share(self) -> float:
+        """Fraction of field that is your entries."""
+        return self.your_entries / self.total_entries if self.total_entries > 0 else 0.0
 
 
 @dataclass
@@ -129,8 +143,6 @@ class FieldGenConfig:
     These priors model typical opponent behavior in DFS contests.
     """
     temperature: float = 1.0
-    salary_utilization_mean: float = 0.98
-    salary_utilization_std: float = 0.03
     qb_pair_rate: float = 0.80
     bring_back_rate: float = 0.65
     dst_rate_multiplier: float = 0.7
@@ -142,6 +154,10 @@ class FieldGenConfig:
         '2-4': 0.20,
         '1-5': 0.05
     })
+    field_sharpness: float = 5.0
+    ownership_power: float = 0.5
+    quality_sims: int = 1000
+    field_method: str = "simulated"
 
 
 @dataclass

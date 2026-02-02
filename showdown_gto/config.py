@@ -111,8 +111,6 @@ CONTEST_PRESETS: Dict[str, ContestStructure] = {
 
 DEFAULT_FIELD_CONFIG = FieldGenConfig(
     temperature=1.0,
-    salary_utilization_mean=0.98,
-    salary_utilization_std=0.03,
     qb_pair_rate=0.80,
     bring_back_rate=0.65,
     dst_rate_multiplier=0.7,
@@ -215,13 +213,15 @@ def load_field_config_from_json(path: str) -> FieldGenConfig:
 
     return FieldGenConfig(
         temperature=data.get('temperature', 1.0),
-        salary_utilization_mean=data.get('salary_utilization_mean', 0.98),
-        salary_utilization_std=data.get('salary_utilization_std', 0.03),
         qb_pair_rate=data.get('qb_pair_rate', 0.80),
         bring_back_rate=data.get('bring_back_rate', 0.65),
         dst_rate_multiplier=data.get('dst_rate_multiplier', 0.7),
         kicker_rate_multiplier=data.get('kicker_rate_multiplier', 0.8),
-        split_priors=data.get('split_priors', DEFAULT_FIELD_CONFIG.split_priors)
+        split_priors=data.get('split_priors', DEFAULT_FIELD_CONFIG.split_priors),
+        field_sharpness=data.get('field_sharpness', 5.0),
+        ownership_power=data.get('ownership_power', 0.5),
+        quality_sims=data.get('quality_sims', 1000),
+        field_method=data.get('field_method', 'simulated')
     )
 
 

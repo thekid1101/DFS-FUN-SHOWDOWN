@@ -42,7 +42,7 @@ def simulate_outcomes(
         players: List of players to simulate
         n_sims: Number of simulations
         correlation_matrix: Optional NxN correlation matrix. If None, uses identity (independent).
-        seed: Random seed for reproducibility
+        seed: Random seed for reproducibility (accepts int or SeedSequence)
         copula_type: "gaussian" (default) or "t" (Student-t for tail dependence)
         copula_df: Degrees of freedom for t-copula (lower = heavier tails). Default 5.
         game_shares: Optional [n_players] array of game_share per player (0-1).
@@ -55,8 +55,7 @@ def simulate_outcomes(
     Returns:
         outcomes: [n_players, n_sims] int32 quantized scores (points × 10)
     """
-    if seed is not None:
-        np.random.seed(seed)
+    rng = np.random.default_rng(seed)
 
     n_players = len(players)
 
@@ -69,7 +68,7 @@ def simulate_outcomes(
     # Generate correlated uniform samples via copula
     uniform_samples = _generate_correlated_uniforms(
         n_players, n_sims, correlation_matrix,
-        copula_type=copula_type, copula_df=copula_df
+        copula_type=copula_type, copula_df=copula_df, rng=rng
     )
 
     # Transform to scores via inverse CDF
@@ -82,7 +81,8 @@ def simulate_outcomes(
     # marginal distribution changes (QBs boom in shootouts, bust in defensive games)
     if game_shares is not None and team_indices is not None:
         outcomes = _apply_game_environment(
-            outcomes, players, game_shares, team_indices, cross_team_game_corr
+            outcomes, players, game_shares, team_indices, cross_team_game_corr,
+            rng=rng
         )
 
     # Quantize to int32 (points × 10)
@@ -99,7 +99,8 @@ def _apply_game_environment(
     players: List[ShowdownPlayer],
     game_shares: np.ndarray,
     team_indices: Dict[str, List[int]],
-    cross_team_game_corr: float = 0.45
+    cross_team_game_corr: float = 0.45,
+    rng: Optional[np.random.Generator] = None
 ) -> np.ndarray:
     """
     Apply hierarchical game-environment variance decomposition in score space.
@@ -138,6 +139,9 @@ def _apply_game_environment(
     if n_teams == 0:
         return outcomes
 
+    if rng is None:
+        rng = np.random.default_rng()
+
     # Generate correlated game factors for each team
     team_corr = np.eye(n_teams)
     for i in range(n_teams):
@@ -146,7 +150,7 @@ def _apply_game_environment(
             team_corr[j, i] = cross_team_game_corr
 
     # Sample game factors: [n_teams, n_sims] ~ N(0, team_corr)
-    game_factors = np.random.multivariate_normal(
+    game_factors = rng.multivariate_normal(
         np.zeros(n_teams), team_corr, size=n_sims
     ).T  # [n_teams, n_sims]
 
@@ -252,7 +256,8 @@ def _generate_correlated_uniforms(
     n_sims: int,
     correlation_matrix: Optional[np.ndarray] = None,
     copula_type: CopulaType = "gaussian",
-    copula_df: int = 5
+    copula_df: int = 5,
+    rng: Optional[np.random.Generator] = None
 ) -> np.ndarray:
     """
     Generate correlated uniform samples using the specified copula.
@@ -263,32 +268,37 @@ def _generate_correlated_uniforms(
         correlation_matrix: NxN correlation matrix (defaults to identity)
         copula_type: "gaussian" or "t"
         copula_df: Degrees of freedom for t-copula
+        rng: NumPy Generator instance for reproducibility
 
     Returns:
         [n_players, n_sims] uniform samples in (0, 1)
     """
+    if rng is None:
+        rng = np.random.default_rng()
+
     if correlation_matrix is None:
         # Independent samples
-        return np.random.uniform(0, 1, (n_players, n_sims))
+        return rng.uniform(0, 1, (n_players, n_sims))
 
     # Ensure correlation matrix is valid
     corr = _ensure_valid_correlation_matrix(correlation_matrix)
 
     if copula_type == "t":
-        return _generate_correlated_uniforms_t(n_players, n_sims, corr, copula_df)
+        return _generate_correlated_uniforms_t(n_players, n_sims, corr, copula_df, rng)
 
     # Gaussian copula (default)
-    return _generate_correlated_uniforms_gaussian(n_players, n_sims, corr)
+    return _generate_correlated_uniforms_gaussian(n_players, n_sims, corr, rng)
 
 
 def _generate_correlated_uniforms_gaussian(
     n_players: int,
     n_sims: int,
-    corr: np.ndarray
+    corr: np.ndarray,
+    rng: np.random.Generator
 ) -> np.ndarray:
     """Generate correlated uniforms using Gaussian copula."""
     mean = np.zeros(n_players)
-    z = np.random.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
+    z = rng.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
 
     # Transform to uniform via CDF
     u = stats.norm.cdf(z)
@@ -303,7 +313,8 @@ def _generate_correlated_uniforms_t(
     n_players: int,
     n_sims: int,
     corr: np.ndarray,
-    df: int
+    df: int,
+    rng: np.random.Generator
 ) -> np.ndarray:
     """
     Generate correlated uniforms using Student-t copula.
@@ -318,11 +329,11 @@ def _generate_correlated_uniforms_t(
     mean = np.zeros(n_players)
 
     # Draw correlated normals
-    z = np.random.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
+    z = rng.multivariate_normal(mean, corr, size=n_sims).T  # [n_players, n_sims]
 
     # Draw chi-squared for the t-distribution scaling
     # Shared across all players in a given sim (this is what creates tail dependence)
-    s = np.random.chisquare(df, size=n_sims)  # [n_sims]
+    s = rng.chisquare(df, size=n_sims)  # [n_sims]
 
     # Scale: t = z / sqrt(s / df)
     scaling = np.sqrt(s / df)  # [n_sims]

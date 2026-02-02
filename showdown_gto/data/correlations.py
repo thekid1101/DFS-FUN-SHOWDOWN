@@ -101,11 +101,18 @@ class CorrelationMatrix:
         """
         Build correlation matrix from archetype configuration.
 
+        Applies nearest-PSD projection (Higham algorithm) if the resulting
+        matrix is not positive semi-definite, and ridge regularization if
+        the condition number exceeds the threshold.
+
         Args:
             players: List of players
             config: Archetype correlation config
             player_archetypes: Mapping of player name -> archetype
         """
+        import logging
+        logger = logging.getLogger(__name__)
+
         n = len(players)
         matrix = np.eye(n, dtype=np.float64)
 
@@ -125,6 +132,39 @@ class CorrelationMatrix:
 
                 matrix[i, j] = corr
                 matrix[j, i] = corr
+
+        # Nearest-PSD projection if needed
+        eigenvalues = np.linalg.eigvalsh(matrix)
+        if eigenvalues.min() < -1e-10:
+            logger.warning(
+                "Correlation matrix not PSD (min eigenvalue=%.6e), "
+                "applying nearest-PSD projection (Higham)",
+                eigenvalues.min()
+            )
+            matrix = _nearest_psd_higham(matrix)
+
+        # Conditional ridge regularization if condition number is too high
+        eigenvalues = np.linalg.eigvalsh(matrix)
+        min_eig = max(eigenvalues.min(), 1e-15)
+        max_eig = eigenvalues.max()
+        cond = max_eig / min_eig
+
+        if cond > 10000:
+            epsilon = 1e-6
+            logger.warning(
+                "Correlation matrix condition number %.0f exceeds threshold 10000, "
+                "applying ridge regularization (epsilon=%.1e)",
+                cond, epsilon
+            )
+            matrix = matrix + epsilon * np.eye(n)
+            # Re-normalize diagonal to 1.0
+            d = np.sqrt(np.diag(matrix))
+            matrix = matrix / np.outer(d, d)
+        elif cond > 1000:
+            logger.info(
+                "Correlation matrix condition number %.0f (elevated but within bounds)",
+                cond
+            )
 
         player_ids = [p.id for p in players]
         return cls(player_ids=player_ids, matrix=matrix)
@@ -171,6 +211,65 @@ class CorrelationMatrix:
                 result[i, j] = self.matrix[idx1, idx2]
 
         return result
+
+
+def _nearest_psd_higham(matrix: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndarray:
+    """
+    Nearest correlation matrix via Higham's alternating projections.
+
+    Projects onto the intersection of:
+    - S_U: symmetric matrices with unit diagonal
+    - S_PSD: positive semi-definite matrices
+
+    This correctly handles PSD (not just PD) — e.g., DST = -1 x team
+    scoring can create legitimate zero eigenvalues.
+
+    Args:
+        matrix: Input symmetric matrix
+        max_iter: Maximum iterations
+        tol: Convergence tolerance
+
+    Returns:
+        Nearest PSD correlation matrix
+    """
+    n = matrix.shape[0]
+    Y = matrix.copy()
+    dS = np.zeros_like(matrix)
+
+    for iteration in range(max_iter):
+        R = Y - dS
+
+        # Project onto PSD cone
+        eigenvalues, eigenvectors = np.linalg.eigh(R)
+        eigenvalues = np.maximum(eigenvalues, 0.0)
+        X = eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T
+
+        # Dykstra correction
+        dS = X - R
+
+        # Project onto unit diagonal
+        Y_new = X.copy()
+        np.fill_diagonal(Y_new, 1.0)
+
+        # Symmetrize
+        Y_new = (Y_new + Y_new.T) / 2.0
+
+        # Check convergence
+        if np.linalg.norm(Y_new - Y, 'fro') < tol:
+            Y = Y_new
+            break
+        Y = Y_new
+
+    # Final PSD check and clamp
+    eigenvalues = np.linalg.eigvalsh(Y)
+    if eigenvalues.min() < 0:
+        eigenvalues_full, eigenvectors = np.linalg.eigh(Y)
+        eigenvalues_full = np.maximum(eigenvalues_full, 0.0)
+        Y = eigenvectors @ np.diag(eigenvalues_full) @ eigenvectors.T
+        np.fill_diagonal(Y, 1.0)
+        Y = (Y + Y.T) / 2.0
+
+    return Y
 
 
 def _infer_archetype(player: ShowdownPlayer) -> str:

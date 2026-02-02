@@ -321,13 +321,19 @@ def greedy_select_portfolio(
     n_select: int,
     shortlist_size: int = 500,
     greedy_n_sims: Optional[int] = None,
-    seed: Optional[int] = None
+    seed: Optional[int] = None,
+    covariance_gamma: float = 0.0,
 ) -> List[int]:
     """
     Greedy portfolio selection with fixed field.
 
     Selects lineups one at a time, each maximizing marginal portfolio EV.
     Uses a shortlist of top candidates by approx EV for efficiency.
+
+    When covariance_gamma > 0, applies a Markowitz-style profit covariance
+    penalty to reduce self-competition via portfolio diversification:
+      adjusted_marginal = base_marginal - gamma_dynamic * cov(candidate, portfolio)
+    where gamma_dynamic = gamma_pct * max(base_marginals).
 
     Args:
         candidate_arrays: All candidate lineups
@@ -341,6 +347,7 @@ def greedy_select_portfolio(
         shortlist_size: Number of top candidates to consider (default 500)
         greedy_n_sims: Max sims for greedy loop (default min(n_sims, 10000))
         seed: Random seed
+        covariance_gamma: Profit covariance penalty (0=disabled, 0.05=default)
 
     Returns:
         List of selected candidate indices (into original candidate_arrays)
@@ -361,7 +368,10 @@ def greedy_select_portfolio(
         salary=candidate_arrays.salary[shortlist_indices]
     )
 
-    logger.info(f"Greedy selection: shortlist={shortlist_size}, sims={n_greedy_sims}")
+    logger.info(
+        f"Greedy selection: shortlist={shortlist_size}, sims={n_greedy_sims}, "
+        f"cov_gamma={covariance_gamma}"
+    )
 
     # Pre-compute shortlist scores and bins across all greedy sims
     shortlist_bins = np.zeros((shortlist_size, n_greedy_sims), dtype=np.int32)
@@ -382,7 +392,8 @@ def greedy_select_portfolio(
 
     # Run greedy loop
     selected_shortlist = _greedy_loop(
-        shortlist_bins, field_histograms, contest, n_select, n_greedy_sims, n_bins
+        shortlist_bins, field_histograms, contest, n_select, n_greedy_sims, n_bins,
+        covariance_gamma=covariance_gamma,
     )
 
     # Map back to original candidate indices
@@ -491,14 +502,20 @@ def _greedy_loop(
     contest: ContestStructure,
     n_select: int,
     n_greedy_sims: int,
-    n_bins: int
+    n_bins: int,
+    covariance_gamma: float = 0.0,
 ) -> List[int]:
     """
-    Core greedy selection loop.
+    Core greedy selection loop with optional profit covariance penalty.
 
     At each step, picks the candidate whose addition maximizes
-    the mean payout across all sims, accounting for self-competition
-    with already-selected lineups.
+    the adjusted marginal EV:
+        adjusted = base_marginal - gamma_dynamic * cov(candidate_payout, portfolio_payout)
+
+    The covariance penalty (Markowitz-style) diversifies the portfolio by
+    penalizing lineups whose payouts are highly correlated with the existing
+    portfolio. Uses dynamic gamma scaled to max marginal to avoid perverse
+    early/late behavior.
 
     Args:
         shortlist_bins: [n_shortlist, n_greedy_sims] bin indices for shortlist
@@ -507,6 +524,7 @@ def _greedy_loop(
         n_select: Number of lineups to select
         n_greedy_sims: Number of sims
         n_bins: Number of score bins
+        covariance_gamma: Profit covariance penalty factor (0=disabled, 0.05=recommended)
 
     Returns:
         List of selected indices into shortlist
@@ -520,6 +538,9 @@ def _greedy_loop(
     selected = []
     remaining = list(range(n_shortlist))
     sim_arange = np.arange(n_greedy_sims)
+
+    # Running sum of portfolio payouts across sims (for covariance computation)
+    portfolio_payouts = np.zeros(n_greedy_sims, dtype=np.float64)
 
     for step in range(n_select):
         if not remaining:
@@ -547,24 +568,49 @@ def _greedy_loop(
         flat_payouts = payout_lookup.batch_get_payout(flat_ranks, flat_n_tied)
         payouts = flat_payouts.reshape(n_remaining, n_greedy_sims)
 
-        # Mean payout per candidate = marginal EV
+        # Mean payout per candidate = base marginal EV
         mean_payouts = payouts.mean(axis=1)
 
-        # Pick best
-        best_local_idx = int(np.argmax(mean_payouts))
+        # Apply profit covariance penalty (Markowitz-style)
+        if step > 0 and covariance_gamma > 0:
+            # Dynamic gamma: scaled to current max marginal EV
+            # This prevents gamma from being meaningless early (portfolio_payouts ≈ 0)
+            # or overwhelming late (portfolio_payouts huge)
+            gamma_dynamic = covariance_gamma * mean_payouts.max()
+
+            # Vectorized covariance: Cov(X, Y) = E[X*Y] - E[X]*E[Y]
+            cand_mean = payouts.mean(axis=1, keepdims=True)  # [n_remaining, 1]
+            port_mean = portfolio_payouts.mean()  # scalar
+            cov = (
+                (payouts - cand_mean) *
+                (portfolio_payouts - port_mean)[np.newaxis, :]
+            ).mean(axis=1)  # [n_remaining]
+
+            adjusted = mean_payouts - gamma_dynamic * cov
+        else:
+            adjusted = mean_payouts
+
+        # Pick best by adjusted marginal EV
+        best_local_idx = int(np.argmax(adjusted))
         best_shortlist_idx = remaining[best_local_idx]
 
         selected.append(best_shortlist_idx)
         remaining.pop(best_local_idx)
+
+        # Update portfolio payouts running sum
+        portfolio_payouts += payouts[best_local_idx]
 
         # Update combined histogram: add selected lineup's bins
         selected_bins_for_step = shortlist_bins[best_shortlist_idx]  # [n_greedy_sims]
         np.add.at(combined_hist, (sim_arange, selected_bins_for_step), 1)
 
         if (step + 1) % 10 == 0 or step == 0:
+            cov_info = ""
+            if step > 0 and covariance_gamma > 0:
+                cov_info = f", adj=${adjusted[best_local_idx]:.4f}"
             logger.info(
                 f"Greedy step {step + 1}/{n_select}: "
-                f"marginal EV=${mean_payouts[best_local_idx]:.4f}, "
+                f"marginal EV=${mean_payouts[best_local_idx]:.4f}{cov_info}, "
                 f"remaining={len(remaining)}"
             )
 
