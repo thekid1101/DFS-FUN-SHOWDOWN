@@ -137,10 +137,14 @@ def _separate_cpt_flex(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     Separate CPT and FLEX entries.
 
     In DK Showdown, CPT entries have 1.5x salary of FLEX entries.
-    We identify by grouping by player name and checking salary ratios.
+    We identify by grouping by player identity and checking salary ratios.
     """
-    # Group by player name to find pairs
-    grouped = df.groupby('Name')
+    # Group by player identity to find pairs (avoid collisions on shared names)
+    group_cols = ['Name']
+    for col in ('Team', 'Pos'):
+        if col in df.columns:
+            group_cols.append(col)
+    grouped = df.groupby(group_cols)
 
     cpt_indices = []
     flex_indices = []
@@ -236,21 +240,23 @@ def _link_cpt_to_flex(
     """
     Link CPT players to their corresponding FLEX entries.
 
-    Matches by player name.
+    Matches by player identity (name + team + position).
 
     Returns:
         Dict mapping cpt_idx -> flex_idx
     """
-    # Build name -> flex_idx lookup
-    flex_by_name: Dict[str, int] = {}
+    # Build identity -> flex_idx lookup (name + team + position)
+    flex_by_identity: Dict[Tuple[str, str, str], int] = {}
     for idx, player in enumerate(flex_players):
-        flex_by_name[player.name] = idx
+        key = (player.name, player.team, player.position)
+        flex_by_identity[key] = idx
 
     # Link CPT to FLEX
     cpt_to_flex: Dict[int, int] = {}
     for cpt_idx, cpt_player in enumerate(cpt_players):
-        if cpt_player.name in flex_by_name:
-            cpt_to_flex[cpt_idx] = flex_by_name[cpt_player.name]
+        key = (cpt_player.name, cpt_player.team, cpt_player.position)
+        if key in flex_by_identity:
+            cpt_to_flex[cpt_idx] = flex_by_identity[key]
 
     return cpt_to_flex
 
