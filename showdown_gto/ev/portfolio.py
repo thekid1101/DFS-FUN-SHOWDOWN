@@ -411,7 +411,8 @@ def greedy_select_portfolio_resampled(
     n_select: int,
     shortlist_size: int = 500,
     greedy_n_sims: Optional[int] = None,
-    seed: Optional[int] = None
+    seed: Optional[int] = None,
+    covariance_gamma: float = 0.0,
 ) -> List[int]:
     """
     Greedy portfolio selection with resampled field (multinomial).
@@ -432,6 +433,7 @@ def greedy_select_portfolio_resampled(
         shortlist_size: Number of top candidates to consider (default 500)
         greedy_n_sims: Max sims for greedy loop (default min(n_sims, 10000))
         seed: Random seed
+        covariance_gamma: Profit covariance penalty (0=disabled, 0.05=default)
 
     Returns:
         List of selected candidate indices (into original candidate_arrays)
@@ -489,7 +491,8 @@ def greedy_select_portfolio_resampled(
 
     # Run greedy loop
     selected_shortlist = _greedy_loop(
-        shortlist_bins, field_histograms, contest, n_select, n_greedy_sims, n_bins
+        shortlist_bins, field_histograms, contest, n_select, n_greedy_sims, n_bins,
+        covariance_gamma=covariance_gamma,
     )
 
     # Map back to original candidate indices
