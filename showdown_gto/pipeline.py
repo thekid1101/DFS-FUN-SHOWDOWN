@@ -531,6 +531,7 @@ def run_multi_contest_optimization(
     sim_config_path: Optional[str] = None,
     spread_str: Optional[str] = None,
     game_total: Optional[float] = None,
+    min_projection: float = 0.0,
     field_method: str = "simulated",
     field_sharpness: float = 5.0,
     ownership_power: float = 0.5,
@@ -582,7 +583,7 @@ def run_multi_contest_optimization(
 
     # === SHARED: LOAD DATA ===
     logger.info(f"Loading projections from {csv_path}...")
-    data = load_projections(csv_path)
+    data = load_projections(csv_path, min_projection=min_projection)
     logger.info(f"Loaded {data.n_cpt} CPT players, {data.n_flex} FLEX players")
 
     # === SHARED: BUILD CORRELATION MATRIX ===
@@ -724,16 +725,26 @@ def run_multi_contest_optimization(
         _validate_contest_config(contest, n_select)
 
         # Generate field for this contest
-        field_arrays, field_counts = generate_field_simulated(
-            candidate_arrays, outcomes,
-            data.cpt_players, data.flex_players,
-            n_field=field_size,
-            config=field_config,
-            field_sharpness=contest_sharpness,
-            ownership_power=ownership_power,
-            quality_sims=field_quality_sims,
-            seed=contest_seeds[orig_idx]
-        )
+        if field_method == "simulated":
+            field_arrays, field_counts = generate_field_simulated(
+                candidate_arrays, outcomes,
+                data.cpt_players, data.flex_players,
+                n_field=field_size,
+                config=field_config,
+                field_sharpness=contest_sharpness,
+                ownership_power=ownership_power,
+                quality_sims=field_quality_sims,
+                seed=contest_seeds[orig_idx]
+            )
+        else:
+            field_arrays, field_counts = generate_field(
+                data.cpt_players, data.flex_players,
+                n_field=field_size,
+                config=field_config,
+                cpt_to_flex_map=data.cpt_to_flex_map,
+                salary_cap=salary_cap,
+                seed=contest_seeds[orig_idx]
+            )
 
         # Compute approx EVs
         approx_evs = compute_approx_lineup_evs(

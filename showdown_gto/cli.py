@@ -351,6 +351,7 @@ def main(
             sim_config_path=sim_config,
             spread_str=spread,
             game_total=game_total,
+            min_projection=min_projection,
             field_method=field_method,
             field_sharpness=field_sharpness,
             ownership_power=ownership_power,
