@@ -324,6 +324,12 @@ def run_portfolio_optimization(
 
     # === DRO: ROBUST EVs (Optional) ===
     robust_evs = None
+    if dro_perturbations > 0 and field_mode != "fixed":
+        logger.warning(
+            "DRO is only supported with field_mode='fixed'. "
+            "DRO perturbations will be skipped for field_mode='%s'.",
+            field_mode
+        )
     if dro_perturbations > 0 and field_mode == "fixed":
         logger.info(
             f"DRO: Generating {dro_perturbations} perturbed fields "
@@ -391,7 +397,8 @@ def run_portfolio_optimization(
                 n_select=n_select,
                 shortlist_size=shortlist_size,
                 greedy_n_sims=greedy_n_sims,
-                seed=seed
+                seed=seed,
+                covariance_gamma=covariance_gamma,
             )
         else:
             selected_indices = greedy_select_portfolio(
