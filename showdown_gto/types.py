@@ -181,6 +181,41 @@ class ProjectionsData:
         return len(self.flex_players)
 
 
+@dataclass
+class TournamentMetrics:
+    """
+    Tournament-aligned metrics computed from a scored portfolio.
+
+    These metrics emphasize top-heavy outcomes that matter for GPP tournaments,
+    complementing the standard EV-based diagnostics.
+
+    Attributes:
+        top_1pct_rate: Fraction of sims where best portfolio rank is in top 1%
+        ceiling_ev: E[total_payout | best_rank in top 1%] — conditional upside
+        win_rate: Fraction of sims where best portfolio rank == 1
+        roi_pct: Standard ROI (sanity check, mirrors diagnostics)
+        composite_score: Weighted combination (0.50*top1 + 0.35*ceiling + 0.10*win + 0.05*roi)
+        n_sims: Number of simulations used
+    """
+    top_1pct_rate: float
+    ceiling_ev: float
+    win_rate: float
+    roi_pct: float
+    composite_score: float
+    n_sims: int
+
+    def to_dict(self) -> Dict:
+        """Convert to serializable dict."""
+        return {
+            'top_1pct_rate': self.top_1pct_rate,
+            'ceiling_ev': self.ceiling_ev,
+            'win_rate': self.win_rate,
+            'roi_pct': self.roi_pct,
+            'composite_score': self.composite_score,
+            'n_sims': self.n_sims,
+        }
+
+
 def quantize_score(float_score: float) -> int:
     """Quantize float score to int (points × 10)."""
     return int(round(float_score * SCORE_PRECISION))

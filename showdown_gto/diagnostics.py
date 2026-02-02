@@ -10,8 +10,9 @@ import numpy as np
 from typing import Dict, List, Tuple, Optional
 import logging
 
-from .types import LineupArrays, ContestStructure, ShowdownPlayer
+from .types import LineupArrays, ContestStructure, ShowdownPlayer, TournamentMetrics
 from .scoring.payout import PayoutLookup, score_lineups_vectorized
+from .metrics.tournament import compute_tournament_metrics
 from .ev.game_states import (
     classify_sims_by_game_state,
     compute_game_state_coverage,
@@ -488,6 +489,13 @@ def compute_full_diagnostics(
             state_indices[:n_sims_gs], best_ranks
         )
 
+    # Tournament metrics
+    tournament_metrics = compute_tournament_metrics(
+        selected_arrays, field_arrays, field_counts,
+        outcomes, contest, score_bounds
+    )
+    diag['tournament_metrics'] = tournament_metrics.to_dict()
+
     return diag
 
 
@@ -574,5 +582,14 @@ def format_diagnostics(diag: Dict, contest: ContestStructure) -> str:
                 f"{data['top_n_share']*100:4.0f}% top-100 "
                 f"({data['concentration_ratio']:.2f}x)"
             )
+
+    # Tournament metrics
+    if 'tournament_metrics' in diag:
+        tm = diag['tournament_metrics']
+        lines.append(f"\n  Tournament metrics:")
+        lines.append(f"    Top 1% rate:    {tm['top_1pct_rate']:.2%}")
+        lines.append(f"    Ceiling EV:     ${tm['ceiling_ev']:.2f}")
+        lines.append(f"    Win rate:       {tm['win_rate']:.4%}")
+        lines.append(f"    Composite:      {tm['composite_score']:.4f}")
 
     return "\n".join(lines)

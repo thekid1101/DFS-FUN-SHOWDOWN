@@ -33,15 +33,72 @@ python -m showdown_gto.cli projections.csv --contest-file contest.json --output 
 python showdown_gto_reference.py
 ```
 
+## Configuration Profiles
+
+Four named profiles for different tournament strategies. All use `greedy_marginal`, `t-copula (df=5)`, `shortlist=2000`.
+
+```bash
+# Use a named profile (profile kwargs applied first, then CLI flags override)
+python -m showdown_gto.cli projections.csv --profile balanced --n-select 150
+
+# With explicit override on top of profile
+python -m showdown_gto.cli projections.csv --profile robust --field-sharpness 4.5
+```
+
+| Profile | DRO | Gamma | Sharpness | DRO Aggregation |
+|---------|-----|-------|-----------|-----------------|
+| aggressive | off | 0.05 | 5.0 | — |
+| balanced | 50 | 0.10 | 5.5 | mean |
+| robust | 50 | 0.15 | 5.5 | mean_minus_std |
+| defensive | 50 | 0.20 | 6.0 | cvar (20%) |
+
+**Files**: `profiles.py`
+
+## Production Mode
+
+Locked configuration for reproducible "hit go" runs:
+
+```bash
+# Run with locked production config
+python -m showdown_gto.cli projections.csv --production --production-config prod_config.json --n-select 150
+```
+
+Build a production config programmatically:
+```python
+from showdown_gto.production import build_production_config, save_production_config
+config = build_production_config('balanced', overrides={'field_sharpness': 4.8})
+save_production_config(config, 'prod_config.json')
+```
+
+**Files**: `production.py`
+
+## Tournament Metrics
+
+Tournament-aligned metrics computed alongside standard EV:
+
+- `top_1pct_rate`: Fraction of sims with best portfolio rank in top 1%
+- `ceiling_ev`: Expected payout conditional on top 1% finish
+- `win_rate`: Fraction of sims with a rank-1 finish
+- `composite_score`: Weighted combination (50% top-1%, 35% ceiling, 10% win, 5% ROI)
+
+Automatically computed in the pipeline and displayed in CLI output. Also available via `compute_tournament_metrics()` and in `compute_full_diagnostics()`.
+
+**Files**: `metrics/tournament.py`, `types.py` (`TournamentMetrics`)
+
 ## Architecture
 
 ### Module Structure
 
 ```
 showdown_gto/
-├── types.py              # Core data structures
+├── types.py              # Core data structures (including TournamentMetrics)
 ├── config.py             # Contest presets, field config defaults
+├── profiles.py           # Named configuration profiles (aggressive/balanced/robust/defensive)
+├── production.py         # Production config load/save/build
 ├── diagnostics.py        # Full portfolio diagnostics (self-comp decomposition, near-dupes, etc.)
+├── metrics/
+│   ├── __init__.py       # Module init
+│   └── tournament.py     # Tournament-aligned metrics (top-1%, ceiling EV, win rate)
 ├── data/
 │   ├── loader.py         # CSV parsing for DK Showdown format
 │   └── correlations.py   # Correlation matrix handling (nearest-PSD projection)

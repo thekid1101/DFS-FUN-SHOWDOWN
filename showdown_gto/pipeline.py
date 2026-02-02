@@ -37,6 +37,7 @@ from .field.robust import (
     compute_robust_approx_evs,
     build_union_shortlist
 )
+from .metrics.tournament import compute_tournament_metrics
 
 logger = logging.getLogger(__name__)
 
@@ -459,6 +460,22 @@ def run_portfolio_optimization(
         diagnostics['dro_perturbations'] = dro_perturbations
         diagnostics['dro_aggregation'] = dro_aggregation
 
+    # === TOURNAMENT METRICS ===
+    tournament_metrics = None
+    if field_mode == "fixed" and field_arrays is not None:
+        logger.info("Computing tournament metrics...")
+        tournament_metrics = compute_tournament_metrics(
+            selected_arrays, field_arrays, field_counts,
+            outcomes, contest, score_bounds
+        )
+        logger.info(
+            "Tournament: top-1%%=%.2f%%, ceiling=$%.2f, win=%.4f%%, composite=%.4f",
+            tournament_metrics.top_1pct_rate * 100,
+            tournament_metrics.ceiling_ev,
+            tournament_metrics.win_rate * 100,
+            tournament_metrics.composite_score,
+        )
+
     # === BUILD RESULTS ===
     selected_players = []
     for lineup in selected_lineups:
@@ -471,6 +488,7 @@ def run_portfolio_optimization(
         'selected_players': selected_players,
         'approx_evs': [approx_evs[i] for i in selected_indices],
         'diagnostics': diagnostics,
+        'tournament_metrics': tournament_metrics.to_dict() if tournament_metrics else None,
         'metadata': {
             'csv_path': csv_path,
             'n_sims': n_sims,

@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "source_profile": "balanced",
+  "optimizer": {
+    "selection_method": "greedy_marginal",
+    "copula_type": "t",
+    "copula_df": 5,
+    "shortlist_size": 2000,
+    "field_sharpness": 5.5,
+    "ownership_power": 0.5,
+    "dro_perturbations": 10,
+    "dro_scale": 0.1,
+    "dro_hhi_scale": 0.15,
+    "dro_aggregation": "mean",
+    "covariance_gamma": 0.1,
+    "n_sims": 10000
+  },
+  "contest_overrides": {
+    "dk_showdown_milly": {
+      "field_sharpness": 4.8
+    }
+  }
+}

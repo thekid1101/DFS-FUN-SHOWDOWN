@@ -12,6 +12,8 @@ from .types import ContestStructure, PayoutTier, FieldGenConfig
 from .pipeline import run_portfolio_optimization, run_multi_contest_optimization
 from .config import load_contest_from_json, CONTEST_PRESETS
 from .data import load_projections
+from .profiles import PROFILE_NAMES, get_profile
+from .production import load_production_config
 
 
 @click.command()
@@ -192,6 +194,12 @@ from .data import load_projections
     help='DRO aggregation method (default: mean)'
 )
 @click.option(
+    '--dro-cvar-alpha',
+    type=float,
+    default=0.20,
+    help='CVaR alpha for DRO aggregation (default: 0.20, only used when --dro-aggregation=cvar)'
+)
+@click.option(
     '--dro-calibration',
     type=click.Path(exists=True),
     help='Path to sharpness_hhi_calibration.json for DRO layer 2'
@@ -201,6 +209,25 @@ from .data import load_projections
     type=float,
     default=0.05,
     help='Profit covariance penalty for greedy: 0=disabled, 0.05=default'
+)
+@click.option(
+    '--profile',
+    type=click.Choice(PROFILE_NAMES),
+    default=None,
+    help='Named configuration profile (aggressive, balanced, robust, defensive). '
+         'Profile kwargs are applied first, then explicit CLI flags override.'
+)
+@click.option(
+    '--production',
+    is_flag=True,
+    default=False,
+    help='Use production mode: load all optimizer params from --production-config JSON'
+)
+@click.option(
+    '--production-config',
+    type=click.Path(exists=True),
+    default=None,
+    help='Path to production config JSON file (requires --production flag)'
 )
 def main(
     csv_path,
@@ -235,8 +262,12 @@ def main(
     dro_scale,
     dro_hhi_scale,
     dro_aggregation,
+    dro_cvar_alpha,
     dro_calibration,
-    covariance_gamma
+    covariance_gamma,
+    profile,
+    production,
+    production_config,
 ):
     """
     Run DFS Showdown GTO Portfolio Builder.
@@ -248,6 +279,73 @@ def main(
             level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
+
+    # === PROFILE / PRODUCTION MODE RESOLUTION ===
+    # Production mode: load all optimizer params from JSON
+    if production:
+        if production_config is None:
+            raise click.BadParameter(
+                "--production requires --production-config path"
+            )
+        prod_kwargs = load_production_config(production_config)
+        click.echo(f"Production mode: loaded config from {production_config}")
+
+        # Apply production kwargs (these override CLI defaults)
+        selection_method = prod_kwargs.get('selection_method', selection_method)
+        copula_type = prod_kwargs.get('copula_type', copula_type)
+        copula_df = prod_kwargs.get('copula_df', copula_df)
+        shortlist_size = prod_kwargs.get('shortlist_size', shortlist_size)
+        field_sharpness = prod_kwargs.get('field_sharpness', field_sharpness)
+        ownership_power = prod_kwargs.get('ownership_power', ownership_power)
+        field_method = prod_kwargs.get('field_method', field_method)
+        field_quality_sims = prod_kwargs.get('field_quality_sims', field_quality_sims)
+        dro_perturbations = prod_kwargs.get('dro_perturbations', dro_perturbations)
+        dro_scale = prod_kwargs.get('dro_scale', dro_scale)
+        dro_hhi_scale = prod_kwargs.get('dro_hhi_scale', dro_hhi_scale)
+        dro_aggregation = prod_kwargs.get('dro_aggregation', dro_aggregation)
+        covariance_gamma = prod_kwargs.get('covariance_gamma', covariance_gamma)
+        field_mode = prod_kwargs.get('field_mode', field_mode)
+        if 'n_sims' in prod_kwargs:
+            n_sims = prod_kwargs['n_sims']
+        dro_cvar_alpha = prod_kwargs.get('dro_cvar_alpha', dro_cvar_alpha)
+
+    elif profile:
+        # Profile mode: apply profile kwargs, then CLI overrides take precedence
+        # We use click's Context to detect which options were explicitly set
+        ctx = click.get_current_context()
+        profile_kwargs = get_profile(profile)
+        click.echo(f"Profile: {profile}")
+
+        # Only apply profile values for params NOT explicitly set on CLI
+        param_source = ctx.get_parameter_source
+        if param_source('selection_method') != click.core.ParameterSource.COMMANDLINE:
+            selection_method = profile_kwargs.get('selection_method', selection_method)
+        if param_source('copula_type') != click.core.ParameterSource.COMMANDLINE:
+            copula_type = profile_kwargs.get('copula_type', copula_type)
+        if param_source('copula_df') != click.core.ParameterSource.COMMANDLINE:
+            copula_df = profile_kwargs.get('copula_df', copula_df)
+        if param_source('shortlist_size') != click.core.ParameterSource.COMMANDLINE:
+            shortlist_size = profile_kwargs.get('shortlist_size', shortlist_size)
+        if param_source('field_sharpness') != click.core.ParameterSource.COMMANDLINE:
+            field_sharpness = profile_kwargs.get('field_sharpness', field_sharpness)
+        if param_source('ownership_power') != click.core.ParameterSource.COMMANDLINE:
+            ownership_power = profile_kwargs.get('ownership_power', ownership_power)
+        if param_source('dro_perturbations') != click.core.ParameterSource.COMMANDLINE:
+            dro_perturbations = profile_kwargs.get('dro_perturbations', dro_perturbations)
+        if param_source('dro_scale') != click.core.ParameterSource.COMMANDLINE:
+            dro_scale = profile_kwargs.get('dro_scale', dro_scale)
+        if param_source('dro_hhi_scale') != click.core.ParameterSource.COMMANDLINE:
+            dro_hhi_scale = profile_kwargs.get('dro_hhi_scale', dro_hhi_scale)
+        if param_source('dro_aggregation') != click.core.ParameterSource.COMMANDLINE:
+            dro_aggregation = profile_kwargs.get('dro_aggregation', dro_aggregation)
+        if param_source('covariance_gamma') != click.core.ParameterSource.COMMANDLINE:
+            covariance_gamma = profile_kwargs.get('covariance_gamma', covariance_gamma)
+        if param_source('dro_cvar_alpha') != click.core.ParameterSource.COMMANDLINE:
+            dro_cvar_alpha = profile_kwargs.get('dro_cvar_alpha', dro_cvar_alpha)
+        if param_source('field_method') != click.core.ParameterSource.COMMANDLINE:
+            field_method = profile_kwargs.get('field_method', field_method)
+        if param_source('field_quality_sims') != click.core.ParameterSource.COMMANDLINE:
+            field_quality_sims = profile_kwargs.get('field_quality_sims', field_quality_sims)
 
     # Load contest configuration
     if contest_file:
@@ -294,6 +392,10 @@ def main(
         )
 
     click.echo(f"Running optimization...")
+    if profile:
+        click.echo(f"  Profile: {profile}")
+    if production:
+        click.echo(f"  Production config: {production_config}")
     if correlation_config:
         click.echo(f"  Correlation config: {correlation_config}")
     if archetype_map:
@@ -475,6 +577,7 @@ def main(
         dro_hhi_scale=dro_hhi_scale,
         dro_aggregation=dro_aggregation,
         dro_calibration_path=dro_calibration,
+        dro_cvar_alpha=dro_cvar_alpha,
         covariance_gamma=covariance_gamma,
     )
 
@@ -498,6 +601,15 @@ def main(
     if 'robust_ev_sum' in diag:
         click.echo(f"Robust EV Sum: ${diag['robust_ev_sum']:.2f}")
         click.echo(f"DRO Regret: ${diag['dro_regret']:.2f}")
+
+    # Tournament metrics
+    tm = results.get('tournament_metrics')
+    if tm:
+        click.echo(f"\nTournament Metrics:")
+        click.echo(f"  Top 1% Rate: {tm['top_1pct_rate']:.2%}")
+        click.echo(f"  Ceiling EV (top 1%): ${tm['ceiling_ev']:.2f}")
+        click.echo(f"  Win Rate: {tm['win_rate']:.4%}")
+        click.echo(f"  Composite Score: {tm['composite_score']:.4f}")
 
     click.echo(f"\nSelected {len(results['selected_lineups'])} lineups")
 
@@ -560,6 +672,7 @@ def main(
     if output and output.endswith('.json'):
         output_data = {
             'diagnostics': diag,
+            'tournament_metrics': results.get('tournament_metrics'),
             'selected_players': results['selected_players'],
             'approx_evs': results['approx_evs'],
             'metadata': results['metadata'],
